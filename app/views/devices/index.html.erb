@@ -1,0 +1,37 @@
+<div class="row center-align add-user">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h5 class="header"><b>DEVICES LIST</b></h5>
+        <div class="row">
+          <table class="striped">
+            <thead>
+              <tr>
+                  <th>Device Name</th>
+                  <th>Serial Number</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Created By</th>
+                  <th>Updated By</th>
+                  <th>Created On</th>
+                  <th>Updated On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @devices.each do |device| %>
+                  <tr>
+                  <td><%= link_to device.title, device_path(device) %></td>
+                  <td><%= link_to device.serial, device_path(device) %></td>
+                  <td><%= truncate(device.description, length:50) %></td>
+                  <td><%= "Active" if device.active %></td>
+                  <td>Kartik Aiyar</td>
+                  <td>Kartik Aiyar</td>
+                  <td><%= device.created_at.to_date %></td>
+                  <td><%= device.updated_at.to_date %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

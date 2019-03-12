@@ -1,0 +1,54 @@
+<% if @testsuite.errors.any? %>
+<div class="container">
+  <div class="row testsuite-form">
+    <div class="col s12 m12 l12">
+      <div class="card-panel red light">
+        <span class="white-text">
+        <strong><%= pluralize(@testsuite.errors.count, "error") %></strong>
+        Prohibited Testsuite being created
+         <ul>
+           <% @testsuite.errors.full_messages.each do |message| %>
+           <li><%= message%></li>
+           <% end %>
+         </ul>
+        <% end %>
+      </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row center-align add-user">
+    <div class="col s12 m12 l12">
+      <div class="card-panel">
+        <h5 class="header">EDIT TESTSUITE</h5>
+        <div class="row">
+          <%= form_for(@testsuite, html: {class: "col s12"}) do |f| %>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_field :title, class: "form-control", placeholder: "Name of the Testsuite", autofocus: true %>
+              <%= f.label :title, "Testsuite Name" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <%= f.text_area :description, class: "materialize-textarea", placeholder: "Description for Testcase" %>
+                <%= f.label :description %>
+            </div>
+          </div>
+          <label>
+            <%= f.check_box :runmode, class: "filled-in", checked: "checked" %>
+            <span> Testsuite Run Mode</span>
+          </label>
+         <div class="row">
+           <div class="input-field col s12">
+            <%= f.submit "Update Testsuite", class: "btn orange waves-effect waves-light right" %>
+          </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

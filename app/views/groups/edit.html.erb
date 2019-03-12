@@ -1,0 +1,54 @@
+<% if @group.errors.any? %>
+<div class="container">
+  <div class="row release-form">
+    <div class="col s12 m12 l12">
+      <div class="card-panel red light">
+        <span class="white-text">
+        <strong><%= pluralize(@group.errors.count, "error") %></strong>
+        Prohibited Group being created
+         <ul>
+           <% @group.errors.full_messages.each do |message| %>
+           <li><%= message%></li>
+           <% end %>
+         </ul>
+        <% end %>
+      </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row center-align add-user">
+    <div class="col s12 m12 l12">
+      <div class="card-panel">
+        <h5 class="header">EDIT GROUP</h5>
+        <div class="row">
+          <%= form_for(@group, html: {class: "col s12"}) do |f| %>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_field :title, class: "form-control", placeholder: "Group Name", autofocus: true %>
+              <%= f.label :title, "Group Name" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <%= f.text_area :description, class: "materialize-textarea", placeholder: "Description for Group" %>
+                <%= f.label :description %>
+            </div>
+          </div>
+          <label>
+            <%= f.check_box :active, class: "filled-in", checked: "checked" %>
+            <span>Group Status</span>
+          </label>
+         <div class="row">
+           <div class="input-field col s12">
+            <%= f.submit "Update Group", class: "btn orange waves-effect waves-light right" %>
+          </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

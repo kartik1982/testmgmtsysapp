@@ -1,0 +1,24 @@
+@import "materialize";
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  padding: 5px;
+}
+
+// nav, footer{
+//   @extend .blue, .lighten-2;
+// }
+
+.card-title{
+  @extend .black-text, .text-lighten-2;
+
+}
+.add-user{
+  padding: 30px;
+}

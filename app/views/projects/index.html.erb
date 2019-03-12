@@ -1,0 +1,35 @@
+<div class="row center-align add-user">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h5 class="header"><b>PROJECT LIST</b></h5>
+        <div class="row">
+          <table class="striped">
+            <thead>
+              <tr>
+                  <th>Project Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Created By</th>
+                  <th>Updated By</th>
+                  <th>Created On</th>
+                  <th>Updated On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @projects.each do |project| %>
+                  <tr>
+                  <td><%= link_to project.title, project_path(project) %></td>
+                  <td><%= truncate(project.description, length:50) %></td>
+                  <td><%= project.active? ? "Active" : "Diabled" %></td>
+                  <td>Kartik Aiyar</td>
+                  <td>Kartik Aiyar</td>
+                  <td><%= project.created_at.to_date %></td>
+                  <td><%= project.updated_at.to_date %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,35 @@
+<div class="row center-align add-user">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h5 class="header"><b>GROUPS LIST</b></h5>
+        <div class="row">
+          <table class="striped">
+            <thead>
+              <tr>
+                  <th>Group Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Created By</th>
+                  <th>Updated By</th>
+                  <th>Created On</th>
+                  <th>Updated On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @groups.each do |group| %>
+                  <tr>
+                  <td><%= link_to group.title, group_path(group) %></td>
+                  <td><%= truncate(group.description, length:50) %></td>
+                  <td><%= "Active" if group.active %></td>
+                  <td>Kartik Aiyar</td>
+                  <td>Kartik Aiyar</td>
+                  <td><%= group.created_at.to_date %></td>
+                  <td><%= group.updated_at.to_date %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

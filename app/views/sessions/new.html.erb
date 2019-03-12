@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row center-align add-user">
+    <div class="col s12 m12 l12">
+      <div class="card-panel">
+        <h5 class="header">Log in</h5>
+        <div class="row">
+          <%= form_for(:sessions, html: {class: "col s12"}) do |f| %>
+          <div class="row">
+            <div class="input-field col s12">
+                <%= f.email_field :email, class: "materialize-textarea", placeholder: "Email address", autofocus: true %>
+                <%= f.label :email %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.password_field :password, class: "form-control", placeholder: "Enter Password" %>
+              <%= f.label :password, "Password" %>
+            </div>
+          </div>
+         <div class="row">
+           <div class="input-field col s12">
+            <%= f.button "Login In", class: "btn orange waves-effect waves-light right" %>
+          </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

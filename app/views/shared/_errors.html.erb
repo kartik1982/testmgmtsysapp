@@ -1,0 +1,19 @@
+<% if obj.errors.any? %>
+<div class="container">
+  <div class="row testcase-form">
+    <div class="col s12 m12 l12">
+      <div class="card-panel red light">
+        <span class="white-text">
+        <strong><%= pluralize(obj.errors.count, "error") %></strong>
+        Prohibited item being created
+         <ul>
+           <% obj.errors.full_messages.each do |message| %>
+           <li><%= message%></li>
+           <% end %>
+         </ul>
+        <% end %>
+      </span>
+      </div>
+    </div>
+  </div>
+</div>

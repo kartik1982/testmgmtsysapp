@@ -1,0 +1,69 @@
+<%= render 'shared/errors', obj: @user %>
+
+<div class="container">
+  <div class="row center-align add-user">
+    <div class="col s12 m12 l12">
+      <div class="card-panel">
+        <h5 class="header"><%= @user.new_record? ? "ADD NEW USER" : "UPDATE USER" %></h5>
+        <div class="row">
+          <%= form_for(@user, html: {class: "col s12"}) do |f| %>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.text_field :first_name, class: "form-control", placeholder: "First Name", autofocus: true %>
+              <%= f.label :first_name, "First Name" %>
+            </div>
+            <div class="input-field col s6">
+              <%= f.text_field :last_name, class: "form-control", placeholder: "Last Name"%>
+              <%= f.label :last_name, "Last Name" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <%= f.email_field :email, class: "materialize-textarea", placeholder: "Email address" %>
+                <%= f.label :email %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.password_field :password, class: "form-control", placeholder: "Choose Password" %>
+              <%= f.label :password, "Password" %>
+            </div>
+            <div class="input-field col s6">
+              <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm Password"%>
+              <%= f.label :password_confirmation, "Confirm Passord" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s5 offset-s1">
+            <%if super_admin?%>
+            <label>
+              <%if @user.admin?%>
+                <%= f.check_box :admin, class: "filled-in", checked: "checked" %>
+              <%else%>
+              <%= f.check_box :admin, class: "filled-in" %>
+              <%end%>
+              <span> Admin</span>
+            </label>
+          </div>
+          <div class="input-field col s5">
+            <label>
+              <% if @user.super_admin?%>
+                <%= f.check_box :super_admin, class: "filled-in", checked: "checked" %>
+              <%else%>
+                <%= f.check_box :super_admin, class: "filled-in" %>
+              <%end%>
+              <span> Super Admin</span>
+            </label>
+            <%end%>
+          </div>
+         <div class="row">
+           <div class="input-field col s12">
+            <%= f.button(@user.new_record? ? "Add User" : "Update User", class: "btn orange waves-effect waves-light right") %>
+          </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

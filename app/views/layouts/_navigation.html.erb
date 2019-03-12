@@ -1,0 +1,100 @@
+
+<header>
+  <!-- Dropdown Structure -->
+  <% if logged_in? %>
+  <ul id="myaccount" class="dropdown-content">
+    <li><%= link_to "Profile", user_path(current_user) %></li>
+    <li><%= link_to "Edit profile", edit_user_path(current_user) %></li>
+    <li><a href="#!">Settings</a></li>
+    <li class="divider"></li>
+    <li><%= link_to "Logout", logout_path, method: :delete %></li>
+  </ul>
+  <ul id="myaccountsidenav" class="dropdown-content">
+    <li><%= link_to "Profile", current_user %></li>
+    <li><%= link_to "Edit profile", edit_user_path(current_user) %></li>
+    <li><a href="#!">Settings</a></li>
+    <li class="divider"></li>
+    <li><%= link_to "Logout", logout_path, method: :delete %></li>
+  </ul>
+  <ul id="testmanagement" class="dropdown-content">
+    <li><%= link_to "Create Testcase", new_testcase_path %></li>
+    <li><%= link_to "Create Testsuite", new_testsuite_path %></li>
+    <li><%= link_to "View all Testcases", testcases_path %></li>
+    <li><%= link_to "View all Testsuites", testsuites_path %></li>
+    <li role="separator" class="divider"></li>
+    <li><%= link_to "Test Management", testmanagement_path %></li>
+  </ul>
+  <ul id="testmanagementsidenav" class="dropdown-content">
+    <li><%= link_to "Create Testcase", new_testcase_path %></li>
+    <li><%= link_to "Create Testsuite", new_testsuite_path %></li>
+    <li><%= link_to "View all Testcases", testcases_path %></li>
+    <li><%= link_to "View all Testsuites", testsuites_path %></li>
+    <li role="separator" class="divider"></li>
+    <li><%= link_to "Test Management", testmanagement_path %></li>
+  </ul>
+  <ul id="testresources" class="dropdown-content">
+    <li><%= link_to "Add Device", new_device_path %></li>
+    <li><%= link_to "Add Group", new_group_path %></li>
+    <li><%= link_to "View all Devices", devices_path %></li>
+    <li><%= link_to "View all Groups", groups_path %></li>
+    <li role="separator" class="divider"></li>
+    <li><%= link_to "Test Resources", testresources_path %></li>
+  </ul>
+  <ul id="testresourcessidenav" class="dropdown-content">
+    <li><%= link_to "Add Device", new_device_path %></li>
+    <li><%= link_to "Add Group", new_group_path %></li>
+    <li><%= link_to "View all Devices", devices_path %></li>
+    <li><%= link_to "View all Groups", groups_path %></li>
+    <li role="separator" class="divider"></li>
+    <li><%= link_to "Test Resources", testresources_path %></li>
+  </ul>
+  <%end%>
+  <nav>
+    <div class="container">
+     <div class="nav-wrapper">
+       <%= link_to '<i class="material-icons">cloud</i>Xirrus Test Management System'.html_safe, root_path, class: "brand-logo", id: "logo" %>
+       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <%if logged_in? %>
+       <ul id="nav-mobile" class="right hide-on-med-and-down">
+         <li><a class="dropdown-trigger" href="#!" data-target="testmanagement">Test Management<i class="material-icons right">arrow_drop_down</i></a></li>
+         <li><a class="dropdown-trigger" href="#!" data-target="testresources">Test Resources<i class="material-icons right">arrow_drop_down</i></a></li>
+         <li><a href="collapsible.html">JavaScript</a></li>
+         <!-- Dropdown Trigger -->
+         <li><a class="dropdown-trigger" href="#!" data-target="myaccount"><%= current_user.first_name+" "+current_user.last_name%><i class="material-icons right">arrow_drop_down</i></a></li>
+       </ul>
+       <ul class="sidenav" id="mobile-demo">
+         <li><a class="dropdown-trigger" href="#!" data-target="testmanagementsidenav">Test Management<i class="material-icons right">arrow_drop_down</i></a></li>
+         <li><a class="dropdown-trigger" href="#!" data-target="testresourcessidenav">Test Resources<i class="material-icons right">arrow_drop_down</i></a></li>
+         <li><a href="collapsible.html">JavaScript</a></li>
+         <!-- Dropdown Trigger -->
+         <li><a class="dropdown-trigger" href="#!" data-target="myaccountsidenav"><%= current_user.first_name+" "+current_user.last_name%><i class="material-icons right">arrow_drop_down</i></a></li>
+       </ul>
+       <%else%>
+       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><%= link_to "Login", login_path %></li>
+        <li><%= link_to "Sign Up", new_user_path %></li>
+       </ul>
+       <ul class="sidenav" id="mobile-demo">
+         <li><%= link_to "Sign Up", new_user_path %></li>
+         <li><%= link_to "Login", login_path %></li>
+      </ul>
+       <%end%>
+     </div>
+   </div>
+ </nav>
+
+
+<% flash.each do |key, message| %>
+ <div class="container">
+   <div class="row testsuite-form">
+     <div class="col s12 m12 l12">
+       <div class="card-panel green light" id="fade-out-target">
+         <span class="white-text">
+          <%= message %>
+         </span>
+       </div>
+     </div>
+   </div>
+ </div>
+ <% end %>
+</header>

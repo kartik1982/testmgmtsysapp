@@ -1,0 +1,99 @@
+<% if @report.errors.any? %>
+<div class="container">
+  <div class="row report-form">
+    <div class="col s12 m12 l12">
+      <div class="card-panel red light">
+        <span class="white-text">
+        <strong><%= pluralize(@report.errors.count, "error") %></strong>
+        Prohibited Testcase being created
+         <ul>
+           <% @report.errors.full_messages.each do |message| %>
+           <li><%= message%></li>
+           <% end %>
+         </ul>
+        <% end %>
+      </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row center-align add-user">
+    <div class="col s12 m12 l12">
+      <div class="card-panel">
+        <h5 class="header">ADD NEW REPORT</h5>
+        <div class="row">
+          <%= form_for(@report, html: {class: "col s12"}) do |f| %>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.collection_select :release_id, ::Release.all, :id, :title, {prompt: "Choose Release"} %>
+              <%= f.label :testsuite_id, "Release" %>
+            </div>
+            <div class="input-field col s6">
+              <%= f.collection_select :project_id, ::Project.all, :id, :title, {prompt: "Choose Project"} %>
+              <%= f.label :testsuite_id, "Project" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.collection_select :testsuite_id, ::Testsuite.all, :id, :title, {prompt: "Choose TestSuite"} %>
+              <%= f.label :testsuite_id, "Testsuite Name" %>
+            </div>
+            <div class="input-field col s6">
+              <%= f.collection_select :testcase_id, ::Testcase.all, :id, :title, {prompt: "Choose Testcase"} %>
+              <%= f.label :testsuite_id, "Testcase Name" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s4">
+              <%= f.text_field :build, class: "form-control", placeholder: "Build Number", autofocus: true %>
+              <%= f.label :build, "Build Number" %>
+            </div>
+            <div class="input-field col s4">
+              <%= f.text_field :start_at, class: "form-control", placeholder: "Start Time", autofocus: true %>
+              <%= f.label :start_at, "Start Time" %>
+            </div>
+            <div class="input-field col s4">
+              <%= f.text_field :end_at, class: "form-control", placeholder: "End Time", autofocus: true %>
+              <%= f.label :end_at, "End Time" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s4">
+              <%= f.text_field :pass, class: "form-control", placeholder: "Pass Count", autofocus: true %>
+              <%= f.label :pass, "PASS" %>
+            </div>
+            <div class="input-field col s4">
+              <%= f.text_field :fail, class: "form-control", placeholder: "Fail Count", autofocus: true %>
+              <%= f.label :fail, "FAIL" %>
+            </div>
+            <div class="input-field col s4">
+              <%= f.text_field :pending, class: "form-control", placeholder: "Pending Count", autofocus: true %>
+              <%= f.label :pending, "PENDING" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <%= f.text_field :log_path, class: "materialize-textarea", placeholder: "Log path" %>
+                <%= f.label :log_path, "Log link" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <%= f.text_area :comment, class: "materialize-textarea", placeholder: "comment" %>
+                <%= f.label :comment %>
+            </div>
+          </div>
+         <div class="row">
+           <div class="input-field col s12">
+            <%= f.submit "Add Report", class: "btn orange waves-effect waves-light right" %>
+          </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

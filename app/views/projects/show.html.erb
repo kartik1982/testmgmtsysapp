@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col s12 m12">
+    <h5 class="header center"><b>Project Details</b></h5>
+      <h6><b>NAME:</b>&emsp;<%= @project.title %> </h6>
+      <p><b>DESCRIPTION:</b>&emsp;
+       <%= @project.description %>
+      </p>
+      <h6><b>STATUS:</b>&emsp;<%= @project.active? ? "Active" : "Disabled" %> </h5>
+  </div>
+
+  <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_project_path(@project), class: "btn waves-effect waves-light" %>
+  <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, project_path(@project), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
+
+</div>

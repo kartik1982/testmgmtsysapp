@@ -1,0 +1,22 @@
+<div class="row user-list add-user">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h3 class="center-align">User Directory</h3>
+        <div class="row">
+            <ul class="collection">
+              <% @users.each do |user| %>
+              <li class="collection-item avatar">
+                <i class="material-icons circle">account_circle</i>
+                <span class="title"><%=link_to user.first_name+" "+user.last_name, user_path(user)%></span><br>
+                <span class="title"><%=user.email%></span><br>
+                <span>Rolse : <%if user.super_admin %><%= "Super Admin"%>
+                  <%else%><%= user.admin? ? "Admin" : "User" %>
+                  <%end%></span><br>
+                <span>Total Testsuites: 20, Total Testcases: 50</span>
+              </li>
+              <% end %>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
