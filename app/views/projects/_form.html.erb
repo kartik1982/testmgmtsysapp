@@ -1,0 +1,36 @@
+<%= render 'shared/errors', obj: @project %>
+
+<div class="container">
+  <div class="row center-align add-user">
+    <div class="col s12 m12 l12">
+      <div class="card-panel">
+        <h5 class="header"><%= @project.new_record? ? "ADD NEW PROJECT" : "EDIT PROJECT" %></h5>
+        <div class="row">
+          <%= form_for(@project, html: {class: "col s12"}) do |f| %>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_field :title, class: "form-control", placeholder: "Project Name", autofocus: true %>
+              <%= f.label :title, "Project Name" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <%= f.text_area :description, class: "materialize-textarea", placeholder: "Description for Project" %>
+                <%= f.label :description %>
+            </div>
+          </div>
+          <label>
+            <%= f.check_box :active, class: "filled-in", checked: "checked" %>
+            <span>Project Status</span>
+          </label>
+         <div class="row">
+           <div class="input-field col s12">
+            <%= f.button(@project.new_record? ? "Add Project" : "Update Project", class: "btn orange waves-effect waves-light right") %>
+          </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

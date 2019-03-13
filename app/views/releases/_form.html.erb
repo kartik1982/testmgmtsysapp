@@ -1,0 +1,36 @@
+<%= render 'shared/errors', obj: @release %>
+
+<div class="container">
+  <div class="row center-align add-user">
+    <div class="col s12 m12 l12">
+      <div class="card-panel">
+        <h5 class="header"><%= @release.new_record? ? "ADD NEW RELEASE" : "EDIT RELEASE" %></h5>
+        <div class="row">
+          <%= form_for(@release, html: {class: "col s12"}) do |f| %>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_field :title, class: "form-control", placeholder: "Release Version", autofocus: true %>
+              <%= f.label :title, "Release Version" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <%= f.text_area :description, class: "materialize-textarea", placeholder: "Description for Release" %>
+                <%= f.label :description %>
+            </div>
+          </div>
+          <label>
+            <%= f.check_box :active, class: "filled-in", checked: "checked" %>
+            <span>Release Status</span>
+          </label>
+         <div class="row">
+           <div class="input-field col s12">
+            <%= f.button(@release.new_record? ? "Add Release" : "Update Release", class: "btn orange waves-effect waves-light right") %>
+          </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

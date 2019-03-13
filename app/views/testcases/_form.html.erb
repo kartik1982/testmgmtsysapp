@@ -1,0 +1,42 @@
+<%= render 'shared/errors', obj: @testcase %>
+
+<div class="container">
+  <div class="row center-align add-testcase">
+    <div class="col s12 m12 l12">
+      <div class="card-panel">
+        <h5 class="header"><%= @testcase.new_record? ? "ADD NEW TESTCASE" : "EDIT TESTCASE" %></h5>
+        <div class="row">
+          <%= form_for(@testcase, html: {class: "col s12"}) do |f| %>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_field :title, class: "form-control", placeholder: "Name of Testcase", autofocus: true %>
+              <%= f.label :title, "Testcase Name" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <%= f.text_area :description, class: "materialize-textarea", placeholder: "Description for Testcase" %>
+                <%= f.label :description %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.collection_select :testsuite_id, ::Testsuite.all, :id, :title, {prompt: "Choose TestSuite name"} %>
+              <%= f.label :testsuite_id, "Testsuite Name" %>
+            </div>
+          </div>
+            <label>
+              <%= f.check_box :runmode, class: "filled-in", checked: "checked" %>
+              <span> Testsuite Run Mode</span>
+            </label>
+         <div class="row">
+           <div class="input-field col s12">
+            <%= f.button(@testcase.new_record? ? "Add Testcase" : "Update Testcase", class: "btn orange waves-effect waves-light right") %>
+          </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
