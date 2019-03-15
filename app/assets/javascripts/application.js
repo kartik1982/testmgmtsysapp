@@ -16,6 +16,8 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+//= require Chart.bundle
+//= require chartkick
 
 $(document).on('turbolinks:load', function() {
   $(".dropdown-trigger").dropdown();

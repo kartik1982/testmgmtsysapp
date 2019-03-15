@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_12_042610) do
+ActiveRecord::Schema.define(version: 2019_03_15_221713) do
 
   create_table "devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2019_03_12_042610) do
     t.integer "pending", default: 0
     t.datetime "start_at"
     t.datetime "end_at"
-    t.text "comment"
+    t.string "comment", default: "Add comment"
     t.string "log_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2019_03_12_042610) do
     t.integer "release_id"
     t.integer "project_id"
     t.string "build"
+    t.integer "testcycle_id"
   end
 
   create_table "testcases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -70,6 +71,14 @@ ActiveRecord::Schema.define(version: 2019_03_12_042610) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "testsuite_id"
+  end
+
+  create_table "testcycles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.boolean "active", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "testsuites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

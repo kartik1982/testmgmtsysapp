@@ -8,11 +8,15 @@
         <div class="row">
           <%= form_for(@report, html: {class: "col s12"}) do |f| %>
           <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s4">
               <%= f.collection_select :release_id, ::Release.all, :id, :title, {prompt: "Choose Release"} %>
               <%= f.label :testsuite_id, "Release" %>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s4">
+              <%= f.collection_select :testcycle_id, ::Testcycle.all, :id, :title, {prompt: "Choose Release"} %>
+              <%= f.label :testcycle_id, "Testcycle" %>
+            </div>
+            <div class="input-field col s4">
               <%= f.collection_select :project_id, ::Project.all, :id, :title, {prompt: "Choose Project"} %>
               <%= f.label :testsuite_id, "Project" %>
             </div>

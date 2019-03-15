@@ -2,6 +2,53 @@
   <div class="col s12 m12 l12">
     <div class="card-panel">
       <h5 class="header">Execution Report</h5>
+      <div class="row left">
+        <div class="col s12">
+        <%= form_tag(reports_path, method: :get) do %>
+        <div class="input-field col s3">
+          <%= select_tag :release_id, options_from_collection_for_select(Release.all, :id, :title, params[:release_id]), {prompt: "ALL"} %>
+          <%= label_tag :release_id, "Release Version" %>
+        </div>
+        <div class="input-field col s3">
+          <%= select_tag :testcycle_id, options_from_collection_for_select(Testcycle.all, :id, :title, params[:testcycle_id]), {prompt: "ALL"} %>
+          <%= label_tag :testcycle_id, "Test Cycle" %>
+        </div>
+        <div class="input-field col s4">
+        <%= select_tag :project_id, options_from_collection_for_select(Project.all, :id, :title, params[:project_id]), {prompt: "ALL"} %>
+        <%= label_tag :project_id, "Project Name" %>
+        </div>
+        <div class="apply-button col s2">
+          <%= submit_tag ("Apply Filter")%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <div class="col s6 m6 l6 right">
+          <%= pie_chart [["PASS", @reports_without_pagination.map(&:pass).sum],["FAIL", @reports_without_pagination.map(&:fail).sum], ["PENDING",@reports_without_pagination.map(&:pending).sum]], height: "200px" %>
+        </div>
+        <div class="col s6 m6 l6 left">
+              <%= bar_chart [["TESTSUITES", @reports_without_pagination.distinct.pluck(:testsuite_id).count], ["TESTCASES",@reports_without_pagination.distinct.pluck(:testcase_id).count]], height: "200px" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+        <span class="col s3 orange" >Total Testsuites: <%= @reports_without_pagination.distinct.pluck(:testsuite_id).count %></span>
+        <span class="col s3 grey">Total Testcases: <%= @reports_without_pagination.distinct.pluck(:testcase_id).count %></span>
+        <span class="col s2 green">Total Pass: <%= @reports_without_pagination.map(&:pass).sum %></span>
+        <span class="col s2 red">Total Fail: <%= @reports_without_pagination.map(&:fail).sum %></span>
+        <span class="col s2 yellow">Total Pending: <%= @reports_without_pagination.map(&:pending).sum %></span>
+      </div>
+    </div>
+</div>
+
+
+<div class= "digg_pagination right">
+   <%= will_paginate %>
+  </div>
+
         <div class="row">
           <table class="striped">
             <thead>
@@ -25,19 +72,19 @@
             <tbody>
               <% @reports.each do |report| %>
                   <tr>
-                  <td><%= report.release.title.gsub('_', '.') %></td>
+                  <td><%= report.release.title %></td>
                   <td><%= report.project.title %></td>
                   <td><%= report.build %></td>
                   <td><%= report.testsuite.title %></td>
                   <td><%= report.testcase.title %></td>
-                  <td><%= report.start_at %></td>
-                  <td><%= report.end_at %></td>
+                  <td><%= report.created_at.localtime.strftime("%D %T") %></td>
+                  <td><%= report.updated_at.localtime.strftime("%D %T") %></td>
                   <td></td>
                   <td class="green"><%= report.pass %></td>
                   <td class="red"><%= report.fail %></td>
                   <td class="yellow"><%= report.pending %></td>
                   <td><%= report.pass + report.fail + report.pending %></td>
-                  <td><%= report.comment %></td>
+                  <td><%= link_to report.comment, edit_report_path(report) %></td>
                   <td><%= link_to "Open", report.log_path, target: :_blank if report.log_path %></td>
                 </tr>
               <% end %>

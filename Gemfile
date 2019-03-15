@@ -31,6 +31,10 @@ gem 'material_icons'
 gem 'jquery-rails'
 gem 'active_model_serializers'
 gem 'rack-cors'
+gem 'will_paginate', '>=3.1'
+gem 'chartkick', '~>3.0.2'
+gem 'highcharts'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

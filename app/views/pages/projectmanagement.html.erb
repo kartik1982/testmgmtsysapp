@@ -1,7 +1,7 @@
 
   <div class="row">
     <%= link_to new_project_path do %>
-    <div class="col s3 offset-s1">
+    <div class="col s3">
       <div class="card">
         <div class="card-image">
           <%= image_tag 'addproject.jpg' %>
@@ -14,7 +14,7 @@
     <% end %>
 
     <%= link_to new_release_path do %>
-    <div class="col s3 offset-s1">
+    <div class="col s3">
       <div class="card">
         <div class="card-image">
           <%= image_tag 'addrelease.jpg' %>
@@ -25,9 +25,20 @@
       </div>
     </div>
     <% end %>
-
+    <%= link_to new_testcycle_path do %>
+    <div class="col s3">
+      <div class="card">
+        <div class="card-image">
+          <%= image_tag 'addrelease.jpg' %>
+        </div>
+        <div class="card-content">
+          <span class="card-title">Add Testcycle</span>
+        </div>
+      </div>
+    </div>
+    <% end %>
     <%= link_to new_user_path do %>
-    <div class="col s3 offset-s1">
+    <div class="col s3">
       <div class="card">
         <div class="card-image">
           <%= image_tag 'adduser.ico' %>
@@ -41,7 +52,7 @@
   </div>
   <div class="row">
     <%= link_to projects_path do %>
-    <div class="col s3 offset-s1">
+    <div class="col s3">
       <div class="card">
         <div class="card-image">
           <%= image_tag 'testsuite.jpg' %>
@@ -53,7 +64,7 @@
     </div>
     <% end %>
     <%= link_to releases_path do %>
-    <div class="col s3 offset-s1">
+    <div class="col s3">
       <div class="card">
         <div class="card-image">
           <%= image_tag 'testsuite.jpg' %>
@@ -64,8 +75,20 @@
       </div>
     </div>
     <% end %>
+    <%= link_to testcycles_path do %>
+    <div class="col s3">
+      <div class="card">
+        <div class="card-image">
+          <%= image_tag 'testsuite.jpg' %>
+        </div>
+        <div class="card-content">
+          <span class="card-title">View all Testcycles</span>
+        </div>
+      </div>
+    </div>
+    <% end %>
     <%= link_to users_path do %>
-    <div class="col s3 offset-s1">
+    <div class="col s3">
       <div class="card">
         <div class="card-image">
           <%= image_tag 'testusers.jpg' %>

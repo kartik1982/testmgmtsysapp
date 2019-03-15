@@ -18,13 +18,15 @@ Rails.application.routes.draw do
   resources 'reports'
   resources 'releases'
   resources 'projects'
+  resources 'testcycles'
   namespace :api do
     namespace :v1 do
       resources :reports, except:[:new, :edit]
-      resources :projects, only:[:show]
-      resources :releases, only:[:show]
-      resources :testcases, only:[:show]
-      resources :testsuites, only:[:show]
+      resources :projects, only:[:show, :index]
+      resources :releases, only:[:show, :index]
+      resources :testcycles, only:[:show, :index]
+      resources :testcases, only:[:show, :index]
+      resources :testsuites, only:[:show, :index]
     end
   end
 end
