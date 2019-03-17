@@ -5,6 +5,7 @@ end
 
 def create
   @release = Release.new(release_params)
+  @release.user = current_user
   if @release.save
     flash[:notice]="Release Added successfully"
     redirect_to release_path(@release)

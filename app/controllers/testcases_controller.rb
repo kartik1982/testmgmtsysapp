@@ -7,6 +7,7 @@ end
 def create
   # render plain: params[:testcase].inspect
  @testcase = Testcase.new(testcase_params)
+ @testcase.user = current_user
 
  if @testcase.save
   flash[:success]="Testcase Added successfully"

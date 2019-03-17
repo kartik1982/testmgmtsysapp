@@ -25,10 +25,10 @@
           <% @testsuite.testcases.each do |testcase| %>
               <td><%= link_to testcase.title, testcase_path(testcase) %> </td>
               <td><%= truncate(testcase.description, length:50) %></td>
-              <td>Kartik</td>
+              <td><%= testcase.user.first_name+" "+testcase.user.last_name if testcase.user%></td>
               <td>Kartik Aiyar</td>
               <td><%= testcase.created_at.to_date %></td>
-              <td><%= testcase.updated_at.to_date %></td>              
+              <td><%= testcase.updated_at.to_date %></td>
             </tr>
           <% end %>
         </tbody>

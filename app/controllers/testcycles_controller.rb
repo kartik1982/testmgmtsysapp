@@ -4,6 +4,7 @@ def index
 end
 def create
   @testcycle = Testcycle.new(testcycle_params)
+  @testcycle.user = current_user
   if @testcycle.save
     flash[:notice]="Testcycle Added successfully"
     redirect_to testcycle_path(@testcycle)

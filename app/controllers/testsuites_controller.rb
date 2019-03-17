@@ -6,6 +6,7 @@ class TestsuitesController < ApplicationController
 
   def create
     @testsuite = Testsuite.new(testsuite_params)
+    @testsuite.user = current_user
     if @testsuite.save
       flash[:notice]="Testsuite Added successfully"
       redirect_to testsuite_path(@testsuite)

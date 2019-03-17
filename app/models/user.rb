@@ -6,4 +6,10 @@ class User < ApplicationRecord
                       uniqueness: { case_sensitive: false },
                         format: { with: VALID_EMAIL_REGEX }
 has_secure_password
+has_many :projects
+has_many :releases
+has_many :testcycles
+has_many :testcases
+has_many :testsuites
+
 end

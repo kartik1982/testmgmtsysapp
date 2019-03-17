@@ -20,8 +20,8 @@
                 <tr>
                 <td><%= link_to testsuite.title, testsuite_path(testsuite) %> </td>
                 <td><%= truncate(testsuite.description, length:50) %></td>
-                <td>100</td>
-                <td>Kartik Aiyar</td>
+                <td><%=testsuite.testcases.count if testsuite.testcases %></td>
+                <td><%= testsuite.user.first_name+" "+testsuite.user.last_name if testsuite.user%></td>
                 <td>Kartik Aiyar</td>
                 <td><%= testsuite.created_at.to_date %></td>
                 <td><%= testsuite.updated_at.to_date %></td>

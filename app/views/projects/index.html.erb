@@ -21,7 +21,7 @@
                   <td><%= link_to project.title, project_path(project) %></td>
                   <td><%= truncate(project.description, length:50) %></td>
                   <td><%= project.active? ? "Active" : "Diabled" %></td>
-                  <td>Kartik Aiyar</td>
+                  <td><%= project.user.first_name+" "+project.user.last_name if project.user%></td>
                   <td>Kartik Aiyar</td>
                   <td><%= project.created_at.to_date %></td>
                   <td><%= project.updated_at.to_date %></td>
