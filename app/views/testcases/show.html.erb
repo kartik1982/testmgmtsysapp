@@ -1,12 +1,79 @@
 <div class="row">
   <div class="col s12 m12">
-    <!-- <div class="card"> -->
-      <h4>Testcase Name: <%= @testcase.title %> </h4>
-      <p>Description: <%= @testcase.description %></p>
-      <h5>Testsuite Name: <%=@testcase.testsuite.title if @testcase.testsuite %>
-    <!-- </div> -->
+    <div class="card-panel">
+      <div class="row header center">
+      <h6><b>TESTCASE DETAILS</b></h6>
+    </div>
+    <div class="row">
+      <div class="col s6 m6">
+        <b>NAME:</b>&emsp;<%= @testcase.title %>
+      </div>
+      <div class="col s6 m6">
+        <b>TESTSUITE:</b>&emsp;<%= @testcase.testsuite.title if @testcase.testsuite %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12">
+        <b>DESCRIPTION:</b> <%= @testcase.description %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s4 m4">
+        <b>CREATED BY:</b>&emsp;<%= @testcase.created_by %>
+      </div>
+      <div class="col s4 m4">
+        <b>UPDATED BY:</b>&emsp;<%= @testcase.updated_by %>
+      </div>
+      <div class="col s4 m4">
+        <b>ASSIGNED TO:</b>&emsp;<%= @testcase.user.email if @testcase.user %>
+      </div>
+    </div>
+    <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testcase_path(@testcase), class: "btn waves-effect waves-light" %>
+    <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testcase_path(@testcase), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
+    <%= link_to '<i class="material-icons left">list</i> List Testcases'.html_safe, testcases_path, class: "btn waves-effect waves-light right" %>
+    </div>
   </div>
-  <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testcase_path(@testcase), class: "btn waves-effect waves-light" %>
-  <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testcase_path(@testcase), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
-
 </div>
+<div class= "digg_pagination right">
+   <%= will_paginate @reports %>
+  </div>
+<div class="row">
+  <div class="col s12 offset-s0">
+      <table class="striped">
+        <thead>
+          <tr>
+              <th>Release</th>
+              <th>Project</th>
+              <th>Build</th>
+              <th>Testsuite</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Time (Minutes)</th>
+              <th>Pass</th>
+              <th>Fail</th>
+              <th>Pending</th>
+              <th>Total</th>
+              <th>Comment</th>
+              <th>Logs</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @reports.each do |report| %>
+              <td><%= report.release.title %></td>
+              <td><%= report.project.title %></td>
+              <td><%= report.build %></td>
+              <td><%= report.testsuite.title %></td>
+              <td><%= report.created_at.localtime.strftime("%D %T") %></td>
+              <td><%= report.updated_at.localtime.strftime("%D %T") %></td>
+              <td></td>
+              <td class="green"><%= report.pass %></td>
+              <td class="red"><%= report.fail %></td>
+              <td class="yellow"><%= report.pending %></td>
+              <td><%= report.pass + report.fail + report.pending %></td>
+              <td><%= link_to report.comment, edit_report_path(report) %></td>
+              <td><%= link_to "Open", report.log_path, target: :_blank if report.log_path %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+  </div>

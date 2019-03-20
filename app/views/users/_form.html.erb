@@ -4,7 +4,11 @@
   <div class="row center-align add-user">
     <div class="col s12 m12 l12">
       <div class="card-panel">
+        <% if !session[:user_id]%>
+        <h5 class="header">SIGNUP USER</h5>
+        <% else %>
         <h5 class="header"><%= @user.new_record? ? "ADD NEW USER" : "UPDATE USER" %></h5>
+        <% end %>
         <div class="row">
           <%= form_for(@user, html: {class: "col s12"}) do |f| %>
           <div class="row">

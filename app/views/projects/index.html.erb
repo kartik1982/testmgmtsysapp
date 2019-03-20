@@ -22,7 +22,7 @@
                   <td><%= truncate(project.description, length:50) %></td>
                   <td><%= project.active? ? "Active" : "Diabled" %></td>
                   <td><%= project.user.first_name+" "+project.user.last_name if project.user%></td>
-                  <td>Kartik Aiyar</td>
+                  <td><%=project.updated_by%></td>
                   <td><%= project.created_at.to_date %></td>
                   <td><%= project.updated_at.to_date %></td>
                 </tr>

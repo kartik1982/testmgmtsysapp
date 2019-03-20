@@ -1,12 +1,35 @@
 <div class="row">
   <div class="col s12 m12">
-    <!-- <div class="card"> -->
-      <h4>Testsuite Name: <%= @testsuite.title %> </h4>
-      <p>Description: <%= @testsuite.description %></p>
-    <!-- </div> -->
+    <div class="card-panel">
+      <div class="row header center">
+        <h6><b>TESTSUITE DETAILS</b></h6>
+      </div>
+      <div class="row">
+        <div class="col s12 m12">
+          <b>NAME:</b>&emsp;<%= @testsuite.title %>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col s12 m12">
+          <b>DESCRIPTION:</b> <%= @testsuite.description %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 m4">
+          <b>CREATED BY:</b>&emsp;<%= @testsuite.created_by %>
+        </div>
+        <div class="col s4 m4">
+          <b>UPDATED BY:</b>&emsp;<%= @testsuite.updated_by %>
+        </div>
+        <div class="col s4 m4">
+          <b>ASSIGNED TO:</b>&emsp;<%= @testsuite.user.email if @testsuite.user %>
+        </div>
+      </div>
+      <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testsuite_path(@testsuite), class: "btn waves-effect waves-light" %>
+      <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testsuite_path(@testsuite), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
+      <%= link_to '<i class="material-icons left">list</i> List Testsuites'.html_safe, testsuites_path, class: "btn waves-effect waves-light right" %>
+    </div>
   </div>
-  <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testsuite_path(@testsuite), class: "btn waves-effect waves-light" %>
-  <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testsuite_path(@testsuite), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
 </div>
 <div class="row">
   <div class="col s12 offset-s0">

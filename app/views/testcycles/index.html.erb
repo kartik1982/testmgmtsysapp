@@ -21,8 +21,8 @@
                   <td><%= link_to testcycle.title, testcycle_path(testcycle) %></td>
                   <td><%= truncate(testcycle.description, length:50) %></td>
                   <td><%= testcycle.active? ? "Active" : "Diabled" %></td>
-                  <td><%=testcycle.user.first_name+" "+testcycle.user.last_name if testcycle.user %></td>
-                  <td>Kartik Aiyar</td>
+                  <td><%= testcycle.user.first_name+" "+testcycle.user.last_name if testcycle.user %></td>
+                  <td><%= testcycle.updated_by %></td>
                   <td><%= testcycle.created_at.to_date %></td>
                   <td><%= testcycle.updated_at.to_date %></td>
                 </tr>

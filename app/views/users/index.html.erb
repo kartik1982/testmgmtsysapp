@@ -1,7 +1,7 @@
 <div class="row user-list add-user">
   <div class="col s12 m12 l12">
     <div class="card-panel">
-      <h3 class="center-align">User Directory</h3>
+      <h5 class="center-align header"><b>USER DIRECTORY</b></h5>
         <div class="row">
             <ul class="collection">
               <% @users.each do |user| %>
@@ -12,7 +12,7 @@
                 <span>Rolse : <%if user.super_admin %><%= "Super Admin"%>
                   <%else%><%= user.admin? ? "Admin" : "User" %>
                   <%end%></span><br>
-                <span>Total Testsuites: 20, Total Testcases: 50</span>
+                <span>Total Testsuites: <%= user.testsuites.count %>, Total Testcases: <%= user.testcases.count %></span>
               </li>
               <% end %>
             </ul>

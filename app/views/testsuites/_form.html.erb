@@ -19,6 +19,12 @@
                 <%= f.label :description %>
             </div>
           </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.collection_select :user_id, ::User.all, :id, :email, {prompt: "Choose Assignee name"} %>
+              <%= f.label :user_id, "Assignee To" %>
+            </div>
+          </div>
           <label>
             <%= f.check_box :runmode, class: "filled-in", checked: "checked" %>
             <span> Testsuite Run Mode</span>

@@ -1,14 +1,35 @@
 <div class="row">
   <div class="col s12 m12">
-    <h5 class="header center"><b>Testcycle Details</b></h5>
-      <h6><b>NAME:</b>&emsp;<%= @testcycle.title %> </h6>
-      <p><b>DESCRIPTION:</b>&emsp;
-       <%= @testcycle.description %>
-      </p>
-      <h6><b>STATUS:</b>&emsp;<%= @testcycle.active? ? "Active" : "Disabled" %> </h5>
+    <div class="card-panel">
+      <div class="row header center">
+      <h6><b>TESTCYCLE DETAILS</b></h6>
+    </div>
+    <div class="row">
+      <div class="col s12 m12">
+        <b>NAME:</b>&emsp;<%= @testcycle.title %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12">
+        <b>DESCRIPTION:</b> <%= @testcycle.description %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s6 m6">
+        <b>CREATED BY:</b>&emsp;<%= @testcycle.user.email %>
+      </div>
+      <div class="col s6 m6">
+        <b>UPDATED BY:</b>&emsp;<%= @testcycle.updated_by %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12">
+        <b>STATUS:</b> </b>&emsp;<%=@testcycle.active? ? "Active" : "Disabled" %>
+      </div>
+    </div>
+      <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testcycle_path(@testcycle), class: "btn waves-effect waves-light" %>
+      <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testcycle_path(@testcycle), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
+      <%= link_to '<i class="material-icons left">list</i> List Testcycles'.html_safe, testcycles_path, class: "btn waves-effect waves-light right" %>
+    </div>
   </div>
-
-  <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testcycle_path(@testcycle), class: "btn waves-effect waves-light" %>
-  <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testcycle_path(@testcycle), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
-
 </div>

@@ -1,4 +1,6 @@
 class ReleasesController < ApplicationController
+  before_action :require_super_admin_user
+
 def index
   @releases = Release.all
 end
@@ -30,6 +32,7 @@ end
 
 def update
   @release = Release.find(params[:id])
+  @release.updated_by = current_user.email
   if @release.update(release_params)
     flash[:notice]="Release Updated successfully"
     redirect_to release_path(@release)

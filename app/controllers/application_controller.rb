@@ -21,4 +21,10 @@ helper_method :current_user, :logged_in?, :super_admin?
       current_user.super_admin
     end
   end
+  def require_super_admin_user
+      if !super_admin?
+        flash[:notice] = "Only Super Admin can perform specific action"
+        redirect_to root_path
+      end
+  end
 end

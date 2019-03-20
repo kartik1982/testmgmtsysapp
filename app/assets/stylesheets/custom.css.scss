@@ -11,9 +11,9 @@ main {
   padding: 5px;
 }
 
-// nav, footer{
-//   @extend .blue, .lighten-2;
-// }
+nav, footer{
+  @extend .blue, .darken-4;
+}
 
 .card-title{
   @extend .black-text, .text-lighten-2;

@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  before_action :require_super_admin_user
+
 def index
   @projects = Project.all
 end
@@ -29,6 +31,7 @@ end
 
 def update
   @project = Project.find(params[:id])
+  @project.updated_by = current_user.email
   if @project.update(project_params)
     flash[:notice]="Project Updated successfully"
     redirect_to project_path(@project)

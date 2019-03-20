@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_17_032945) do
+ActiveRecord::Schema.define(version: 2019_03_20_210737) do
 
   create_table "devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_03_17_032945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "updated_by"
   end
 
   create_table "releases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 2019_03_17_032945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "updated_by"
   end
 
   create_table "reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -74,6 +76,8 @@ ActiveRecord::Schema.define(version: 2019_03_17_032945) do
     t.datetime "updated_at", null: false
     t.integer "testsuite_id"
     t.integer "user_id"
+    t.string "created_by"
+    t.string "updated_by"
   end
 
   create_table "testcycles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -83,6 +87,7 @@ ActiveRecord::Schema.define(version: 2019_03_17_032945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "updated_by"
   end
 
   create_table "testsuites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -92,6 +97,8 @@ ActiveRecord::Schema.define(version: 2019_03_17_032945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "created_by"
+    t.string "updated_by"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

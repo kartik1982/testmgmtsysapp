@@ -20,9 +20,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s6">
               <%= f.collection_select :testsuite_id, ::Testsuite.all, :id, :title, {prompt: "Choose TestSuite name"} %>
               <%= f.label :testsuite_id, "Testsuite Name" %>
+            </div>
+            <div class="input-field col s6">
+              <%= f.collection_select :user_id, ::User.all, :id, :email, {prompt: "Choose Assignee name"} %>
+              <%= f.label :user_id, "Assignee To" %>
             </div>
           </div>
             <label>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 before_action :set_user, only: [:show, :edit, :update, :destroy]
-skip_before_action :require_user, only: [:new]
+skip_before_action :require_user, only: [:new, :create]
 before_action :require_same_user, only: [:edit, :update]
   def index
     @users = User.all
@@ -9,8 +9,9 @@ before_action :require_same_user, only: [:edit, :update]
   def create
     @user = User.new(user_params)
     if @user.save
+      session[:user_id] = @user.id if !session[:user_id]
       flash[:notice]="User added successfully"
-      redirect_to user_path(@user)
+      redirect_to root_path(@user)
     else
       render 'new'
     end

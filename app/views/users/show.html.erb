@@ -1,30 +1,50 @@
 <div class="row">
   <div class="col s12 m12">
-      <h3 class="center-align">User Details</h3>
-      <div class="row">
-        <div class="col s6 m6">
-        <span class="title"><b>First Name:</b>&emsp;<%= @user.first_name %></span>
+    <div class="card-panel">
+      <div class="row header center">
+      <h6><b>USER DETAILS</b></h6>
+    </div>
+    <div class="row">
+      <div class="col s6 m6">
+        <b>FIRST NAME:</b>&emsp;<%= @user.first_name %>
       </div>
       <div class="col s6 m6">
-          <span><b>Last Name:</b>&emsp;<%= @user.last_name %> </span>
-        </div>
+        <b>LAST NAME:</b>&emsp;<%= @user.last_name %>
       </div>
-      <div class="row">
-        <div class="col s12 m12">
-          <span class="title"><b>Email Address:</b>&emsp;<%= @user.email %> </span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 m12">
-          <span class="title"><b>Role:</b>&emsp; <%if @user.super_admin%><%="Super Admin"%>
-            <%else%><%= @user.admin? ? "Admin" : "User"%> <%end%></span>
-        </div>
     </div>
-    <%if @user == current_user || super_admin?%>
-    <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_user_path(@user), class: "btn waves-effect waves-light" %>
-    <%end%>
-    <%if super_admin?%>
-      <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, user_path(@user), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
-    <%end%>
+    <div class="row">
+      <div class="col s6 m6">
+        <b>EMAIL ADDRESS:</b> <%= @user.email %>
+      </div>
+      <div class="col s6 m6">
+        <b>ROLE:</b>&emsp;<%if @user.super_admin%><%="Super Admin"%> <%else%><%=@user.admin? ? "Admin" : "User" %><%end%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s6 m6">
+        <b>TESTSUITES ASSIGNED:</b>&emsp;<%= @user.testsuites.count %>
+      </div>
+      <div class="col s6 m6">
+        <b>TESTCASES ASSIGNED:</b>&emsp;<%= @user.testcases.count %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s6 m6">
+        <b>CREATED BY:</b>&emsp;<%= @user.email %>
+      </div>
+      <div class="col s6 m6">
+        <b>UPDATED BY:</b>&emsp;<%= @user.email %>
+      </div>
+    </div>
+    <div class="row">
+      <%if @user == current_user || super_admin?%>
+        <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_user_path(@user), class: "btn waves-effect waves-light" %>
+      <%end%>
+      <%if super_admin?%>
+        <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, user_path(@user), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
+      <%end%>
+        <%= link_to '<i class="material-icons left">list</i> List Users'.html_safe, users_path, class: "btn waves-effect waves-light right" %>
+    </div>
+    </div>
   </div>
 </div>

@@ -20,9 +20,9 @@
                   <tr>
                   <td><%= link_to release.title.gsub('_','.'), release_path(release) %></td>
                   <td><%= truncate(release.description, length:50) %></td>
-                  <td><%= "Active" if release.active %></td>
-                  <td><%=release.user.first_name+" "+release.user.last_name if release.user %></td>
-                  <td>Kartik Aiyar</td>
+                  <td><%= release.active? ? "Active" : "Disabled" %></td>
+                  <td><%= release.user.first_name+" "+release.user.last_name if release.user %></td>
+                  <td><%= release.updated_by%></td>
                   <td><%= release.created_at.to_date %></td>
                   <td><%= release.updated_at.to_date %></td>
                 </tr>

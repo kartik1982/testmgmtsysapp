@@ -1,7 +1,7 @@
 <div class="row center-align add-user">
   <div class="col s12 m12 l12">
     <div class="card-panel">
-      <h5 class="header">Testcases list</h5>
+      <h5 class="header"><b>TESTCASES LIST</b></h5>
         <div class="row">
           <table class="striped">
             <thead>
@@ -21,8 +21,8 @@
                   <td><%= link_to testcase.testsuite.title, testsuite_path(testcase.testsuite.id) if testcase.testsuite %></td>
                   <td><%= link_to testcase.title, testcase_path(testcase) %> </td>
                   <td><%= truncate(testcase.description, length:50) %></td>
-                  <td><%= testcase.user.first_name+" "+testcase.user.last_name if testcase.user%></td>
-                  <td>Kartik Aiyar</td>
+                  <td><%= testcase.created_by%></td>
+                  <td><%= testcase.user.first_name+" "+testcase.user.last_name if testcase.user %></td>
                   <td><%= testcase.created_at.to_date %></td>
                   <td><%= testcase.updated_at.to_date %></td>
                 </tr>

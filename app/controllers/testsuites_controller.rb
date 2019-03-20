@@ -6,7 +6,7 @@ class TestsuitesController < ApplicationController
 
   def create
     @testsuite = Testsuite.new(testsuite_params)
-    @testsuite.user = current_user
+    @testsuite.created_by = current_user.email
     if @testsuite.save
       flash[:notice]="Testsuite Added successfully"
       redirect_to testsuite_path(@testsuite)
@@ -30,6 +30,7 @@ class TestsuitesController < ApplicationController
 
   def update
     @testsuite = Testsuite.find(params[:id])
+    @testsuite.updated_by = current_user.email
     if @testsuite.update(testsuite_params)
       flash[:notice]="Testsuite Updated successfully"
       redirect_to testsuite_path(@testsuite)
@@ -51,6 +52,6 @@ class TestsuitesController < ApplicationController
 
   private
   def testsuite_params
-    params.require(:testsuite).permit(:title, :description, :runmode)
+    params.require(:testsuite).permit(:title, :description, :runmode, :user_id)
   end
 end

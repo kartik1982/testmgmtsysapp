@@ -1,4 +1,5 @@
 class TestcyclesController < ApplicationController
+  before_action :require_super_admin_user
 def index
   @testcycles = Testcycle.all
 end
@@ -29,6 +30,7 @@ end
 
 def update
   @testcycle = Testcycle.find(params[:id])
+  @testcycle.updated_by = current_user.email
   if @testcycle.update(testcycle_params)
     flash[:notice]="Testcycle Updated successfully"
     redirect_to testcycle_path(@testcycle)
