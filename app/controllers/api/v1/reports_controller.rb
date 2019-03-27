@@ -18,9 +18,8 @@ module Api
           render json: {error: @report.errors }, status: 422
         end
       end
-      private
       def report_params
-        params.require(:report).permit(:release_id, :project_id, :testsuite_id, :testcase_id, :start_at, :end_at, :pass, :fail, :pending, :comment, :log_path, :build)
+        params.require(:report).permit(:release_id, :project_id, :testcycle_id, :testsuite_id, :testcase_id, :start_at, :end_at, :pass, :fail, :pending, :comment, :log_path, :build)
       end
     end
   end

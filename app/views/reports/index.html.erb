@@ -53,6 +53,7 @@
           <table class="striped">
             <thead>
               <tr>
+                <th>ReportID</th>
                 <th>Release</th>
                 <th>Project</th>
                 <th>Build</th>
@@ -72,13 +73,14 @@
             <tbody>
               <% @reports.each do |report| %>
                   <tr>
+                  <td><%= link_to report.id, edit_report_path(report) %></td>
                   <td><%= report.release.title %></td>
                   <td><%= report.project.title %></td>
                   <td><%= report.build %></td>
-                  <td><%= report.testsuite.title %></td>
-                  <td><%= report.testcase.title %></td>
-                  <td><%= report.created_at.localtime.strftime("%D %T") %></td>
-                  <td><%= report.updated_at.localtime.strftime("%D %T") %></td>
+                  <td><%= report.testsuite.title if report.testsuite %></td>
+                  <td><%= link_to report.testcase.title, testcase_path(report.testcase) if report.testcase %></td>
+                  <td><%= report.start_at.localtime.strftime("%D %T") %></td>
+                  <td><%= report.end_at.localtime.strftime("%D %T") %></td>
                   <td></td>
                   <td class="green"><%= report.pass %></td>
                   <td class="red"><%= report.fail %></td>

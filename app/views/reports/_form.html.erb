@@ -9,59 +9,59 @@
           <%= form_for(@report, html: {class: "col s12"}) do |f| %>
           <div class="row">
             <div class="input-field col s4">
-              <%= f.collection_select :release_id, ::Release.all, :id, :title, {prompt: "Choose Release"} %>
+              <%= f.collection_select :release_id, ::Release.all, :id, :title, {prompt: "Choose Release"}, {disabled: true} %>
               <%= f.label :testsuite_id, "Release" %>
             </div>
             <div class="input-field col s4">
-              <%= f.collection_select :testcycle_id, ::Testcycle.all, :id, :title, {prompt: "Choose Release"} %>
+              <%= f.collection_select :testcycle_id, ::Testcycle.all, :id, :title, {prompt: "Choose Release"}, {disabled: true} %>
               <%= f.label :testcycle_id, "Testcycle" %>
             </div>
             <div class="input-field col s4">
-              <%= f.collection_select :project_id, ::Project.all, :id, :title, {prompt: "Choose Project"} %>
+              <%= f.collection_select :project_id, ::Project.all, :id, :title, {prompt: "Choose Project"}, {disabled: true} %>
               <%= f.label :testsuite_id, "Project" %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <%= f.collection_select :testsuite_id, ::Testsuite.all, :id, :title, {prompt: "Choose TestSuite"} %>
+              <%= f.collection_select :testsuite_id, ::Testsuite.all, :id, :title, {prompt: "Choose TestSuite"}, {disabled: true} %>
               <%= f.label :testsuite_id, "Testsuite Name" %>
             </div>
             <div class="input-field col s6">
-              <%= f.collection_select :testcase_id, ::Testcase.all, :id, :title, {prompt: "Choose Testcase"} %>
+              <%= f.collection_select :testcase_id, ::Testcase.all, :id, :title, {prompt: "Choose Testcase"}, {disabled: true} %>
               <%= f.label :testsuite_id, "Testcase Name" %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s4">
-              <%= f.text_field :build, class: "form-control", placeholder: "Build Number", autofocus: true %>
+              <%= f.text_field :build, class: "form-control", placeholder: "Build Number", readonly: true %>
               <%= f.label :build, "Build Number" %>
             </div>
             <div class="input-field col s4">
-              <%= f.text_field :start_at, class: "form-control", placeholder: "Start Time", autofocus: true %>
+              <%= f.text_field :start_at, class: "form-control", placeholder: "Start Time", readonly: true %>
               <%= f.label :start_at, "Start Time" %>
             </div>
             <div class="input-field col s4">
-              <%= f.text_field :end_at, class: "form-control", placeholder: "End Time", autofocus: true %>
+              <%= f.text_field :end_at, class: "form-control", placeholder: "End Time", readonly: true %>
               <%= f.label :end_at, "End Time" %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s4">
-              <%= f.text_field :pass, class: "form-control", placeholder: "Pass Count", autofocus: true %>
+              <%= f.text_field :pass, class: "form-control", placeholder: "Pass Count", readonly: true %>
               <%= f.label :pass, "PASS" %>
             </div>
             <div class="input-field col s4">
-              <%= f.text_field :fail, class: "form-control", placeholder: "Fail Count", autofocus: true %>
+              <%= f.text_field :fail, class: "form-control", placeholder: "Fail Count", readonly: true %>
               <%= f.label :fail, "FAIL" %>
             </div>
             <div class="input-field col s4">
-              <%= f.text_field :pending, class: "form-control", placeholder: "Pending Count", autofocus: true %>
+              <%= f.text_field :pending, class: "form-control", placeholder: "Pending Count", readonly: true %>
               <%= f.label :pending, "PENDING" %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
-                <%= f.text_field :log_path, class: "materialize-textarea", placeholder: "Log path" %>
+                <%= f.text_field :log_path, class: "materialize-textarea", placeholder: "Log path", readonly: true %>
                 <%= f.label :log_path, "Log link" %>
             </div>
           </div>

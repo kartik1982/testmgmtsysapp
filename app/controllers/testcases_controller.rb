@@ -29,7 +29,7 @@ end
 
 def show
   @testcase= Testcase.find(params[:id])
-  @reports = @testcase.reports.paginate(page: params[:page], per_page: 10)
+  @reports = @testcase.reports.order("created_at DESC").paginate(page: params[:page], per_page: 10)
 end
 
 def update

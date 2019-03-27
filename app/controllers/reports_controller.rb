@@ -11,9 +11,9 @@ def index
   if params[:project_id] != ""
     @reports = @reports.where("project_id=?", params[:project_id])
   end
-  @reports_without_pagination=@reports.where("created_at in (select max(created_at))").group("testcase_id")
-  @reports=@reports.where("created_at in (select max(created_at))").group("testcase_id").paginate(page: params[:page], per_page: 10)
-  # @reports=@reports.order("created_at ASC").group("testcase_id").paginate(page: params[:page], per_page: 10)
+  ids = @reports.select("MAX(id) AS id").group(:testcase_id).collect(&:id)
+  @reports_without_pagination=@reports.order("created_at DESC").where(:id => ids)
+  @reports=@reports.order("created_at DESC").where(:id => ids).paginate(page: params[:page], per_page: 10)
 end
 
 def new

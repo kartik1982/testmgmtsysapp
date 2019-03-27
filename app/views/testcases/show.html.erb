@@ -62,7 +62,7 @@
               <td><%= report.release.title %></td>
               <td><%= report.project.title %></td>
               <td><%= report.build %></td>
-              <td><%= report.testsuite.title %></td>
+              <td><%= report.testsuite.title if report.testsuite %></td>
               <td><%= report.created_at.localtime.strftime("%D %T") %></td>
               <td><%= report.updated_at.localtime.strftime("%D %T") %></td>
               <td></td>
