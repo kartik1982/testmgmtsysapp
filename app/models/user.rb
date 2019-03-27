@@ -6,10 +6,21 @@ class User < ApplicationRecord
                       uniqueness: { case_sensitive: false },
                         format: { with: VALID_EMAIL_REGEX }
 has_secure_password
+has_secure_token
 has_many :projects
 has_many :releases
 has_many :testcycles
 has_many :testcases
 has_many :testsuites
 
+  def invalidate_token
+    self.update_columns(token: nil)
+  end
+
+  def self.valid_login?(email, password)
+    user = find_by(email: email)
+    if user && user.authenticate(password)
+      user
+    end
+  end
 end

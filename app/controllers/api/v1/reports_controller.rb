@@ -1,8 +1,8 @@
 module Api
   module V1
-    class ReportsController < ApplicationController
-      skip_before_action :verify_authenticity_token
-      skip_before_action :require_user, only: [:show, :index, :create]
+    class ReportsController < ApiController
+      skip_before_action :verify_authenticity_token, only: [:create]
+
       def show
           render json: Report.find(params[:id])
       end

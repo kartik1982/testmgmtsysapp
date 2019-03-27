@@ -1,7 +1,6 @@
 module Api
   module V1
-    class TestcasesController < ApplicationController
-      skip_before_action :require_user, only: [:show, :index]
+    class TestcasesController < ApiController
       def show
         @testcase = Testcase.find(params[:id])
         render json: @testcase, status: 200

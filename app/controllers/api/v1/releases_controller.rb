@@ -1,7 +1,6 @@
 module Api
   module V1
-    class ReleasesController < ApplicationController
-      skip_before_action :require_user, only: [:show, :index]
+    class ReleasesController < ApiController
       def show
         @release = Release.find(params[:id])
         render json: @release, status: 200

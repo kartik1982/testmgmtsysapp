@@ -1,7 +1,6 @@
 module Api
   module V1
-    class ProjectsController < ApplicationController
-      skip_before_action :require_user, only: [:show, :index]
+    class ProjectsController < ApiController
       def show
         @project = Project.find(params[:id])
         render json: @project, status: 200

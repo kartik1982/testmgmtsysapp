@@ -79,8 +79,8 @@
                   <td><%= report.build %></td>
                   <td><%= report.testsuite.title if report.testsuite %></td>
                   <td><%= link_to report.testcase.title, testcase_path(report.testcase) if report.testcase %></td>
-                  <td><%= report.start_at.localtime.strftime("%D %T") %></td>
-                  <td><%= report.end_at.localtime.strftime("%D %T") %></td>
+                  <td><%= report.start_at.localtime.strftime("%D %T") if report.start_at %></td>
+                  <td><%= report.end_at.localtime.strftime("%D %T") if report.end_at %></td>
                   <td></td>
                   <td class="green"><%= report.pass %></td>
                   <td class="red"><%= report.fail %></td>

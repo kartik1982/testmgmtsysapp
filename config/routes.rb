@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       resources :testcycles, only:[:show, :index]
       resources :testcases, only:[:show, :index]
       resources :testsuites, only:[:show, :index]
+      post 'login', to: 'sessions#create'
+      delete 'logout', to: 'sessions#destroy'
     end
   end
 end
