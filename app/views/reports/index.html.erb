@@ -81,7 +81,7 @@
                   <td><%= link_to report.testcase.title, testcase_path(report.testcase) if report.testcase %></td>
                   <td><%= report.start_at.localtime.strftime("%D %T") if report.start_at %></td>
                   <td><%= report.end_at.localtime.strftime("%D %T") if report.end_at %></td>
-                  <td></td>
+                  <td><%= ((report.end_at-report.start_at)/60).round(2) if report.start_at %></td>
                   <td class="green"><%= report.pass %></td>
                   <td class="red"><%= report.fail %></td>
                   <td class="yellow"><%= report.pending %></td>
