@@ -2,34 +2,42 @@
   <div class="col s12 m12 l12">
     <div class="card-panel">
       <h5 class="header"><b>TESTSUITES LIST</b></h5>
-      <div class="row">
-        <table class="striped">
-          <thead>
-            <tr>
-                <th>Testsuite Name</th>
-                <th>Description</th>
-                <th>Testcases</th>
-                <th>Created by</th>
-                <th>Assigned To</th>
-                <th>Created On</th>
-                <th>Updated On</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @testsuites.each do |testsuite| %>
-                <tr>
-                <td><%= link_to testsuite.title, testsuite_path(testsuite) %> </td>
-                <td><%= truncate(testsuite.description, length:50) %></td>
-                <td><%=testsuite.testcases.count if testsuite.testcases %></td>
-                <td><%= testsuite.created_by%></td>
-                <td><%= testsuite.user.first_name+" "+testsuite.user.last_name if testsuite.user%></td>
-                <td><%= testsuite.created_at.to_date %></td>
-                <td><%= testsuite.updated_at.to_date %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+      <div class="row left">
+        <div class="col s12">
+            <b>Total Test Suites:</b> <%=@testsuites.count%>
+          </div>
+        </div>
     </div>
+  </div>
+  <div class= "digg_pagination right">
+     <%= will_paginate %>
+  </div>
+  <div class="row">
+    <table class="striped">
+      <thead>
+        <tr>
+            <th>Testsuite Name</th>
+            <th>Description</th>
+            <th>Testcases</th>
+            <th>Created by</th>
+            <th>Assigned To</th>
+            <th>Created On</th>
+            <th>Updated On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @testsuites.each do |testsuite| %>
+            <tr>
+            <td><%= link_to testsuite.title, testsuite_path(testsuite) %> </td>
+            <td><%= truncate(testsuite.description, length:50) %></td>
+            <td><%=testsuite.testcases.count if testsuite.testcases %></td>
+            <td><%= testsuite.created_by%></td>
+            <td><%= testsuite.user.first_name+" "+testsuite.user.last_name if testsuite.user%></td>
+            <td><%= testsuite.created_at.to_date %></td>
+            <td><%= testsuite.updated_at.to_date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

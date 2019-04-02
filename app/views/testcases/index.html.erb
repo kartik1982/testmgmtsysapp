@@ -2,34 +2,42 @@
   <div class="col s12 m12 l12">
     <div class="card-panel">
       <h5 class="header"><b>TESTCASES LIST</b></h5>
-        <div class="row">
-          <table class="striped">
-            <thead>
-              <tr>
-                  <th>Testsuite Name</th>
-                  <th>Testcase Name</th>
-                  <th>Description</th>
-                  <th>Created by</th>
-                  <th>Assigned To</th>
-                  <th>Created On</th>
-                  <th>Updated On</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @testcases.each do |testcase| %>
-                  <tr>
-                  <td><%= link_to testcase.testsuite.title, testsuite_path(testcase.testsuite.id) if testcase.testsuite %></td>
-                  <td><%= link_to testcase.title, testcase_path(testcase) %> </td>
-                  <td><%= truncate(testcase.description, length:50) %></td>
-                  <td><%= testcase.created_by%></td>
-                  <td><%= testcase.user.first_name+" "+testcase.user.last_name if testcase.user %></td>
-                  <td><%= testcase.created_at.to_date %></td>
-                  <td><%= testcase.updated_at.to_date %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+      <div class="row left">
+        <div class="col s12">
+            <b>Total Test Cases:</b> <%=@testcases.count%>
+          </div>
         </div>
-      </div>
     </div>
   </div>
+  <div class= "digg_pagination right">
+     <%= will_paginate %>
+  </div>
+  <div class="row">
+    <table class="striped">
+      <thead>
+        <tr>
+            <th>Testsuite Name</th>
+            <th>Testcase Name</th>
+            <th>Description</th>
+            <th>Created by</th>
+            <th>Assigned To</th>
+            <th>Created On</th>
+            <th>Updated On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @testcases.each do |testcase| %>
+            <tr>
+            <td><%= link_to testcase.testsuite.title, testsuite_path(testcase.testsuite.id) if testcase.testsuite %></td>
+            <td><%= link_to testcase.title, testcase_path(testcase) %> </td>
+            <td><%= truncate(testcase.description, length:50) %></td>
+            <td><%= testcase.created_by%></td>
+            <td><%= testcase.user.first_name+" "+testcase.user.last_name if testcase.user %></td>
+            <td><%= testcase.created_at.to_date %></td>
+            <td><%= testcase.updated_at.to_date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

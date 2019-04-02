@@ -1,7 +1,7 @@
 class TestcasesController <ApplicationController
 
 def index
-    @testcases= Testcase.all
+    @testcases= Testcase.paginate(page: params[:page], per_page: 10)
 end
 
 def create
