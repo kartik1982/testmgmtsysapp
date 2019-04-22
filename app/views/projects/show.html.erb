@@ -31,5 +31,31 @@
       <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, project_path(@project), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
       <%= link_to '<i class="material-icons left">list</i> List Projects'.html_safe, projects_path, class: "btn waves-effect waves-light right" %>
     </div>
+    <table class="striped">
+      <thead>
+        <tr>
+            <th>Release</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Created By</th>
+            <th>Updated By</th>
+            <th>Created On</th>
+            <th>Updated On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @project.releases.each do |release| %>
+            <tr>
+            <td><%= link_to release.title.gsub('_','.'), release_path(release) %></td>
+            <td><%= truncate(release.description, length:50) %></td>
+            <td><%= release.active? ? "Active" : "Disabled" %></td>
+            <td><%= release.user.first_name+" "+release.user.last_name if release.user %></td>
+            <td><%= release.updated_by%></td>
+            <td><%= release.created_at.to_date %></td>
+            <td><%= release.updated_at.to_date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

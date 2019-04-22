@@ -9,7 +9,7 @@
         <b>NAME:</b>&emsp;<%= @testcase.title %>
       </div>
       <div class="col s6 m6">
-        <b>TESTSUITE:</b>&emsp;<%= @testcase.testsuite.title if @testcase.testsuite %>
+        <b>TESTSUITE:</b>&emsp;<%= link_to @testcase.testsuite.title, testsuite_path(@testcase.testsuite) if @testcase.testsuite %>
       </div>
     </div>
     <div class="row">

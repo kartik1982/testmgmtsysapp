@@ -15,7 +15,12 @@ Rails.application.routes.draw do
   resources 'groups'
   resources 'devices'
   resources 'users'
-  resources 'reports'
+  resources 'reports' do
+    collection do
+      get 'testsuites'
+      get 'releases'
+    end
+  end
   resources 'releases'
   resources 'projects'
   resources 'testcycles'

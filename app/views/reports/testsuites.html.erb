@@ -1,0 +1,77 @@
+<div class="row center-align add-user">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h5 class="header">Execution Report for Testsuites</h5>
+      <div class="row left">
+        <div class="col s12">
+        <%= form_tag(testsuites_reports_path, method: :get) do %>
+        <div class="input-field col s3">
+          <%= select_tag :release_id, options_from_collection_for_select(Release.all, :id, :title, params[:release_id]), {prompt: "ALL"} %>
+          <%= label_tag :release_id, "Release Version" %>
+        </div>
+        <div class="input-field col s3">
+          <%= select_tag :testcycle_id, options_from_collection_for_select(Testcycle.all, :id, :title, params[:testcycle_id]), {prompt: "ALL"} %>
+          <%= label_tag :testcycle_id, "Test Cycle" %>
+        </div>
+        <div class="input-field col s4">
+        <%= select_tag :project_id, options_from_collection_for_select(Project.all, :id, :title, params[:project_id]), {prompt: "ALL"} %>
+        <%= label_tag :project_id, "Project Name" %>
+        </div>
+        <div class="apply-button col s2">
+          <%= submit_tag ("Apply Filter")%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <%@testcase_count=0%>
+    <% @testsuites.each do |testsuite| %>
+    <% @testcase_count += testsuite.testcases.count%>
+    <%end%>
+    <div class="row">
+      <div class="col s12">
+        <div class="col s6 m6 l6 right">
+          <%= pie_chart [["PASS", @reports.map(&:pass).sum],["FAIL", @reports.map(&:fail).sum], ["PENDING",@reports.map(&:pending).sum]], height: "200px" %>
+        </div>
+        <div class="col s6 m6 l6 left">
+              <%= bar_chart [["TESTSUITES", @testsuites.count], ["TESTCASES",@testcase_count]], height: "200px" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+        <span class="col s3 orange" >Total Testsuites: <%= @testsuites.count %></span>
+        <span class="col s3 grey">Total Testcases: <%= @testcase_count %></span>
+        <span class="col s2 green">Total Pass: <%= @reports.map(&:pass).sum %></span>
+        <span class="col s2 red">Total Fail: <%= @reports.map(&:fail).sum %></span>
+        <span class="col s2 yellow">Total Pending: <%= @reports.map(&:pending).sum %></span>
+      </div>
+    </div>
+</div>
+
+<table class="responsive-table sortable">
+  <thead>
+    <tr>
+      <th>Testsuite</th>
+      <th>Testcase Count</th>
+      <th>Time (Minutes)</th>
+      <th><%= sortable "pass" %></th>
+      <th><%= sortable "fail" %></th>
+      <th>Pending</th>
+      <th>Total</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @testsuites.each do |testsuite| %>
+        <tr>
+          <td><%=testsuite.title%> </td>
+          <td><%=testsuite.testcases.count%> </td>
+          <td>XXXX</td>
+          <td class="green"><%=@reports.where(testsuite_id: testsuite.id).sum(:pass)%></td>
+          <td class="red"><%=@reports.where(testsuite_id: testsuite.id).sum(:fail)%></td>
+          <td class="yellow"><%=@reports.where(testsuite_id: testsuite.id).sum(:pending)%></td>
+          <td><%=@reports.where(testsuite_id: testsuite.id).sum(:pass)+@reports.where(testsuite_id: testsuite.id).sum(:fail)+@reports.where(testsuite_id: testsuite.id).sum(:pending)%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

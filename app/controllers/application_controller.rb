@@ -8,7 +8,7 @@ def require_user
   end
 end
 
-helper_method :current_user, :logged_in?, :super_admin?
+helper_method :current_user, :logged_in?, :super_admin?, :sort_column, :sort_direction
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end

@@ -1,0 +1,28 @@
+<div class="row center-align add-user">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h5 class="header">Execution Report for Releases</h5>
+      <table class="responsive-table sortable">
+        <thead>
+          <tr>
+            <th>Release</th>
+            <th>Test Cycle</th>
+            <th>Project</th>
+            <th><%= sortable "pass" %></th>
+            <th><%= sortable "fail" %></th>
+            <th>Pending</th>
+            <th>Total</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @releases.each do |release| %>
+              <tr>
+                <td><%=release.title%> </td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
