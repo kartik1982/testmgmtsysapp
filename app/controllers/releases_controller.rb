@@ -3,6 +3,7 @@ class ReleasesController < ApplicationController
 
 def index
   @releases = Release.all
+  @releases = @releases.order("title DESC")
 end
 
 def create
@@ -52,6 +53,6 @@ def destroy
 end
 private
 def release_params
-  params.require(:release).permit(:title, :description, :active)
+  params.require(:release).permit(:title, :description, :active, :project_ids => [])
 end
 end

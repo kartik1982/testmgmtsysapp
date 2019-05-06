@@ -52,6 +52,6 @@ end
 
 private
 def project_params
-  params.require(:project).permit(:title, :description, :active)
+  params.require(:project).permit(:title, :description, :active, :testcycle_ids => [])
 end
 end

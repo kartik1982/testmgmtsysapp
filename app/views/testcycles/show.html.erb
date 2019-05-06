@@ -31,5 +31,31 @@
       <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testcycle_path(@testcycle), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
       <%= link_to '<i class="material-icons left">list</i> List Testcycles'.html_safe, testcycles_path, class: "btn waves-effect waves-light right" %>
     </div>
+    <table class="striped">
+      <thead>
+        <tr>
+            <th>Project</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Created By</th>
+            <th>Updated By</th>
+            <th>Created On</th>
+            <th>Updated On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @testcycle.projects.each do |project| %>
+            <tr>
+            <td><%= link_to project.title.gsub('_','.'), project_path(project) %></td>
+            <td><%= truncate(project.description, length:50) %></td>
+            <td><%= project.active? ? "Active" : "Disabled" %></td>
+            <td><%= project.user.first_name+" "+project.user.last_name if project.user %></td>
+            <td><%= project.updated_by%></td>
+            <td><%= project.created_at.to_date %></td>
+            <td><%= project.updated_at.to_date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

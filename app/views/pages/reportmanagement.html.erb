@@ -7,12 +7,11 @@
           <%= image_tag 'testreport.jpg' %>
         </div>
         <div class="card-content">
-          <span class="card-title">Report By Project</span>
+          <span class="card-title">Report By Testcases</span>
         </div>
       </div>
     </div>
     <% end %>
-
     <%= link_to testsuites_reports_path do %>
     <div class="col s3 offset-s1">
       <div class="card">
@@ -25,15 +24,14 @@
       </div>
     </div>
     <% end %>
-
-    <%= link_to reports_path do %>
+    <%= link_to releases_reports_path do %>
     <div class="col s3 offset-s1">
       <div class="card">
         <div class="card-image">
           <%= image_tag 'testreport.jpg' %>
         </div>
         <div class="card-content">
-          <span class="card-title">Report By Testcases</span>
+          <span class="card-title">Report By Release</span>
         </div>
       </div>
     </div>
@@ -52,14 +50,14 @@
       </div>
     </div>
     <% end %>
-    <%= link_to releases_reports_path do %>
+    <%= link_to reports_path do %>
     <div class="col s3 offset-s1">
       <div class="card">
         <div class="card-image">
           <%= image_tag 'testreport.jpg' %>
         </div>
         <div class="card-content">
-          <span class="card-title">Report By Release</span>
+          <span class="card-title">Report By Project</span>
         </div>
       </div>
     </div>

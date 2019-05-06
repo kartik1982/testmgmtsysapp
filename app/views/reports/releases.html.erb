@@ -2,14 +2,27 @@
   <div class="col s12 m12 l12">
     <div class="card-panel">
       <h5 class="header">Execution Report for Releases</h5>
+        <div class="row center">
+          <div class="col s12">
+            <%= form_tag(releases_reports_path, method: :get) do %>
+            <div class="input-field col s3">
+              <%= select_tag :release_id, options_from_collection_for_select(Release.all, :id, :title, params[:release_id]), {prompt: "ALL"} %>
+              <%= label_tag :release_id, "Release Version" %>
+            </div>
+            <div class="apply-button col s2">
+              <%= submit_tag ("Apply Filter")%>
+              <% end %>
+            </div>
+          </div>
+        </div>
       <table class="responsive-table sortable">
         <thead>
           <tr>
             <th>Release</th>
-            <th>Test Cycle</th>
             <th>Project</th>
-            <th><%= sortable "pass" %></th>
-            <th><%= sortable "fail" %></th>
+            <th>Test Cycle</th>
+            <th>Pass</th>
+            <th>Fail</th>
             <th>Pending</th>
             <th>Total</th>
             <th>Comments</th>
@@ -17,9 +30,22 @@
         </thead>
         <tbody>
           <% @releases.each do |release| %>
+            <% release.projects.each do |project| %>
+              <% project.testcycles.each do |testcycle| %>
               <tr>
                 <td><%=release.title%> </td>
+                <td><%=project.title%> </td>
+                <td><%=testcycle.title%> </td>
+                <% reports=@reports.where("release_id=?", release).where("project_id=?", project).where("testcycle_id=?", testcycle)%>
+                <% ids = reports.select("MAX(id) AS id").group(:testcase_id).collect(&:id)%>
+                <% reports=reports.order("created_at DESC").where(:id => ids)%>
+                <td class=green><%= reports.map(&:pass).sum%></td>
+                <td class=red><%= reports.map(&:fail).sum%></td>
+                <td class=yellow><%= reports.map(&:pending).sum%></td>
+                <td><%=reports.map(&:pass).sum+reports.map(&:fail).sum+reports.map(&:pending).sum%></td>
               </tr>
+              <%end%>
+            <%end%>
           <% end %>
         </tbody>
       </table>

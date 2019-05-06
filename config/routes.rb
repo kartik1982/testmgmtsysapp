@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     collection do
       get 'testsuites'
       get 'releases'
+      get 'filter'
     end
   end
   resources 'releases'

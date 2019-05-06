@@ -1,7 +1,7 @@
 class TestsuitesController < ApplicationController
 
   def index
-    @testsuites = Testsuite.paginate(page: params[:page], per_page: 10)
+    @testsuites = Testsuite.order("title ASC").paginate(page: params[:page], per_page: 25)
   end
 
   def create

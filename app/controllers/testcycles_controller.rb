@@ -51,6 +51,6 @@ end
 
 private
 def testcycle_params
-  params.require(:testcycle).permit(:title, :description, :active)
+  params.require(:testcycle).permit(:title, :description, :active, :project_ids => [])
 end
 end

@@ -44,6 +44,7 @@
           <tr>
               <th>Release</th>
               <th>Project</th>
+              <th>Test Cycle</th>
               <th>Build</th>
               <th>Testsuite</th>
               <th>Start Time</th>
@@ -61,6 +62,7 @@
           <% @reports.each do |report| %>
               <td><%= report.release.title %></td>
               <td><%= report.project.title %></td>
+              <td><%= report.testcycle.title %></td>
               <td><%= report.build %></td>
               <td><%= report.testsuite.title if report.testsuite %></td>
               <td><%= report.start_at.localtime.strftime("%D %T") if report.start_at %></td>

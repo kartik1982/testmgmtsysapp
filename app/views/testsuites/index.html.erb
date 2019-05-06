@@ -2,9 +2,16 @@
   <div class="col s12 m12 l12">
     <div class="card-panel">
       <h5 class="header"><b>TESTSUITES LIST</b></h5>
-      <div class="row left">
-        <div class="col s12">
+      <div class="row">
+        <%@testcase_count=0%>
+        <% @testsuites.each do |testsuite| %>
+        <% @testcase_count += testsuite.testcases.count%>
+        <%end%>
+        <div class="col s6">
             <b>Total Test Suites:</b> <%=@testsuites.count%>
+          </div>
+          <div class="col s6">
+              <b>Total Test Suites:</b> <%=@testcase_count%>
           </div>
         </div>
     </div>

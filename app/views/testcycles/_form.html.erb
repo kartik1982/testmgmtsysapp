@@ -19,6 +19,12 @@
                 <%= f.label :description %>
             </div>
           </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.collection_select :project_ids, ::Project.all, :id, :title, {prompt: true}, {multiple: true, size: 5} %>
+              <%= f.label :project_ids, "Projects" %>
+            </div>
+          </div>
           <label>
             <%= f.check_box :active, class: "filled-in", checked: "checked" %>
             <span>Testcycle Status</span>

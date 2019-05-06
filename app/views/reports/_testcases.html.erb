@@ -1,0 +1,46 @@
+<div class= "digg_pagination right">
+   <%= will_paginate %>
+</div>
+<div class="row">
+  <table class="responsive-table sortable">
+    <thead>
+      <tr>
+        <th>ReportID</th>
+        <th>Release</th>
+        <th>Project</th>
+        <th>Build</th>
+        <th>Testsuite</th>
+        <th>Testcase</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Time (Minutes)</th>
+        <th><%= sortable "pass" %></th>
+        <th><%= sortable "fail" %></th>
+        <th>Pending</th>
+        <th>Total</th>
+        <th>Comments</th>
+        <th>Logs</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reports.each do |report| %>
+          <tr>
+          <td><%= link_to report.id, edit_report_path(report) %></td>
+          <td><%= report.release.title %></td>
+          <td><%= report.project.title %></td>
+          <td><%= report.build %></td>
+          <td><%= link_to report.testsuite.title, testsuite_path(report.testsuite) if report.testsuite %></td>
+          <td><%= link_to report.testcase.title, testcase_path(report.testcase) if report.testcase %></td>
+          <td><%= report.start_at.localtime.strftime("%D %T") if report.start_at %></td>
+          <td><%= report.end_at.localtime.strftime("%D %T") if report.end_at %></td>
+          <td><%= ((report.end_at-report.start_at)/60).round(2) if report.start_at %></td>
+          <td class="green"><%= report.pass %></td>
+          <td class="red"><%= report.fail %></td>
+          <td class="yellow"><%= report.pending %></td>
+          <td><%= report.pass + report.fail + report.pending %></td>
+          <td><%= link_to report.comment, edit_report_path(report) %></td>
+          <td><%= link_to "Open", report.log_path, target: :_blank if report.log_path %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
