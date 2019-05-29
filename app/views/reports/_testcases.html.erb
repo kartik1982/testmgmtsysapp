@@ -29,7 +29,7 @@
           <td><%= report.release.title %></td>
           <td><%= report.project.title %></td>
           <td><%= report.build %></td>
-          <td><%= link_to report.testsuite.title, testsuite_path(report.testsuite) if report.testsuite %></td>
+          <td><%= link_to report.testsuite.title, testsuite_report_path(report.testsuite) if report.testsuite %></td>
           <td><%= link_to report.testcase.title, testcase_path(report.testcase) if report.testcase %></td>
           <td><%= report.start_at.localtime.strftime("%D %T") if report.start_at %></td>
           <td><%= report.end_at.localtime.strftime("%D %T") if report.end_at %></td>

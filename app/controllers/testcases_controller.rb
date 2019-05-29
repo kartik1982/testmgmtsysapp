@@ -44,6 +44,7 @@ def update
 end
 
 def destroy
+  @reports = Report.where("testcase_id=?", params[:id]).delete_all
   @testcase= Testcase.find(params[:id])
   if @testcase.destroy
     flash[:danger]="Testcase Deleted successfully"

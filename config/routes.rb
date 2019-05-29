@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'pages#home'
   get 'about', to: 'pages#about'
-  # get 'users/new', to: 'devise#new'
+  get 'testexecutionmanagement', to: 'pages#testexecutionmanagement'
   get 'testmanagement', to: 'pages#testmanagement'
   get 'testresources', to: 'pages#testresources'
   get 'reportmanagement', to: 'pages#reportmanagement'
@@ -20,6 +22,16 @@ Rails.application.routes.draw do
       get 'testsuites'
       get 'releases'
       get 'filter'
+    end
+    member do
+      get 'testsuite'
+    end
+  end
+  resources :testexecutions do
+    collection do
+      get :testcases
+      get :testsuites
+      post :trigger
     end
   end
   resources 'releases'

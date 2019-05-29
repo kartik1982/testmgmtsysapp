@@ -1,0 +1,100 @@
+<div class="row center-align">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h5 class="header"><b>TESTUITE REPORT</b></h5>
+        <div class="row">
+          <div class="col s4 m4">
+            <b>NAME:</b>&emsp;<%= @testsuite.title %>
+          </div>
+          <div class="col s4 m4">
+            <b>Total Number of Testcases:</b>&emsp;<%= @testsuite.testcases.count %>
+          </div>
+          <div class="col s4 m4">
+            <b>Total Pending Testcases:</b>&emsp;<%= @testsuite.testcases.count - @reports.count%>
+          </div>
+        </div>
+        <div class="row">
+          <%= form_tag testsuite_report_path, method: :get, id: "report_search" do %>
+            <%= hidden_field_tag :direction, params[:direction] %>
+            <%= hidden_field_tag :sort, params[:sort] %>
+            <div class="input-field col s4">
+              <%= select_tag :release_id, options_from_collection_for_select(Release.all, :id, :title, params[:release_id]), {prompt: "ALL"} %>
+              <%= label_tag :release_id, "Release Version" %>
+            </div>
+            <div class="input-field col s4">
+              <%= select_tag :testcycle_id, options_from_collection_for_select(Testcycle.all, :id, :title, params[:testcycle_id]), {prompt: "ALL"} %>
+              <%= label_tag :testcycle_id, "Test Cycle" %>
+            </div>
+            <div class="apply-button col s2">
+              <%= submit_tag ("Apply Filter")%>
+          </div>
+        <% end %>
+        </div>
+        <div class="row">
+          <div class="col s12 offset-s4">
+            <span class="col s2 green">Total Pass: <%= @reports.map(&:pass).sum %></span>
+            <span class="col s2 red">Total Fail: <%= @reports.map(&:fail).sum %></span>
+            <span class="col s2 yellow">Total Pending: <%= @reports.map(&:pending).sum %></span>
+            <span class="col s2 orange">Total: <%= @reports.map(&:pass).sum+@reports.map(&:fail).sum+@reports.map(&:pending).sum %></span>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Testcase Name</th>
+        <th>Time (Minutes)</th>
+        <th>Pass</th>
+        <th>Fail</th>
+        <th>Pending</th>
+        <th>Total</th>
+        <th>Comments</th>
+        <th>log</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @testsuite.testcases.each do |testcase| %>
+      <%report = @reports.find_by(testcase_id: testcase.id)%>
+      <tr>
+        <td><%=link_to testcase.title, testcase_path(testcase) if testcase%></td>
+        <td></td>
+        <td class="green"><%=report.pass if report%></td>
+        <td class="red"><%=report.fail if report%></td>
+        <td class="yellow"><%=report.pending if report%></td>
+        <td><%=report.pass+report.fail+report.pending if report%></td>
+        <td><%= link_to report.comment, edit_report_path(report) if report%></td>
+        <td><%= link_to "Open", report.log_path, target: :_blank if report %></td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+<!-- <table>
+  <thead>
+    <tr>
+      <th>Testcase Name</th>
+      <th>Time (Minutes)</th>
+      <th><%= sortable "pass" %></th>
+      <th><%= sortable "fail" %></th>
+      <th>Pending</th>
+      <th>Total</th>
+      <th>Comments</th>
+      <th>log</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reports.each do |report| %>
+    <tr>
+      <td><%=link_to report.testcase.title, testcase_path(report.testcase) if report.testcase%></td>
+      <td></td>
+      <td class="green"><%=report.pass%></td>
+      <td class="red"><%=report.fail%></td>
+      <td class="yellow"><%=report.pending%></td>
+      <td><%=report.pass+report.fail+report.pending%></td>
+      <td><%= link_to report.comment, edit_report_path(report) %></td>
+      <td><%= link_to "Open", report.log_path, target: :_blank if report.log_path %></td>
+    </tr>
+    <%end%>
+  </tbody>
+</table> -->

@@ -35,7 +35,18 @@ def testsuites
     @testcase_count += testsuite.testcases.count
   end
 end
-
+def testsuite
+  @testsuite= Testsuite.find(params[:id])
+  @reports = Report.where(testsuite_id: @testsuite.id)
+  if params[:release_id] !=""
+    @reports = @reports.where("release_id=?", params[:release_id])
+  end
+  if params[:testcycle_id] !=""
+    @reports = @reports.where("testcycle_id=?", params[:testcycle_id])
+  end
+  ids = @reports.select("MAX(id) AS id").group(:testcase_id).collect(&:id)
+  @reports=@reports.order("#{sort_column} #{sort_direction}").where(:id => ids)
+end
 def releases
   @releases = Release.all
   @releases = @releases.order("title DESC")

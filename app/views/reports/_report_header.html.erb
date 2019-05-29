@@ -41,9 +41,10 @@
           <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports_without_pagination.distinct.pluck(:testsuite_id).count %></b></span>
           <span class="col s1.5 grey">Total Testcases: <b><%=@testcase_count%></b></span>
           <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports_without_pagination.distinct.pluck(:testcase_id).count%></b></span>
-          <span class="col s2 green">Total Pass: <%= @reports_without_pagination.map(&:pass).sum %></span>
-          <span class="col s2 red">Total Fail: <%= @reports_without_pagination.map(&:fail).sum %></span>
-          <span class="col s2 yellow">Total Pending: <%= @reports_without_pagination.map(&:pending).sum %></span>
+          <span class="col s1.5 green">Total Pass: <%= @reports_without_pagination.map(&:pass).sum %></span>
+          <span class="col s1.5 red">Total Fail: <%= @reports_without_pagination.map(&:fail).sum %></span>
+          <span class="col s1.5 yellow">Total Pending: <%= @reports_without_pagination.map(&:pending).sum %></span>
+          <span class="col s1.5 orange">Total: <%= @reports_without_pagination.map(&:pass).sum + @reports_without_pagination.map(&:fail).sum+ @reports_without_pagination.map(&:pending).sum %></span>
         </div>
       </div>
     </div>

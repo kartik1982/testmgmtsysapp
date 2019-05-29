@@ -41,9 +41,10 @@
             <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports.distinct.pluck(:testsuite_id).count %></b></span>
             <span class="col s1.5 grey">Total Testcases: <b><%=@testcase_count%></b></span>
             <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports.distinct.pluck(:testcase_id).count%></b></span>
-            <span class="col s2 green">Total Pass: <%= @reports.map(&:pass).sum %></span>
-            <span class="col s2 red">Total Fail: <%= @reports.map(&:fail).sum %></span>
-            <span class="col s2 yellow">Total Pending: <%= @reports.map(&:pending).sum %></span>
+            <span class="col s1.5 green">Total Pass: <%= @reports.map(&:pass).sum %></span>
+            <span class="col s1.5 red">Total Fail: <%= @reports.map(&:fail).sum %></span>
+            <span class="col s1.5 yellow">Total Pending: <%= @reports.map(&:pending).sum %></span>
+            <span class="col s1.5 orange">Total: <%= @reports.map(&:pass).sum + @reports.map(&:fail).sum+ @reports.map(&:pending).sum %></span>
         </div>
       </div>
     </div>
@@ -55,6 +56,7 @@
     <tr>
       <th>Testsuite</th>
       <th>Testcase Count</th>
+      <th>Testcase Pending</th>
       <th>Time (Minutes)</th>
       <th>Pass</th>
       <th>Fail</th>
@@ -66,8 +68,9 @@
   <tbody>
     <% @testsuites.each do |testsuite| %>
         <tr>
-          <td><%=testsuite.title%> </td>
+          <td><%=link_to testsuite.title, testsuite_report_path(testsuite) %> </td>
           <td><%=testsuite.testcases.count%> </td>
+          <td><%= testsuite.testcases.count - @reports.where(testsuite_id: testsuite.id).count%>
           <td>XXXX</td>
           <td class="green"><%=@reports.where(testsuite_id: testsuite.id).sum(:pass)%></td>
           <td class="red"><%=@reports.where(testsuite_id: testsuite.id).sum(:fail)%></td>

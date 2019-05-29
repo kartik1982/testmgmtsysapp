@@ -1,0 +1,30 @@
+<%= form_tag '#', method: :post, id: "submit_testcases" do %>
+<div class="row center-align">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h5 class="header"><b>TESTCASE EXECUTION</b></h5>
+        <div class="row">
+          <%= submit_tag ("Execute All Selected")%>
+        </div>
+      </div>
+    </div>
+  </div>
+<table>
+  <thead>
+    <tr>
+      <th>Select All</th>
+      <th>Action</th>
+      <th>Testcase Name</th>
+    </tr>
+  </thead>
+  <tboady>
+    <% @testcases.each do |testcase| %>
+    <tr>
+      <td><label><%= check_box_tag "testcases[]", id: testcase.id,  class: "filled-in", checked: "checked" %><span></span></label></td>
+      <td><%= link_to 'Execute', '#'%></td>
+      <td><%= testcase.title%></td>
+    </tr>
+    <% end %>
+  </tboady>
+</table>
+<%end%>
