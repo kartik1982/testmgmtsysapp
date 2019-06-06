@@ -44,6 +44,7 @@
   <table>
     <thead>
       <tr>
+        <th>ReportID</th>
         <th>Testcase Name</th>
         <th>Time (Minutes)</th>
         <th>Pass</th>
@@ -58,6 +59,7 @@
       <% @testsuite.testcases.each do |testcase| %>
       <%report = @reports.find_by(testcase_id: testcase.id)%>
       <tr>
+        <td><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: testcase.id} %></td>
         <td><%=link_to testcase.title, testcase_path(testcase) if testcase%></td>
         <td></td>
         <td class="green"><%=report.pass if report%></td>

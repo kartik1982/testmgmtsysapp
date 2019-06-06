@@ -1,2 +1,70 @@
-<h1>INDEX PAGE</h1>
-<%= button_to "Test", trigger_testexecutions_path %>
+<div class="row">
+  <div class="col s12 m12">
+    <div class="card-panel">
+      <div class="row header center">
+      <h6><b>TESTCASE EXECUTION STATUS</b></h6>
+    </div>
+    <div class="row">
+      <div class="col s2 m2">
+        <b>Completed:</b>&emsp;<%= @completed %>
+      </div>
+      <div class="col s2 m2">
+        <b>Pending:</b>&emsp;<%= @pending %>
+      </div>
+      <div class="col s2 m2">
+        <b>Running:</b>&emsp;<%= @running %>
+      </div>
+      <div class="col s2 m2">
+        <b>Error:</b>&emsp;<%= @error %>
+      </div>
+      <div class="col s2 m2">
+        <b>Cancelled:</b>&emsp;<%= @cancelled %>
+      </div
+    </div>
+  </div>
+</div>
+</div>
+<div class= "digg_pagination right">
+   <%= will_paginate %>
+</div>
+<table class="striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Release</th>
+      <th>Testcycle</th>
+      <th>Testsuite</th>
+      <th>Testcase</th>
+      <th>Status</th>
+      <th>User</th>
+      <th>Password</th>
+      <th>Browser</th>
+      <th>OS</th>
+      <th>Testcase Path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @testexecutions.each do |testexecution| %>
+    <tr>
+      <%case testexecution.runstatus
+        when 1; status= "Pending"
+        when 2; status= "Running"
+        when 3; status= "Completed"
+        when 4; status= "Error"
+        else status="Unknown"
+      end %>
+      <td><%= link_to testexecution.id, testexecution_path(testexecution)%> <br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: Testcase.find_by(title: testexecution.testcase_name)} %></td>
+      <td><%= testexecution.release_name%> </td>
+      <td><%= testexecution.testcycle_name%> </td>
+      <td><%= testexecution.testsuite_name %></td>
+      <td><%= truncate(testexecution.testcase_name, length:50) %></td>
+      <td><%= status %></td>
+      <td><%= truncate(testexecution.testuser, length:30) %></td>
+      <td><%= testexecution.testpassword %></td>
+      <td><%= testexecution.browser %></td>
+      <td><%= testexecution.os %></td>
+      <td><%= truncate(testexecution.testpath, length:30)%></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

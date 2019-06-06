@@ -28,6 +28,19 @@
         <b>ASSIGNED TO:</b>&emsp;<%= @testcase.user.email if @testcase.user %>
       </div>
     </div>
+    <div class="row">
+      <div class="col s7 m7">
+        <b>Test User:</b>&emsp;<%= @testcase.testuser %>
+      </div>
+      <div class="col s3 m3">
+        <b>Test Password:</b>&emsp;<%= @testcase.testpassword %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12">
+        <b>Testcase Path:</b>&emsp;<%= @testcase.testpath %>
+      </div>
+    </div>
     <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testcase_path(@testcase), class: "btn waves-effect waves-light" %>
     <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testcase_path(@testcase), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
     <%= link_to '<i class="material-icons left">list</i> List Testcases'.html_safe, testcases_path, class: "btn waves-effect waves-light right" %>
@@ -42,6 +55,7 @@
       <table class="striped">
         <thead>
           <tr>
+            <th>ReportID</th>
               <th>Release</th>
               <th>Project</th>
               <th>Test Cycle</th>
@@ -60,6 +74,7 @@
         </thead>
         <tbody>
           <% @reports.each do |report| %>
+              <td><%= link_to report.id, edit_report_path %><br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: report.testcase.id} %></td>
               <td><%= report.release.title %></td>
               <td><%= report.project.title %></td>
               <td><%= report.testcycle.title %></td>

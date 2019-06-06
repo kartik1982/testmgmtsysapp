@@ -1,0 +1,3 @@
+class Testexecution < ApplicationRecord
+
+end

@@ -20,6 +20,22 @@
             </div>
           </div>
           <div class="row">
+            <div class="input-field col s8">
+              <%= f.text_field :testuser, class: "form-control", placeholder: "Test User Name" %>
+              <%= f.label :testuser, "Test User Name" %>
+            </div>
+            <div class="input-field col s4">
+              <%= f.text_field :testpassword, class: "form-control", placeholder: "Test User Password" %>
+              <%= f.label :testpassword, "Test User Password" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.text_field :testpath, class: "form-control", placeholder: "testsuite_name/testcase_name.rb" %>
+              <%= f.label :testuser, "Testcase Path" %>
+            </div>
+          </div>
+          <div class="row">
             <div class="input-field col s6">
               <%= f.collection_select :testsuite_id, ::Testsuite.all, :id, :title, {prompt: "Choose TestSuite name"} %>
               <%= f.label :testsuite_id, "Testsuite Name" %>

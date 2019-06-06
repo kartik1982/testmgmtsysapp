@@ -25,4 +25,5 @@ $(document).on('turbolinks:load', function() {
   $('select').formSelect();
   $('#fade-out-target').fadeOut(4000);
   M.updateTextFields();
+  M.textareaAutoResize($('#logtextarea'))
 })

@@ -1,11 +1,13 @@
-<%= form_tag '#', method: :post, id: "submit_testcases" do %>
+<%= form_tag submission_testexecutions_path, method: :post, id: "submit_testcases" do %>
 <div class="row center-align">
   <div class="col s12 m12 l12">
     <div class="card-panel">
       <h5 class="header"><b>TESTCASE EXECUTION</b></h5>
-        <div class="row">
-          <%= submit_tag ("Execute All Selected")%>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= submit_tag ("Submit All Selected"), class: "btn orange waves-effect waves-light right"%>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -21,7 +23,8 @@
     <% @testcases.each do |testcase| %>
     <tr>
       <td><label><%= check_box_tag "testcases[]", id: testcase.id,  class: "filled-in", checked: "checked" %><span></span></label></td>
-      <td><%= link_to 'Execute', '#'%></td>
+      <td><%= link_to 'Execute', {controller: 'testexecutions', action: 'submission', testcase: testcase} %></td>
+      <!-- <td><%= button_to "Test", submission_testexecutions_path %></td> -->
       <td><%= testcase.title%></td>
     </tr>
     <% end %>

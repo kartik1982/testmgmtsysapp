@@ -1,0 +1,61 @@
+<%= form_tag trigger_testexecutions_path, method: :post, id: "submit_testcase" do %>
+<div class="row center-align">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h5 class="header"><b>TESTCASE EXECUTION</b></h5>
+      <div class="row">
+        <div class="input-field col s4">
+          <%= select_tag :release_name, options_from_collection_for_select(Release.all, :title, :title, params[:release_id]) %>
+          <%= label_tag :release_name, "Release Version" %>
+        </div>
+        <div class="input-field col s4 offset-s3">
+          <%= select_tag :testcycle_name, options_from_collection_for_select(Testcycle.all, :title, :title, params[:testcycle_id]) %>
+          <%= label_tag :testcycle_name, "Test Cycle" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s4">
+          <%= select_tag :browser, options_for_select(["chrome", "firefox", "safari"], "chrome") %>
+          <%= label_tag :browser, "Browser" %>
+        </div>
+        <div class="input-field col s4 offset-s3">
+          <%= select_tag :os, options_for_select(["any", "windows", "linux"], "any") %>
+          <%= label_tag :os, "Operating System" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <%= text_field_tag :testcase_name, @testcase.title, readonly: true%>
+          <%= label_tag :testcase_name, "Testcase Name" %>
+        </div>
+        <div class="input-field col s6">
+          <%= text_field_tag :testsuite_name, @testcase.testsuite.title, readonly: true %>
+          <%= label_tag :testsuite_name, "Testsuite Name" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <%= text_field_tag :testuser, @testcase.testuser, readonly: true%>
+          <%= label_tag :testuser, "Test User" %>
+        </div>
+        <div class="input-field col s6">
+          <%= text_field_tag :testpassword, @testcase.testpassword, readonly: true %>
+          <%= label_tag :testpassword, "Test Password" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= text_field_tag :testpath, @testcase.testpath, readonly: true%>
+          <%= label_tag :testpath, "Testcase Path" %>
+        </div>
+      </div>
+      <%= hidden_field_tag :runstatus, 1 %>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= submit_tag ("Execute"), class: "btn orange waves-effect waves-light right"%>
+          </div>
+        </div>
+       </div>
+    </div>
+  </div>
+<%end%>

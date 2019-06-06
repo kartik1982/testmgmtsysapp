@@ -30,8 +30,12 @@ require 'sidekiq/web'
   resources :testexecutions do
     collection do
       get :testcases
+      post :testcases
       get :testsuites
+      post :testsuites
       post :trigger
+      get :submission
+      post :submission
     end
   end
   resources 'releases'
