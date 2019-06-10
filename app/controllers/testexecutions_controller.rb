@@ -24,6 +24,7 @@ def show
     when 2; @status= "Running"
     when 3; @status= "Completed"
     when 4; @status= "Error"
+    when 5; @status= "Cancelled"
   else @status="Unknown"
   end
 end
@@ -37,29 +38,42 @@ end
 def testsuites
   @testsuites = Testsuite.all
 end
+def submittestsuite
+    @testsuite = Testsuite.find(params[:testsuite])
+end
 def submission
   @testcase = Testcase.find(params[:testcase])
 end
+def triggertestsuite
+  @testsuite = Testsuite.find_by(title: params[:testsuite_name])
+  @testexecution_ids=[]
+  @testsuite.testcases.each do |testcase|
+    @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: params[:testsuite_name], testcase_name: testcase.title, browser: params[:browser], os: params[:os], testuser: testcase.testuser, testpassword: testcase.testpassword, testpath: testcase.testpath, runstatus: 1)
+    if @testexecution.save
+      @testexecution_ids << @testexecution.id
+    else
+      flash[:danger]="somthing went wronmg with" +testcase.title
+    end
+  end
+  JenkinsTestsuiteTaskWorker.perform_async(@testexecution_ids)
+  redirect_to testexecutions_path
+end
+
 def trigger
   # render json: params
     @testexecution = Testexecution.new(testexecution_params)
     if @testexecution.save
      flash[:success]="Testcase Submitted successfully"
-     redirect_to testexecutions_path
     else
      render 'submission'
     end
-  args={
-    release: params[:release_name],
-    environment: params[:testcycle_name],
-    browser: params[:browser],
-    testcase: params[:testpath],
-    testuser: params[:testuser],
-    testpassword: params[:testpassword]
-  }
-  JenkinsTaskWorker.perform_async(@testexecution.id, args)
+  JenkinsTaskWorker.perform_async(@testexecution.id)
+  redirect_to testexecutions_path
 end
-
+def canceltask
+  JenkinsCancelTaskWorker.perform_async(params[:format])
+  redirect_to testexecutions_path
+end
 private
 def testexecution_params
   params.permit(:release_name, :testcycle_name, :testsuite_name, :testcase_name, :browser, :os, :testuser, :testpassword, :testpath, :runstatus)

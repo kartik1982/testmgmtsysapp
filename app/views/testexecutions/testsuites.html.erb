@@ -1,4 +1,4 @@
-<%= form_tag submission_testexecutions_path, method: :post, id: "submit_testcases" do %>
+<%= form_tag submittestsuite_testexecutions_path, method: :post, id: "submit_testsuite" do %>
 <div class="row center-align">
   <div class="col s12 m12 l12">
     <div class="card-panel">
@@ -23,7 +23,7 @@
     <% @testsuites.each do |testsuite| %>
     <tr>
       <td><label><%= check_box_tag "testsuites[]", id: testsuite.id,  class: "filled-in", checked: "checked" %><span></span></label></td>
-      <td><%= link_to 'Execute', submission_testexecutions_path%></td>
+      <td><%= link_to 'Execute', {controller: 'testexecutions', action: 'submittestsuite', testsuite: testsuite} %></td>
       <!-- <td><%= button_to "Test", trigger_testexecutions_path, method: :post %></td> -->
       <td><%= testsuite.title%></td>
     </tr>

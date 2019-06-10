@@ -38,6 +38,7 @@ gem 'jenkins_api_client'
 gem 'resque'
 gem 'redis-rails'
 gem 'sidekiq'
+gem 'sidekiq-status'
 gem 'sinatra', github: 'sinatra/sinatra'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
