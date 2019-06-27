@@ -24,7 +24,9 @@ class JenkinsTaskWorker
         while @client.job.get_build_details(job_name, build_num).to_s.include?("building\"=>true") do
           sleep 10
           json = @client.job.get_console_output(job_name, build_num = build_num, start = 0, mode = 'text').to_json
-          execution.runlog = json #eval(json)
+          puts "***********************"
+          parsed= JSON.parse(json)
+          execution.runlog = parsed["output"] #eval(json)
           execution.save
         end
         if (@client.job.get_build_details(job_name, build_num).to_s.include?("result\"=>\"ABORTED"))
