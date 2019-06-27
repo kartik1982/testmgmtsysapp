@@ -23,7 +23,21 @@ $(document).on('turbolinks:load', function() {
   $(".dropdown-trigger").dropdown();
   $('.sidenav').sidenav();
   $('select').formSelect();
+  $('.modal').modal();
   $('#fade-out-target').fadeOut(4000);
   M.updateTextFields();
-  M.textareaAutoResize($('#logtextarea'))
+  M.textareaAutoResize($('#logtextarea'));
+  //Moves selected item(s) up or down in a list
+  $.fn.moveUpDown = function(list, btnUp, btnDown) {
+    var opts = $(list + ' option:selected');
+    if (opts.length == 0) {
+      alert("Nothing to move");
+    }
+
+    if (btnUp) {
+      opts.first().prev().before(opts);
+    } else if (btnDown) {
+      opts.last().next().after(opts);
+    }
+  };
 })

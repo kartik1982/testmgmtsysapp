@@ -61,7 +61,7 @@
       <tr>
         <td><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: testcase.id} %></td>
         <td><%=link_to testcase.title, testcase_path(testcase) if testcase%></td>
-        <td></td>
+        <td><%= ((report.end_at-report.start_at)/60).round(2) if report %></td>
         <td class="green"><%=report.pass if report%></td>
         <td class="red"><%=report.fail if report%></td>
         <td class="yellow"><%=report.pending if report%></td>

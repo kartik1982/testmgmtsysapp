@@ -41,6 +41,41 @@ end
 def submittestsuite
     @testsuite = Testsuite.find(params[:testsuite])
 end
+def triggertestsuites
+  testsuites = params[:testsuites]
+  testsuites.each do |testsuite|
+    @testexecution_ids=[]
+    testsuite_json= eval(testsuite)
+    @testsuite= Testsuite.find(testsuite_json[:id])
+    @testsuite.testcases.each do |testcase|
+      @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: @testsuite.title, testcase_name: testcase.title, browser: params[:browser], os: params[:os], testuser: testcase.testuser, testpassword: testcase.testpassword, testpath: testcase.testpath, runstatus: 1)
+      if @testexecution.save
+        @testexecution_ids << @testexecution.id
+      else
+        flash[:danger]="somthing went wronmg with" +testcase.title
+      end
+    end
+  JenkinsTestsuiteTaskWorker.perform_async(@testexecution_ids)
+  end
+  redirect_to testexecutions_path
+end
+def triggertestcases
+  @testexecution_ids=[]
+  testcases = params[:testcases]
+  testcases.each do |testcase|
+    testcase_json = eval(testcase)
+    @testcase = Testcase.find(testcase_json[:id])
+    @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: @testcase.testsuite.title, testcase_name: @testcase.title, browser: params[:browser], os: params[:os], testuser: @testcase.testuser, testpassword: @testcase.testpassword, testpath: @testcase.testpath, runstatus: 1)
+    if @testexecution.save
+      @testexecution_ids << @testexecution.id
+    else
+      flash[:danger]="somthing went wronmg with" + @testcase.title
+    end
+    JenkinsTaskWorker.perform_async(@testexecution.id)
+    sleep 1.5
+  end
+    redirect_to testexecutions_path
+end
 def submission
   @testcase = Testcase.find(params[:testcase])
 end

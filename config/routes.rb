@@ -38,6 +38,8 @@ require 'sidekiq/web'
       post :canceltask
       get :submission
       get :submittestsuite
+      post :triggertestsuites
+      post :triggertestcases
     end
   end
   resources 'releases'
