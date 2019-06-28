@@ -12,6 +12,8 @@
 //
 //= require rails-ujs
 //=require jquery
+//=require rails_sortable
+//=require jquery-ui/widgets/sortable
 //= require materialize
 //= require activestorage
 //= require turbolinks
@@ -25,6 +27,7 @@ $(document).on('turbolinks:load', function() {
   $('select').formSelect();
   $('.modal').modal();
   $('#fade-out-target').fadeOut(4000);
+  $('.sortable').railsSortable();
   M.updateTextFields();
   M.textareaAutoResize($('#logtextarea'));
   //Moves selected item(s) up or down in a list

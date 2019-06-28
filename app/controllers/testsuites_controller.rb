@@ -28,6 +28,18 @@ class TestsuitesController < ApplicationController
     @testsuite= Testsuite.find(params[:id])
   end
 
+  def order
+    @testsuite= Testsuite.find(params[:id])
+    @testsuite.sequence= params[:testcase_ids]
+    if @testsuite.save
+      flash[:notice]= "Testcase Order Saved!!!"
+      redirect_to testsuite_path
+    else
+    flash[:danger]= "Something wrong"
+  end
+    # render json: params[:testcase_ids]
+  end
+
   def update
     @testsuite = Testsuite.find(params[:id])
     @testsuite.updated_by = current_user.email

@@ -82,7 +82,8 @@ end
 def triggertestsuite
   @testsuite = Testsuite.find_by(title: params[:testsuite_name])
   @testexecution_ids=[]
-  @testsuite.testcases.each do |testcase|
+  @testsuite.sequence.each do |id|
+    testcase= Testcase.find(id)
     @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: params[:testsuite_name], testcase_name: testcase.title, browser: params[:browser], os: params[:os], testuser: testcase.testuser, testpassword: testcase.testpassword, testpath: testcase.testpath, runstatus: 1)
     if @testexecution.save
       @testexecution_ids << @testexecution.id

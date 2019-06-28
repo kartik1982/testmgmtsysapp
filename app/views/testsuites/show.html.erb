@@ -66,68 +66,42 @@
 <!-- Modal Trigger -->
 <%= link_to 'Order Testcases', "#modal1", class: "btn modal-trigger" %>
 <!-- Modal Structure -->
+<%testcase_ids=@testsuite.sequence %>
 <div id="modal1" class="modal">
   <div class="modal-content">
-    <form action="#">
-      <div class="col-md-9 col-sm-9 col-xs-9">
-        <label class="control-label">Testcase List to Order</label>
-        <div class="selected-left">
-          <%@testsuite.testcases.each do |testcase|%>
-            <p>
-            <label>
-              <input type="checkbox" class="filled-in" checked="checked" />
-              <span><%=testcase.title%></span>
-            </label>
-          </p>
-          <%end%>
-        </div>
-        <div class="selected-right">
-          <button type="button" class="btn btn-default btn-sm" id="btnUp">
-            <span class="glyphicon glyphicon-chevron-up"></span>
-          </button>
-          <button type="button" class="btn btn-default btn-sm" id="btnDown">
-            <span class="glyphicon glyphicon-chevron-down"></span>
-          </button>
-        </div>
-  </form>
+    <label>Available testcases to order</label>
+    <%= form_tag order_testsuite_path, method: :post, id: "order_testcase" do %>
+    <%if testcase_ids.size > 0%>
+    <label>Update testcases order</label>
+    <table>
+      <tbody class ="sortable">
+        <% testcase_ids.each do |id| %>
+        <% testcase = Testcase.find(id) %>
+          <tr>
+            <td><%= testcase.id %></td>
+            <td><%= testcase.title%></td>
+            <%= hidden_field_tag 'testcase_ids[]', testcase.id %>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+    <%else%>
+      <label>First Time Testcases to order</label>
+    <table>
+      <tbody class ="sortable">
+        <% @testsuite.testcases.each do |testcase| %>
+          <tr>
+            <td><%= testcase.id %></td>
+            <td><%= testcase.title%></td>
+            <%= hidden_field_tag 'testcase_ids[]', testcase.id %>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+    <%end%>
+      <div class="apply-button col s2">
+        <%= submit_tag ("Save Testcase Order")%>
+      </idv>
+      <% end %>
   </div>
 </div>
-</div>
-<script>
-
-  $('#btnUp').click(function(e) {
-    $('select').moveUpDown('#PresenterList', true, false);
-    e.preventDefault();
-  });
-
-  $('#btnDown').click(function(e) {
-    $('select').moveUpDown('#PresenterList', false, true);
-    e.preventDefault();
-  });
-</script>
-<!-- <div class="row style-select">
-  <div class="col-md-12">
-    <div class="subject-info-box-1">
-      <label>Available Superheroes</label>
-      <%= select_tag(:id, options_for_select([["uassigned", "0"]]+ ::Testsuite.last.testcases), multiple:true) %>
-    </div>
-
-    <div class="subject-info-arrows text-center">
-      <br />
-      <input type='button' id='btnRight' value='>' class="btn btn-default" />
-      <br />
-      <input type='button' id='btnLeft' value='<' class="btn btn-default" />
-    </div>
-
-    <div class="subject-info-box-2">
-      <label>Superheroes You Have Selected</label>
-      <select multiple class="form-control" id="lstBox2">
-        <option value="765">Nick Fury</option>
-        <option value="698">The Hulk</option>
-        <option value="856">Iron Man</option>
-      </select>
-    </div>
-
-    <div class="clearfix"></div>
-  </div>
-</div> -->

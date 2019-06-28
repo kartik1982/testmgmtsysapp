@@ -25,7 +25,8 @@ class JenkinsTaskWorker
           sleep 10
           json = @client.job.get_console_output(job_name, build_num = build_num, start = 0, mode = 'text').to_json
           puts "***********************"
-          parsed= JSON.parse(json)
+          parsed= JSON.parse(json.encode('UTF-8', invalid: :replace, undef: :replace))
+          # puts parsed["output"]
           execution.runlog = parsed["output"] #eval(json)
           execution.save
         end

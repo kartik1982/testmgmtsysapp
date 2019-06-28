@@ -13,7 +13,11 @@ require 'sidekiq/web'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
   resources 'testcases'
-  resources 'testsuites'
+  resources 'testsuites' do
+    member do
+      post 'order'
+    end
+  end
   resources 'groups'
   resources 'devices'
   resources 'users'

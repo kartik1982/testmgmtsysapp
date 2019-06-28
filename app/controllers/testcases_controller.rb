@@ -12,7 +12,8 @@ def create
  if @testcase.save
   flash[:success]="Testcase Added successfully"
   redirect_to testcase_path(@testcase)
-
+    @testcase.testsuite.sequence.push(@testcase.id.to_s)
+    @testcase.testsuite.save
  else
   render 'new'
  end
@@ -46,6 +47,8 @@ end
 def destroy
   @reports = Report.where("testcase_id=?", params[:id]).delete_all
   @testcase= Testcase.find(params[:id])
+  @testcase.testsuite.sequence.delete(@testcase.id.to_s)
+  @testcase.testsuite.save
   if @testcase.destroy
     flash[:danger]="Testcase Deleted successfully"
     redirect_to testcases_path
