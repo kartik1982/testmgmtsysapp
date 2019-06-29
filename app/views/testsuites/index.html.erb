@@ -25,6 +25,7 @@
         <tr>
             <th>Testsuite Name</th>
             <th>Description</th>
+            <th>Sequence?</th>
             <th>Testcases</th>
             <th>Created by</th>
             <th>Assigned To</th>
@@ -37,6 +38,7 @@
             <tr>
             <td><%= link_to testsuite.title, testsuite_path(testsuite) %> </td>
             <td><%= truncate(testsuite.description, length:50) %></td>
+            <td><%= testsuite.sequence? ? "Set" : "Not Set" %></td>
             <td><%=testsuite.testcases.count if testsuite.testcases %></td>
             <td><%= testsuite.created_by%></td>
             <td><%= testsuite.user.first_name+" "+testsuite.user.last_name if testsuite.user%></td>

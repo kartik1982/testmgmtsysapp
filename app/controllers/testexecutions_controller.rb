@@ -42,6 +42,7 @@ def submittestsuite
     @testsuite = Testsuite.find(params[:testsuite])
 end
 def triggertestsuites
+  # render json: params
   testsuites = params[:testsuites]
   testsuites.each do |testsuite|
     @testexecution_ids=[]
