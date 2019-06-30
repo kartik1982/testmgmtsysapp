@@ -14,8 +14,8 @@
         <th>Start Time</th>
         <th>End Time</th>
         <th>Time (Minutes)</th>
-        <th><%= sortable "pass" %></th>
-        <th><%= sortable "fail" %></th>
+        <th>Pass</th>
+        <th>Fail</th>
         <th>Pending</th>
         <th>Total</th>
         <th>Comments</th>
@@ -25,15 +25,15 @@
     <tbody>
       <% @reports.each do |report| %>
           <tr>
-          <td><%= link_to report.id, edit_report_path(report) %><br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: report.testcase.id} %></td>
-          <td><%= report.release.title %></td>
-          <td><%= report.project.title %></td>
+          <td><%= link_to report.id, edit_report_path(report) %><br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: report.testcase_name} %></td>
+          <td><%= report.release_name %></td>
+          <td><%= report.project_name %></td>
           <td><%= report.build %></td>
-          <td><%= link_to report.testsuite.title, testsuite_report_path(report.testsuite) if report.testsuite %></td>
-          <td><%= link_to report.testcase.title, testcase_path(report.testcase) if report.testcase %></td>
+          <td><%= link_to report.testsuite_name, testsuite_report_path(report.testsuite_name) if report.testsuite_name %></td>
+          <td><%= link_to report.testcase_name, testcase_path(Testcase.find_by(title: report.testcase_name)) %></td>
           <td><%= report.start_at.localtime.strftime("%D %T") if report.start_at %></td>
           <td><%= report.end_at.localtime.strftime("%D %T") if report.end_at %></td>
-          <td><%= ((report.end_at-report.start_at)/60).round(2) if report.start_at %></td>
+          <td><%= (report.duration/60).round(2) %></td>
           <td class="green"><%= report.pass %></td>
           <td class="red"><%= report.fail %></td>
           <td class="yellow"><%= report.pending %></td>

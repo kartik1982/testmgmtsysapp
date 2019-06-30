@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_28_184344) do
+ActiveRecord::Schema.define(version: 2019_06_30_000513) do
 
   create_table "devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -74,12 +74,19 @@ ActiveRecord::Schema.define(version: 2019_06_28_184344) do
     t.string "log_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "testsuite_id"
-    t.integer "testcase_id"
-    t.integer "release_id"
-    t.integer "project_id"
+    t.string "testsuite_name"
+    t.string "testcase_name"
+    t.string "release_name"
+    t.string "project_name"
     t.string "build"
-    t.integer "testcycle_id"
+    t.string "testcycle_name"
+    t.string "testuser"
+    t.string "testpassword"
+    t.string "testpath"
+    t.string "os"
+    t.string "browser"
+    t.string "array_serial", default: "none"
+    t.float "duration"
   end
 
   create_table "testcases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

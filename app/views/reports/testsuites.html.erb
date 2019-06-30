@@ -8,16 +8,16 @@
             <%= hidden_field_tag :direction, params[:direction] %>
             <%= hidden_field_tag :sort, params[:sort] %>
             <div class="input-field col s3">
-              <%= select_tag :release_id, options_from_collection_for_select(Release.all, :id, :title, params[:release_id]), {prompt: "ALL"} %>
-              <%= label_tag :release_id, "Release Version" %>
+              <%= select_tag :release_name, options_from_collection_for_select(Release.all, :title, :title, params[:release_name]), {prompt: "ALL"} %>
+              <%= label_tag :release_name, "Release Version" %>
             </div>
             <div class="input-field col s3">
-              <%= select_tag :testcycle_id, options_from_collection_for_select(Testcycle.all, :id, :title, params[:testcycle_id]), {prompt: "ALL"} %>
-              <%= label_tag :testcycle_id, "Test Cycle" %>
+              <%= select_tag :testcycle_name, options_from_collection_for_select(Testcycle.all, :title, :title, params[:testcycle_name]), {prompt: "ALL"} %>
+              <%= label_tag :testcycle_name, "Test Cycle" %>
             </div>
             <div class="input-field col s4">
-              <%= select_tag :project_id, options_from_collection_for_select(Project.all, :id, :title, params[:project_id]), {prompt: "ALL"} %>
-              <%= label_tag :project_id, "Project Name" %>
+              <%= select_tag :project_name, options_from_collection_for_select(Project.all, :title, :title, params[:project_name]), {prompt: "ALL"} %>
+              <%= label_tag :project_name, "Project Name" %>
             </div>
             <div class="apply-button col s2">
               <%= submit_tag ("Apply Filter")%>
@@ -38,9 +38,9 @@
         <div class="row">
           <div class="col s12">
             <span class="col s1.5 orange" >Total Testsuites: <b><%=@testsuites.count%></b></span>
-            <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports.distinct.pluck(:testsuite_id).count %></b></span>
+            <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports.distinct.pluck(:testsuite_name).count %></b></span>
             <span class="col s1.5 grey">Total Testcases: <b><%=@testcase_count%></b></span>
-            <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports.distinct.pluck(:testcase_id).count%></b></span>
+            <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports.distinct.pluck(:testcase_name).count%></b></span>
             <span class="col s1.5 green">Total Pass: <%= @reports.map(&:pass).sum %></span>
             <span class="col s1.5 red">Total Fail: <%= @reports.map(&:fail).sum %></span>
             <span class="col s1.5 yellow">Total Pending: <%= @reports.map(&:pending).sum %></span>
@@ -70,12 +70,12 @@
         <tr>
           <td><%=link_to testsuite.title, testsuite_report_path(testsuite) %> </td>
           <td><%=testsuite.testcases.count%> </td>
-          <td><%= testsuite.testcases.count - @reports.where(testsuite_id: testsuite.id).count%>
-          <td>XXXX</td>
-          <td class="green"><%=@reports.where(testsuite_id: testsuite.id).sum(:pass)%></td>
-          <td class="red"><%=@reports.where(testsuite_id: testsuite.id).sum(:fail)%></td>
-          <td class="yellow"><%=@reports.where(testsuite_id: testsuite.id).sum(:pending)%></td>
-          <td><%=@reports.where(testsuite_id: testsuite.id).sum(:pass)+@reports.where(testsuite_id: testsuite.id).sum(:fail)+@reports.where(testsuite_id: testsuite.id).sum(:pending)%></td>
+          <td><%= testsuite.testcases.count - @reports.where(testsuite_name: testsuite.title).count%>
+          <td><%= (@reports.where(testsuite_name: testsuite.title).sum(&:duration)/60).round(2) %></td>
+          <td class="green"><%=@reports.where(testsuite_name: testsuite.title).sum(:pass)%></td>
+          <td class="red"><%=@reports.where(testsuite_name: testsuite.title).sum(:fail)%></td>
+          <td class="yellow"><%=@reports.where(testsuite_name: testsuite.title).sum(:pending)%></td>
+          <td><%=@reports.where(testsuite_name: testsuite.title).sum(:pass)+@reports.where(testsuite_name: testsuite.title).sum(:fail)+@reports.where(testsuite_name: testsuite.title).sum(:pending)%></td>
       </tr>
     <% end %>
   </tbody>

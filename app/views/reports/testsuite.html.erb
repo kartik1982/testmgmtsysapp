@@ -18,12 +18,12 @@
             <%= hidden_field_tag :direction, params[:direction] %>
             <%= hidden_field_tag :sort, params[:sort] %>
             <div class="input-field col s4">
-              <%= select_tag :release_id, options_from_collection_for_select(Release.all, :id, :title, params[:release_id]), {prompt: "ALL"} %>
-              <%= label_tag :release_id, "Release Version" %>
+              <%= select_tag :release_name, options_from_collection_for_select(Release.all, :title, :title, params[:release_name]), {prompt: "ALL"} %>
+              <%= label_tag :release_name, "Release Version" %>
             </div>
             <div class="input-field col s4">
-              <%= select_tag :testcycle_id, options_from_collection_for_select(Testcycle.all, :id, :title, params[:testcycle_id]), {prompt: "ALL"} %>
-              <%= label_tag :testcycle_id, "Test Cycle" %>
+              <%= select_tag :testcycle_name, options_from_collection_for_select(Testcycle.all, :title, :title, params[:testcycle_name]), {prompt: "ALL"} %>
+              <%= label_tag :testcycle_name, "Test Cycle" %>
             </div>
             <div class="apply-button col s2">
               <%= submit_tag ("Apply Filter")%>
@@ -57,9 +57,9 @@
     </thead>
     <tbody>
       <% @testsuite.testcases.each do |testcase| %>
-      <%report = @reports.find_by(testcase_id: testcase.id)%>
+      <%report = @reports.find_by(testcase_name: testcase.title)%>
       <tr>
-        <td><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: testcase.id} %></td>
+        <td><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: testcase.title} %></td>
         <td><%=link_to testcase.title, testcase_path(testcase) if testcase%></td>
         <td><%= ((report.end_at-report.start_at)/60).round(2) if report %></td>
         <td class="green"><%=report.pass if report%></td>
@@ -72,31 +72,3 @@
       <%end%>
     </tbody>
   </table>
-<!-- <table>
-  <thead>
-    <tr>
-      <th>Testcase Name</th>
-      <th>Time (Minutes)</th>
-      <th><%= sortable "pass" %></th>
-      <th><%= sortable "fail" %></th>
-      <th>Pending</th>
-      <th>Total</th>
-      <th>Comments</th>
-      <th>log</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reports.each do |report| %>
-    <tr>
-      <td><%=link_to report.testcase.title, testcase_path(report.testcase) if report.testcase%></td>
-      <td></td>
-      <td class="green"><%=report.pass%></td>
-      <td class="red"><%=report.fail%></td>
-      <td class="yellow"><%=report.pending%></td>
-      <td><%=report.pass+report.fail+report.pending%></td>
-      <td><%= link_to report.comment, edit_report_path(report) %></td>
-      <td><%= link_to "Open", report.log_path, target: :_blank if report.log_path %></td>
-    </tr>
-    <%end%>
-  </tbody>
-</table> -->

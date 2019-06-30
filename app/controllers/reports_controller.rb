@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
 
 def index
-  ids = Report.select("MAX(id) AS id").group(:testcase_id).collect(&:id)
+  ids = Report.select("MAX(id) AS id").group(:testpath).collect(&:id)
   @reports = Report.where(:id => ids).paginate(page: params[:page], per_page: 20)
   @reports_without_pagination=Report.order("created_at DESC").where(:id => ids)
   @reports = @reports.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: 20)
@@ -19,16 +19,18 @@ def testsuites
   @testsuites = Testsuite.all
   @testsuites = @testsuites.order("title ASC")
   @reports = Report.all
-  if params[:release_id] !=""
-    @reports = @reports.where("release_id=?", params[:release_id])
+  if params[:release_name]
+    if params[:release_name] !=""
+      @reports = @reports.where("release_name=?", params[:release_name])
+    end
+    if params[:testcycle_name] !=""
+      @reports = @reports.where("testcycle_name=?", params[:testcycle_name])
+    end
+    if params[:project_name] != ""
+      @reports = @reports.where("project_name=?", params[:project_name])
+    end
   end
-  if params[:testcycle_id] !=""
-    @reports = @reports.where("testcycle_id=?", params[:testcycle_id])
-  end
-  if params[:project_id] != ""
-    @reports = @reports.where("project_id=?", params[:project_id])
-  end
-  ids = @reports.select("MAX(id) AS id").group(:testcase_id).collect(&:id)
+  ids = @reports.select("MAX(id) AS id").group(:testpath).collect(&:id)
   @reports=@reports.order("created_at DESC").where(:id => ids)
   @testcase_count=0
   @testsuites.each do |testsuite|
@@ -37,20 +39,25 @@ def testsuites
 end
 def testsuite
   @testsuite= Testsuite.find(params[:id])
-  @reports = Report.where(testsuite_id: @testsuite.id)
-  if params[:release_id] !=""
-    @reports = @reports.where("release_id=?", params[:release_id])
+  @reports = Report.where(testsuite_name: @testsuite.title)
+  if params[:release_name] !=""
+    @reports = @reports.where("release_name=?", params[:release_name])
   end
-  if params[:testcycle_id] !=""
-    @reports = @reports.where("testcycle_id=?", params[:testcycle_id])
+  if params[:testcycle_name] !=""
+    @reports = @reports.where("testcycle_name=?", params[:testcycle_name])
   end
-  ids = @reports.select("MAX(id) AS id").group(:testcase_id).collect(&:id)
+  ids = @reports.select("MAX(id) AS id").group(:testpath).collect(&:id)
   @reports=@reports.order("#{sort_column} #{sort_direction}").where(:id => ids)
 end
 def releases
-  @releases = Release.all
-  @releases = @releases.order("title DESC")
+  @releases = Release.all.order("title DESC")
   @reports = Report.all
+  if params[:release_name]
+    if params[:release_name] != ""
+      @releases = @releases.where(title: params[:release_name]).order("title DESC")
+      @reports = @reports.where(release_name: params[:release_name])
+    end
+  end
 end
 def new
   @report = Report.new
@@ -99,7 +106,7 @@ end
 
 private
   def report_params
-    params.require(:report).permit(:release_id, :project_id, :testcycle_id, :testsuite_id, :testcase_id, :start_at, :end_at, :pass, :fail, :pending, :comment, :log_path, :build)
+    params.require(:report).permit(:release_name, :project_name, :testcycle_name, :testsuite_name, :testcase_name, :start_at, :end_at, :pass, :fail, :pending, :comment, :log_path, :build, :os, :browser, :testuser, :testpassword, :testpath, :array_serial, :duration)
   end
   def apply_filters(params, redirect_page)
       @testsuites= Testsuite.all
@@ -108,18 +115,19 @@ private
         @testcase_count += testsuite.testcases.count
       end
       @reports = Report.all
-      if params[:release_id] !=""
-        @reports = @reports.where("release_id=?", params[:release_id])
+      if params[:release_name] !=""
+        @reports = @reports.where("release_name=?", params[:release_name])
       end
-      if params[:testcycle_id] !=""
-        @reports = @reports.where("testcycle_id=?", params[:testcycle_id])
+      if params[:testcycle_name] !=""
+        @reports = @reports.where("testcycle_name=?", params[:testcycle_name])
       end
-      if params[:project_id] != ""
-        @reports = @reports.where("project_id=?", params[:project_id])
+      if params[:project_name] != ""
+        @reports = @reports.where("project_name=?", params[:project_name])
       end
-      ids = @reports.select("MAX(id) AS id").group(:testcase_id).collect(&:id)
+      ids = @reports.select("MAX(id) AS id").group(:testpath).collect(&:id)
       @reports_without_pagination=@reports.order("created_at DESC").where(:id => ids)
-      @reports = @reports.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: 20)
+      @reports = @reports.paginate(page: params[:page], per_page: 20)
+      # @reports = @reports.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: 20)
       render redirect_page
   end
   def sort_column

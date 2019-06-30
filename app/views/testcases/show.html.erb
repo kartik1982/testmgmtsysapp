@@ -74,15 +74,15 @@
         </thead>
         <tbody>
           <% @reports.each do |report| %>
-              <td><%= link_to report.id, edit_report_path %><br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: report.testcase.id} %></td>
-              <td><%= report.release.title %></td>
-              <td><%= report.project.title %></td>
-              <td><%= report.testcycle.title %></td>
+              <td><%= link_to report.id, edit_report_path %><br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: report.testcase_name} %></td>
+              <td><%= report.release_name %></td>
+              <td><%= report.project_name %></td>
+              <td><%= report.testcycle_name %></td>
               <td><%= report.build %></td>
-              <td><%= report.testsuite.title if report.testsuite %></td>
+              <td><%= report.testsuite_name if report.testsuite_name %></td>
               <td><%= report.start_at.localtime.strftime("%D %T") if report.start_at %></td>
               <td><%= report.end_at.localtime.strftime("%D %T") if report.end_at %></td>
-              <td><%= ((report.end_at-report.start_at)/60).round(2) if report.start_at %></td>
+              <td><%= (report.duration/60).round(2) if report.duration %></td>
               <td class="green"><%= report.pass %></td>
               <td class="red"><%= report.fail %></td>
               <td class="yellow"><%= report.pending %></td>

@@ -6,8 +6,8 @@
           <div class="col s12">
             <%= form_tag(releases_reports_path, method: :get) do %>
             <div class="input-field col s3">
-              <%= select_tag :release_id, options_from_collection_for_select(Release.all, :id, :title, params[:release_id]), {prompt: "ALL"} %>
-              <%= label_tag :release_id, "Release Version" %>
+              <%= select_tag :release_name, options_from_collection_for_select(Release.all, :title, :title, params[:release_name]), {prompt: "ALL"} %>
+              <%= label_tag :release_name, "Release Version" %>
             </div>
             <div class="apply-button col s2">
               <%= submit_tag ("Apply Filter")%>
@@ -36,8 +36,8 @@
                 <td><%=release.title%> </td>
                 <td><%=project.title%> </td>
                 <td><%=testcycle.title%> </td>
-                <% reports=@reports.where("release_id=?", release).where("project_id=?", project).where("testcycle_id=?", testcycle)%>
-                <% ids = reports.select("MAX(id) AS id").group(:testcase_id).collect(&:id)%>
+                <% reports=@reports.where("release_name=?", release.title).where("project_name=?", project.title).where("testcycle_name=?", testcycle.title)%>
+                <% ids = reports.select("MAX(id) AS id").group(:testpath).collect(&:id)%>
                 <% reports=reports.order("created_at DESC").where(:id => ids)%>
                 <td class=green><%= reports.map(&:pass).sum%></td>
                 <td class=red><%= reports.map(&:fail).sum%></td>

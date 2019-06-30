@@ -1,4 +1,4 @@
 class ReportSerializer < ActiveModel::Serializer
-  attributes :id, :release_id, :project_id, :testcycle_id, :testsuite_id, :testcase_id, :start_at, :end_at, :pass, :fail, :pending, :comment, :log_path, :build
+  attributes :release_name, :project_name, :testcycle_name, :testsuite_name, :testcase_name, :start_at, :end_at, :pass, :fail, :pending, :comment, :log_path, :build, :os, :browser, :testuser, :testpassword, :testpath, :array_serial, :duration
 
 end

@@ -9,25 +9,25 @@
           <%= form_for(@report, html: {class: "col s12"}) do |f| %>
           <div class="row">
             <div class="input-field col s4">
-              <%= f.collection_select :release_id, ::Release.all, :id, :title, {prompt: "Choose Release"}, {disabled: true} %>
-              <%= f.label :testsuite_id, "Release" %>
+              <%= f.collection_select :release_name, ::Release.all, :title, :title, {prompt: "Choose Release"}, {disabled: true} %>
+              <%= f.label :testsuite_name, "Release" %>
             </div>
             <div class="input-field col s4">
-              <%= f.collection_select :testcycle_id, ::Testcycle.all, :id, :title, {prompt: "Choose Release"}, {disabled: true} %>
-              <%= f.label :testcycle_id, "Testcycle" %>
+              <%= f.collection_select :testcycle_name, ::Testcycle.all, :title, :title, {prompt: "Choose Release"}, {disabled: true} %>
+              <%= f.label :testcycle_name, "Testcycle" %>
             </div>
             <div class="input-field col s4">
-              <%= f.collection_select :project_id, ::Project.all, :id, :title, {prompt: "Choose Project"}, {disabled: true} %>
+              <%= f.collection_select :project_name, ::Project.all, :title, :title, {prompt: "Choose Project"}, {disabled: true} %>
               <%= f.label :testsuite_id, "Project" %>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <%= f.collection_select :testsuite_id, ::Testsuite.all, :id, :title, {prompt: "Choose TestSuite"}, {disabled: true} %>
+              <%= f.collection_select :testsuite_name, ::Testsuite.all, :title, :title, {prompt: "Choose TestSuite"}, {disabled: true} %>
               <%= f.label :testsuite_id, "Testsuite Name" %>
             </div>
             <div class="input-field col s6">
-              <%= f.collection_select :testcase_id, ::Testcase.all, :id, :title, {prompt: "Choose Testcase"}, {disabled: true} %>
+              <%= f.collection_select :testcase_name, ::Testcase.all, :title, :title, {prompt: "Choose Testcase"}, {disabled: true} %>
               <%= f.label :testsuite_id, "Testcase Name" %>
             </div>
           </div>

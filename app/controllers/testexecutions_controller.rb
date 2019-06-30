@@ -78,7 +78,7 @@ def triggertestcases
     redirect_to testexecutions_path
 end
 def submission
-  @testcase = Testcase.find(params[:testcase])
+  @testcase = Testcase.find_by(title: params[:testcase])
 end
 def triggertestsuite
   @testsuite = Testsuite.find_by(title: params[:testsuite_name])
