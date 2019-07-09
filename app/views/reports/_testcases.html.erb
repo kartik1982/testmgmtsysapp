@@ -25,12 +25,12 @@
     <tbody>
       <% @reports.each do |report| %>
           <tr>
-          <td><%= link_to report.id, edit_report_path(report) %><br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: report.testcase_name} %></td>
+          <td><%= link_to report.id, edit_report_path(report) %><br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: Testcase.find_by(title: report.testcase_name)} %></td>
           <td><%= report.release_name %></td>
           <td><%= report.project_name %></td>
           <td><%= report.build %></td>
-          <td><%= link_to report.testsuite_name, testsuite_report_path(report.testsuite_name) if report.testsuite_name %></td>
-          <td><%= link_to report.testcase_name, testcase_path(Testcase.find_by(title: report.testcase_name)) %></td>
+          <td><%= link_to report.testsuite_name, testsuite_report_path(Testsuite.find_by(title: report.testsuite_name)) if Testsuite.find_by(title: report.testsuite_name) %></td>
+          <td><%= link_to report.testcase_name, testcase_path(Testcase.find_by(title: report.testcase_name)) if Testcase.find_by(title: report.testcase_name)%></td>
           <td><%= report.start_at.localtime.strftime("%D %T") if report.start_at %></td>
           <td><%= report.end_at.localtime.strftime("%D %T") if report.end_at %></td>
           <td><%= (report.duration/60).round(2) %></td>

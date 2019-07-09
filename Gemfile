@@ -42,6 +42,7 @@ gem 'sidekiq'
 gem 'sidekiq-status'
 gem 'sinatra', github: 'sinatra/sinatra'
 gem 'rails_sortable'
+gem 'select_all-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

@@ -2,7 +2,7 @@ require 'jenkins_api_client'
 class JenkinsCancelTaskWorker
 
   include Sidekiq::Worker
-  sidekiq_options retry: false
+  sidekiq_options retry: false, queue: 'critical'
 
   def perform(execution_id)
     puts execution_id

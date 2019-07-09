@@ -14,7 +14,7 @@ class JenkinsTaskWorker
     begin
         @client = JenkinsApi::Client.new(server_ip: server_ip, username: user_name, password: user_password)
         opts ={ release: execution.release_name, environment: execution.testcycle_name, browser: execution.browser, testcase: execution.testpath, testuser: execution.testuser, testpassword: execution.testpassword }
-        build_num = @client.job.build(job_name, opts, {'build_start_timeout' => 3000})
+        build_num = @client.job.build(job_name, opts, {'build_start_timeout' => 45000})
 
         execution.runstatus = 2
         execution.build_num=build_num
@@ -24,7 +24,6 @@ class JenkinsTaskWorker
         while @client.job.get_build_details(job_name, build_num).to_s.include?("building\"=>true") do
           sleep 10
           json = @client.job.get_console_output(job_name, build_num = build_num, start = 0, mode = 'text').to_json
-          puts "***********************"
           parsed= JSON.parse(json.encode('UTF-8', invalid: :replace, undef: :replace))
           # puts parsed["output"]
           execution.runlog = parsed["output"] #eval(json)

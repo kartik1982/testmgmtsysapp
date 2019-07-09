@@ -48,7 +48,10 @@
           </tr>
         </thead>
         <tbody>
-          <% @testsuite.testcases.each do |testcase| %>
+          <%if @testsuite.sequence?%>
+            <% @testsuite.sequence.each do |id| %>
+            <%testcase= Testcase.find(id)%>
+            <tr>
               <td><%= link_to testcase.title, testcase_path(testcase) %> </td>
               <td><%= truncate(testcase.description, length:50) %></td>
               <td><%= testcase.user.first_name+" "+testcase.user.last_name if testcase.user%></td>
@@ -57,6 +60,18 @@
               <td><%= testcase.updated_at.to_date %></td>
             </tr>
           <% end %>
+          <%else%>
+            <% @testsuite.testcases.each do |testcase| %>
+              <tr>
+                <td><%= link_to testcase.title, testcase_path(testcase) %> </td>
+                <td><%= truncate(testcase.description, length:50) %></td>
+                <td><%= testcase.user.first_name+" "+testcase.user.last_name if testcase.user%></td>
+                <td>Kartik Aiyar</td>
+                <td><%= testcase.created_at.to_date %></td>
+                <td><%= testcase.updated_at.to_date %></td>
+              </tr>
+              <%end%>
+          <%end%>
         </tbody>
       </table>
   </div>

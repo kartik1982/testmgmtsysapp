@@ -47,6 +47,7 @@
         <th>ReportID</th>
         <th>Testcase Name</th>
         <th>Time (Minutes)</th>
+        <th>Date</th>
         <th>Pass</th>
         <th>Fail</th>
         <th>Pending</th>
@@ -56,12 +57,14 @@
       </tr>
     </thead>
     <tbody>
-      <% @testsuite.testcases.each do |testcase| %>
+      <% @testsuite.sequence.each do |id| %>
+      <%testcase = Testcase.find(id)%>
       <%report = @reports.find_by(testcase_name: testcase.title)%>
       <tr>
-        <td><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: testcase.title} %></td>
+        <td><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: testcase} %></td>
         <td><%=link_to testcase.title, testcase_path(testcase) if testcase%></td>
         <td><%= ((report.end_at-report.start_at)/60).round(2) if report %></td>
+        <td><%=report.created_at.localtime.strftime("%D %T") if report%></td>
         <td class="green"><%=report.pass if report%></td>
         <td class="red"><%=report.fail if report%></td>
         <td class="yellow"><%=report.pending if report%></td>

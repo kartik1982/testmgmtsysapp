@@ -5,7 +5,7 @@ def new
 end
 
 def index
-  @testexecutions = Testexecution.paginate(page: params[:page], per_page: 10).order("created_at DESC")
+  @testexecutions = Testexecution.paginate(page: params[:page], per_page: 100).order("created_at DESC")
   @completed = @testexecutions.where("runstatus=?", 3).count
   @pending = @testexecutions.where("runstatus=?", 1).count
   @running = @testexecutions.where("runstatus=?", 2).count
@@ -48,7 +48,8 @@ def triggertestsuites
     @testexecution_ids=[]
     testsuite_json= eval(testsuite)
     @testsuite= Testsuite.find(testsuite_json[:id])
-    @testsuite.testcases.each do |testcase|
+    @testsuite.sequence.each do |id|
+      testcase= Testcase.find(id)
       @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: @testsuite.title, testcase_name: testcase.title, browser: params[:browser], os: params[:os], testuser: testcase.testuser, testpassword: testcase.testpassword, testpath: testcase.testpath, runstatus: 1)
       if @testexecution.save
         @testexecution_ids << @testexecution.id
@@ -78,7 +79,8 @@ def triggertestcases
     redirect_to testexecutions_path
 end
 def submission
-  @testcase = Testcase.find_by(title: params[:testcase])
+  # render json: params
+  @testcase = Testcase.find(params[:testcase])
 end
 def triggertestsuite
   @testsuite = Testsuite.find_by(title: params[:testsuite_name])

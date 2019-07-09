@@ -74,7 +74,7 @@
         </thead>
         <tbody>
           <% @reports.each do |report| %>
-              <td><%= link_to report.id, edit_report_path %><br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: report.testcase_name} %></td>
+              <td><%= link_to report.id, edit_report_path %><br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: Testcase.find_by(title: report.testcase_name)} %></td>
               <td><%= report.release_name %></td>
               <td><%= report.project_name %></td>
               <td><%= report.testcycle_name %></td>

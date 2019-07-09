@@ -20,6 +20,7 @@
 //= require_tree .
 //= require Chart.bundle
 //= require chartkick
+//= require select_all.js
 
 $(document).on('turbolinks:load', function() {
   $(".dropdown-trigger").dropdown();
@@ -30,6 +31,7 @@ $(document).on('turbolinks:load', function() {
   $('.sortable').railsSortable();
   M.updateTextFields();
   M.textareaAutoResize($('#logtextarea'));
+  $('#checkAll').select_all();
   //Moves selected item(s) up or down in a list
   $.fn.moveUpDown = function(list, btnUp, btnDown) {
     var opts = $(list + ' option:selected');

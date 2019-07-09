@@ -40,11 +40,13 @@ end
 def testsuite
   @testsuite= Testsuite.find(params[:id])
   @reports = Report.where(testsuite_name: @testsuite.title)
-  if params[:release_name] !=""
-    @reports = @reports.where("release_name=?", params[:release_name])
-  end
-  if params[:testcycle_name] !=""
-    @reports = @reports.where("testcycle_name=?", params[:testcycle_name])
+  if params[:release_name]
+    if params[:release_name] !=""
+      @reports = @reports.where("release_name=?", params[:release_name])
+    end
+    if params[:testcycle_name] !=""
+      @reports = @reports.where("testcycle_name=?", params[:testcycle_name])
+    end
   end
   ids = @reports.select("MAX(id) AS id").group(:testpath).collect(&:id)
   @reports=@reports.order("#{sort_column} #{sort_direction}").where(:id => ids)
@@ -126,7 +128,7 @@ private
       end
       ids = @reports.select("MAX(id) AS id").group(:testpath).collect(&:id)
       @reports_without_pagination=@reports.order("created_at DESC").where(:id => ids)
-      @reports = @reports.paginate(page: params[:page], per_page: 20)
+      @reports = @reports.order("created_at DESC").paginate(page: params[:page], per_page: 20)
       # @reports = @reports.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: 20)
       render redirect_page
   end
