@@ -13,7 +13,15 @@ class JenkinsTaskWorker
     execution = Testexecution.find(execution_id)
     begin
         @client = JenkinsApi::Client.new(server_ip: server_ip, username: user_name, password: user_password)
-        opts ={ release: execution.release_name, environment: execution.testcycle_name, browser: execution.browser, testcase: execution.testpath, testuser: execution.testuser, testpassword: execution.testpassword }
+        testcase =  Testcase.find_by(title: execution.testcase_name)
+        if testcase.array_serial?
+          device = Device.find_by(serial: testcase.array_serial)
+          opts ={ release: execution.release_name, environment: execution.testcycle_name, browser: execution.browser, testcase: execution.testpath, testuser: execution.testuser, testpassword: execution.testpassword, serial: testcase.array_serial, telnet: device.device_telnet }
+        else
+          opts ={ release: execution.release_name, environment: execution.testcycle_name, browser: execution.browser, testcase: execution.testpath, testuser: execution.testuser, testpassword: execution.testpassword }
+        end
+
+
         build_num = @client.job.build(job_name, opts, {'build_start_timeout' => 45000})
 
         execution.runstatus = 2

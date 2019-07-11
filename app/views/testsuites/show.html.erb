@@ -29,7 +29,7 @@
         </div>
       </div>
       <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testsuite_path(@testsuite), class: "btn waves-effect waves-light" %>
-      <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testsuite_path(@testsuite), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" %>
+      <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testsuite_path(@testsuite), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" if super_admin?%>
       <%= link_to '<i class="material-icons left">list</i> List Testsuites'.html_safe, testsuites_path, class: "btn waves-effect waves-light right" %>
     </div>
   </div>

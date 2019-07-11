@@ -25,10 +25,32 @@
                 <%= f.label :description %>
             </div>
           </div>
-          <label>
-            <%= f.check_box :active, class: "filled-in", checked: "checked" %>
-            <span>Device Status</span>
-          </label>
+          <div class="row">
+            <div class="input-field col s4">
+              <%= f.select :device_type, [["SWITCH"],["ACCESSPOINT"],["WORKSTATION"]] %>
+              <%= f.label :type, "Device Type" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s4">
+              <label>
+                <%= f.check_box :device_real, class: "filled-in", checked: "unchecked" %>
+                <span>Real Device?</span>
+              </label>
+            </div>
+            <div class="input-field col s4">
+              <label>
+                <%= f.check_box :device_telnet, class: "filled-in", checked: "unchecked" %>
+                <span>Telnet</span>
+              </label>
+            </div>
+            <div class="input-field col s4">
+              <label>
+                <%= f.check_box :active, class: "filled-in", checked: "checked" %>
+                <span>Device Status</span>
+              </label>
+            </div>
+          </div>
          <div class="row">
            <div class="input-field col s12">
             <%= f.button(@device.new_record? ? "Add Device" : "Update Device", class: "btn orange waves-effect waves-light right") %>

@@ -1,5 +1,7 @@
 <% if logged_in? %>
+
   <div class="row center">
+    <%if admin? || super_admin?%>
     <%= link_to testexecutionmanagement_path do %>
     <div class="col s3 offset-s1">
       <div class="card">
@@ -11,6 +13,7 @@
         </div>
       </div>
     </div>
+    <%end%>
     <% end %>
     <%= link_to testmanagement_path do %>
     <div class="col s3 offset-s1">

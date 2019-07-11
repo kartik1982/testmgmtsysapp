@@ -113,6 +113,15 @@ def canceltask
   JenkinsCancelTaskWorker.perform_async(params[:format])
   redirect_to testexecutions_path
 end
+def canceltasks
+  execution_ids = params[:testexecution_ids]
+  execution_ids.each do |execution|
+    execution = eval(execution)
+    JenkinsCancelTaskWorker.perform_async(execution[:id])
+  end
+  sleep 5
+  redirect_to testexecutions_path
+end
 private
 def testexecution_params
   params.permit(:release_name, :testcycle_name, :testsuite_name, :testcase_name, :browser, :os, :testuser, :testpassword, :testpath, :runstatus)

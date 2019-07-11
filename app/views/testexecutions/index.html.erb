@@ -1,72 +1,79 @@
 <!-- <script language="javascript" type="text/javascript">setTimeout("location.reload();",20000);</script> -->
-<div class="row">
-  <div class="col s12 m12">
-    <div class="card-panel">
-      <div class="row header center">
-      <h6><b>TESTCASE EXECUTION STATUS</b></h6>
-    </div>
-    <div class="row">
-      <div class="col s2 m2">
-        <b>Completed:</b>&emsp;<%= @completed %>
+<%= form_tag canceltasks_testexecutions_path, method: :post do %>
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card-panel">
+        <div class="row header center">
+        <h6><b>TESTCASE EXECUTION STATUS</b></h6>
       </div>
-      <div class="col s2 m2">
-        <b>Pending:</b>&emsp;<%= @pending %>
+      <div class="row">
+        <div class="col s2 m2">
+          <b>Completed:</b>&emsp;<%= @completed %>
+        </div>
+        <div class="col s2 m2">
+          <b>Pending:</b>&emsp;<%= @pending %>
+        </div>
+        <div class="col s2 m2">
+          <b>Running:</b>&emsp;<%= @running %>
+        </div>
+        <div class="col s2 m2">
+          <b>Error:</b>&emsp;<%= @error %>
+        </div>
+        <div class="col s2 m2">
+          <b>Cancelled:</b>&emsp;<%= @cancelled %>
+        </div>
+        <div>
+          <%= submit_tag ("Cancel selected Running and Pending Task"), class: "btn orange waves-effect waves-light right"%>
+        </div>
       </div>
-      <div class="col s2 m2">
-        <b>Running:</b>&emsp;<%= @running %>
-      </div>
-      <div class="col s2 m2">
-        <b>Error:</b>&emsp;<%= @error %>
-      </div>
-      <div class="col s2 m2">
-        <b>Cancelled:</b>&emsp;<%= @cancelled %>
-      </div
     </div>
   </div>
-</div>
-</div>
-<div class= "digg_pagination right">
-   <%= will_paginate %>
-</div>
-<table class="striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Release</th>
-      <th>Testcycle</th>
-      <th>Testsuite</th>
-      <th>Testcase</th>
-      <th>Status</th>
-      <th>User</th>
-      <th>Password</th>
-      <th>Browser</th>
-      <th>OS</th>
-      <th>Testcase Path</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @testexecutions.each do |testexecution| %>
-    <tr>
-      <%case testexecution.runstatus
-        when 1; status= "Pending"; cancel=true
-        when 2; status= "Running"; cancel=true
-        when 3; status= "Completed"; cancel=false
-        when 4; status= "Error"; cancel=false
-        when 5; status= "Cancelled"; cancel=false
-        else status="Unknown"; cancel=false
-      end %>
-      <td><%= link_to testexecution.id, testexecution_path(testexecution)%> <br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: Testcase.find_by(title: testexecution.testcase_name)} %></td>
-      <td><%= testexecution.release_name%> </td>
-      <td><%= testexecution.testcycle_name%> </td>
-      <td><%= testexecution.testsuite_name %></td>
-      <td><%= truncate(testexecution.testcase_name, length:50) %></td>
-      <td><%= status %><br><%= link_to 'Cancel', canceltask_testexecutions_path(testexecution), method: :post if cancel %></td>
-      <td><%= truncate(testexecution.testuser, length:30) %></td>
-      <td><%= testexecution.testpassword %></td>
-      <td><%= testexecution.browser %></td>
-      <td><%= testexecution.os %></td>
-      <td><%= truncate(testexecution.testpath, length:30)%></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
+  <div class= "digg_pagination right">
+     <%= will_paginate %>
+  </div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Select</th>
+        <th>ID</th>
+        <th>Release</th>
+        <th>Testcycle</th>
+        <th>Testsuite</th>
+        <th>Testcase</th>
+        <th>Status</th>
+        <th>User</th>
+        <th>Password</th>
+        <th>Browser</th>
+        <th>OS</th>
+        <th>Testcase Path</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @testexecutions.each do |testexecution| %>
+      <tr>
+        <%case testexecution.runstatus
+          when 1; status= "Pending"; cancel=true
+          when 2; status= "Running"; cancel=true
+          when 3; status= "Completed"; cancel=false
+          when 4; status= "Error"; cancel=false
+          when 5; status= "Cancelled"; cancel=false
+          else status="Unknown"; cancel=false
+        end %>
+        <td><label><%= check_box_tag "testexecution_ids[]", id: testexecution.id,  class: "filled-in", checked: "checked" if cancel %><span></span></label></td>
+        <td><%= link_to testexecution.id, testexecution_path(testexecution)%> <br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: Testcase.find_by(title: testexecution.testcase_name)} %></td>
+        <td><%= testexecution.release_name%> </td>
+        <td><%= testexecution.testcycle_name%> </td>
+        <td><%= testexecution.testsuite_name %></td>
+        <td><%= truncate(testexecution.testcase_name, length:50) %></td>
+        <td><%= status %><br><%= link_to 'Cancel', canceltask_testexecutions_path(testexecution), method: :post if cancel %></td>
+        <td><%= truncate(testexecution.testuser, length:30) %></td>
+        <td><%= testexecution.testpassword %></td>
+        <td><%= testexecution.browser %></td>
+        <td><%= testexecution.os %></td>
+        <td><%= truncate(testexecution.testpath, length:30)%></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% end %>

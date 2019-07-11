@@ -40,6 +40,7 @@ require 'sidekiq/web'
       post :trigger
       post :triggertestsuite
       post :canceltask
+      post :canceltasks
       get :submission
       get :submittestsuite
       post :triggertestsuites

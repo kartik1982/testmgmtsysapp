@@ -48,7 +48,7 @@ class DevicesController < ApplicationController
 end
 private
 def device_params
-  params.require(:device).permit(:title, :description, :serial, :active)
+  params.require(:device).permit(:title, :description, :serial, :active, :device_real, :device_type, :device_telnet)
 end
 
 end

@@ -30,7 +30,7 @@ end
 
 def show
   @testcase= Testcase.find(params[:id])
-  @reports = Report.where("testcase_name=?", @testcase.title).order("created_at DESC").paginate(page: params[:page], per_page: 10)
+  @reports = Report.where("testcase_name=?", @testcase.title).order("created_at DESC").paginate(page: params[:page], per_page: 100)
 end
 
 def update
@@ -58,6 +58,6 @@ def destroy
 end
 private
 def testcase_params
-  params.require(:testcase).permit(:title, :description, :runmode, :testsuite_id, :user_id, :testuser, :testpassword, :testpath)
+  params.require(:testcase).permit(:title, :description, :runmode, :testsuite_id, :user_id, :testuser, :testpassword, :testpath, :array_serial)
 end
 end

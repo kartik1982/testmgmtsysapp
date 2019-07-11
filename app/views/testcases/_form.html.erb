@@ -45,6 +45,12 @@
               <%= f.label :user_id, "Assignee To" %>
             </div>
           </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <%= f.collection_select :array_serial, ::Device.all, :serial, :serial, {prompt: "Choose array name"} %>
+              <%= f.label :array_serial, "Array Serial Number" %>
+            </div>
+          </div>
             <label>
               <%= f.check_box :runmode, class: "filled-in", checked: "checked" %>
               <span> Testsuite Run Mode</span>

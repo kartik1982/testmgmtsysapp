@@ -22,7 +22,10 @@ class JenkinsCancelTaskWorker
           execution.save
         # end
     rescue => e
-      puts e
+      if e.to_s.include? "No builds for RUN_SINGLE_SCRIPT"
+        execution.runstatus = 5
+        execution.save
+      end
     end
   end
 end
