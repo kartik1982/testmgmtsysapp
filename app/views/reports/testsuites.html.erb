@@ -55,6 +55,7 @@
   <thead>
     <tr>
       <th>Testsuite</th>
+      <th>#</th>
       <th>Testcase Count</th>
       <th>Testcase Pending</th>
       <th>Time (Minutes)</th>
@@ -69,6 +70,7 @@
     <% @testsuites.each do |testsuite| %>
         <tr>
           <td><%=link_to testsuite.title, testsuite_report_path(testsuite) %> </td>
+          <td><%= link_to 'Execute', {controller: 'testexecutions', action: 'submittestsuite', testsuite: testsuite} %></td>
           <td><%=testsuite.testcases.count%> </td>
           <td><%= testsuite.testcases.count - @reports.where(testsuite_name: testsuite.title).count%>
           <td><%= (@reports.where(testsuite_name: testsuite.title).sum(&:duration)/60).round(2) %></td>
