@@ -46,6 +46,9 @@ class JenkinsTaskWorker
         # puts @client.job.get_console_output(job_name, build_num = 0, start = 0, mode = 'text')
         # puts @client.job.get_build_details(job_name, build_num)
     rescue => e
+      while @client.job.get_build_details(job_name, build_num).to_s.include?("building\"=>true") do
+        sleep 10
+      end
       execution.runlog = e
       execution.runstatus = 4
       execution.save
