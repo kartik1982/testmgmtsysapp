@@ -28,6 +28,10 @@
           <b>ASSIGNED TO:</b>&emsp;<%= @testsuite.user.email if @testsuite.user %>
         </div>
       </div>
+      <div class="row">
+        <div class="col s12 m12">
+          <b>Execution Comment:</b> <%= @testsuite.comment %>
+        </div>
       <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testsuite_path(@testsuite), class: "btn waves-effect waves-light" %>
       <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testsuite_path(@testsuite), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" if super_admin?%>
       <%= link_to '<i class="material-icons left">list</i> List Testsuites'.html_safe, testsuites_path, class: "btn waves-effect waves-light right" %>

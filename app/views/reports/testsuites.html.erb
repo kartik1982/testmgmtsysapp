@@ -78,6 +78,7 @@
           <td class="red"><%=@reports.where(testsuite_name: testsuite.title).sum(:fail)%></td>
           <td class="yellow"><%=@reports.where(testsuite_name: testsuite.title).sum(:pending)%></td>
           <td><%=@reports.where(testsuite_name: testsuite.title).sum(:pass)+@reports.where(testsuite_name: testsuite.title).sum(:fail)+@reports.where(testsuite_name: testsuite.title).sum(:pending)%></td>
+          <td><%= link_to testsuite.comment, edit_testsuite_path(testsuite) %><td>
       </tr>
     <% end %>
   </tbody>
