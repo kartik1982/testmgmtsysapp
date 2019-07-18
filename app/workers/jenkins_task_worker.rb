@@ -6,9 +6,9 @@ class JenkinsTaskWorker
 
   def perform(execution_id)
     #jenkins server information
-    server_ip = '10.100.185.11'
-    user_name = 'kartik'
-    user_password = 'Kartik@123'
+    server_ip = '10.100.185.250'
+    user_name = 'admin'
+    user_password = 'Xirrus!23'
     job_name = "RUN_SINGLE_SCRIPT"
     execution = Testexecution.find(execution_id)
     begin

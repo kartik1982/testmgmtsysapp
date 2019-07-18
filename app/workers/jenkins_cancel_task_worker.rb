@@ -9,9 +9,9 @@ class JenkinsCancelTaskWorker
     execution = Testexecution.find(execution_id)
     puts execution.runstatus
     #jenkins server information
-    server_ip = '10.100.185.11'
-    user_name = 'kartik'
-    user_password = 'Kartik@123'
+    server_ip = '10.100.185.250'
+    user_name = 'admin'
+    user_password = 'Xirrus!23'
     job_name = "RUN_SINGLE_SCRIPT"
     build_num = execution.build_num
     begin
