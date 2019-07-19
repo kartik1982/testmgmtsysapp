@@ -5,9 +5,12 @@
       <h6><b>PROJECT DETAILS</b></h6>
     </div>
     <div class="row">
-      <div class="col s12 m12">
+      <div class="col s8 m8">
         <b>NAMER:</b>&emsp;<%= @project.title %>
       </div>
+      <div class="col s4 m4">
+        <b>Total Testsuites:</b>&emsp;<%= @project.testsuites.count %>
+    </div>
     </div>
     <div class="row">
       <div class="col s12 m12">
@@ -36,7 +39,6 @@
         <tr>
             <th>Release</th>
             <th>Description</th>
-            <th>Status</th>
             <th>Created By</th>
             <th>Updated By</th>
             <th>Created On</th>
@@ -44,15 +46,14 @@
         </tr>
       </thead>
       <tbody>
-        <% @project.releases.each do |release| %>
+        <% @project.testsuites.each do |testsuite| %>
             <tr>
-            <td><%= link_to release.title.gsub('_','.'), release_path(release) %></td>
-            <td><%= truncate(release.description, length:50) %></td>
-            <td><%= release.active? ? "Active" : "Disabled" %></td>
-            <td><%= release.user.first_name+" "+release.user.last_name if release.user %></td>
-            <td><%= release.updated_by%></td>
-            <td><%= release.created_at.to_date %></td>
-            <td><%= release.updated_at.to_date %></td>
+            <td><%= link_to testsuite.title, testsuite_path(testsuite) %></td>
+            <td><%= truncate(testsuite.description, length:50) %></td>
+            <td><%= testsuite.user.first_name+" "+testsuite.user.last_name if testsuite.user %></td>
+            <td><%= testsuite.updated_by%></td>
+            <td><%= testsuite.created_at.to_date %></td>
+            <td><%= testsuite.updated_at.to_date %></td>
           </tr>
         <% end %>
       </tbody>

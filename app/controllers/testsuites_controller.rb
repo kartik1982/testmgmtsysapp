@@ -64,6 +64,6 @@ class TestsuitesController < ApplicationController
 
   private
   def testsuite_params
-    params.require(:testsuite).permit(:title, :description, :runmode, :user_id, :comment)
+    params.require(:testsuite).permit(:title, :description, :runmode, :user_id, :project_id, :comment)
   end
 end
