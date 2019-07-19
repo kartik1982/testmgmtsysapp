@@ -4,7 +4,7 @@
       <h5 class="header">Execution Report</h5>
         <div class="row left">
           <div class="col s12">
-            <%= form_tag filter_reports_path, method: :get, id: "report_search" do %>
+            <%= form_tag reports_path, method: :get, id: "report_search" do %>
               <%= hidden_field_tag :direction, params[:direction] %>
               <%= hidden_field_tag :sort, params[:sort] %>
               <div class="input-field col s3">

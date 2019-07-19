@@ -1,11 +1,25 @@
 class ReportsController < ApplicationController
 
 def index
-  ids = Report.select("MAX(id) AS id").group(:testpath).collect(&:id)
-  @reports = Report.where(:id => ids).paginate(page: params[:page], per_page: 20)
-  @reports_without_pagination=Report.order("created_at DESC").where(:id => ids)
-  @reports = @reports.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: 20)
   @testsuites = Testsuite.all
+  @reports = Report.all
+  if params[:release_name]
+    if params[:release_name] !=""
+      @reports = @reports.where("release_name=?", params[:release_name])
+    end
+    if params[:testcycle_name] !=""
+      @reports = @reports.where("testcycle_name=?", params[:testcycle_name])
+    end
+    if params[:project_name] != ""
+      @reports = @reports.where("project_name=?", params[:project_name])
+      @testsuites = @testsuites.where("project_id=?", Project.find_by(title: params[:project_name]))
+    end
+  end
+  ids = @reports.select("MAX(id) AS id").group(:testpath).collect(&:id)
+  @reports=@reports.order("created_at DESC").where(:id => ids)
+  @reports_without_pagination= @reports
+  @reports = @reports.paginate(page: params[:page], per_page: 100)
+  # @reports = @reports.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: 20)
   @testcase_count=0
   @testsuites.each do |testsuite|
     @testcase_count += testsuite.testcases.count
@@ -28,6 +42,7 @@ def testsuites
     end
     if params[:project_name] != ""
       @reports = @reports.where("project_name=?", params[:project_name])
+      @testsuites = @testsuites.where("project_id=?", Project.find_by(title: params[:project_name]))
     end
   end
   ids = @reports.select("MAX(id) AS id").group(:testpath).collect(&:id)
