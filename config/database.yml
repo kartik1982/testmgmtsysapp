@@ -13,9 +13,9 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
-  username: kartik01
-  password: Xirrus!23
-  host: 10.100.185.11
+  username: kartik
+  password: Kartik@123
+  host: 10.100.185.250
   port: 3306
 
 development:

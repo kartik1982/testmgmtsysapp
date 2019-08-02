@@ -38,9 +38,9 @@
         <div class="row">
           <div class="col s12">
             <span class="col s1.5 orange" >Total Testsuites: <b><%=@testsuites.count%></b></span>
-            <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports.distinct.pluck(:testsuite_name).count %></b></span>
+            <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports.pluck(:testsuite_name).uniq.count %></b></span>
             <span class="col s1.5 grey">Total Testcases: <b><%=@testcase_count%></b></span>
-            <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports.distinct.pluck(:testcase_name).count%></b></span>
+            <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports.pluck(:testcase_name).uniq.count%></b></span>
             <span class="col s1.5 green">Total Pass: <%= @reports.map(&:pass).sum %></span>
             <span class="col s1.5 red">Total Fail: <%= @reports.map(&:fail).sum %></span>
             <span class="col s1.5 yellow">Total Pending: <%= @reports.map(&:pending).sum %></span>

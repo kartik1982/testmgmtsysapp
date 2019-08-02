@@ -31,16 +31,16 @@
             <%= pie_chart [["PASS", @reports_without_pagination.map(&:pass).sum],["FAIL", @reports_without_pagination.map(&:fail).sum], ["PENDING",@reports_without_pagination.map(&:pending).sum]], height: "200px" %>
           </div>
           <div class="col s6 m6 l6 left">
-                <%= bar_chart [["TESTSUITES", @reports_without_pagination.distinct.pluck(:testsuite_name).count], ["TESTCASES",@reports_without_pagination.distinct.pluck(:testcase_name).count]], height: "200px" %>
+                <%= bar_chart [["TESTSUITES", @reports_without_pagination.distinct(:testsuite_name).count], ["TESTCASES",@reports_without_pagination.distinct(:testcase_name).count]], height: "200px" %>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col s12">
           <span class="col s1.5 orange" >Total Testsuites: <b><%=@testsuites.count%></b></span>
-          <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports_without_pagination.distinct.pluck(:testsuite_name).count %></b></span>
+          <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports_without_pagination.pluck(:testsuite_name).uniq.count %></b></span>
           <span class="col s1.5 grey">Total Testcases: <b><%=@testcase_count%></b></span>
-          <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports_without_pagination.distinct.pluck(:testcase_name).count%></b></span>
+          <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports_without_pagination.pluck(:testcase_name).uniq.count%></b></span>
           <span class="col s1.5 green">Total Pass: <%= @reports_without_pagination.map(&:pass).sum %></span>
           <span class="col s1.5 red">Total Fail: <%= @reports_without_pagination.map(&:fail).sum %></span>
           <span class="col s1.5 yellow">Total Pending: <%= @reports_without_pagination.map(&:pending).sum %></span>
