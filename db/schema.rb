@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_19_171923) do
+ActiveRecord::Schema.define(version: 2019_08_05_152020) do
 
   create_table "devices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -91,6 +91,21 @@ ActiveRecord::Schema.define(version: 2019_07_19_171923) do
     t.string "browser"
     t.string "array_serial", default: "none"
     t.float "duration"
+  end
+
+  create_table "schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "job_name"
+    t.string "worker_name"
+    t.string "release_name"
+    t.string "testcycle_name"
+    t.string "testsuite_name"
+    t.string "testcase_name"
+    t.string "browser_name"
+    t.string "os_name"
+    t.string "schedule_cron"
+    t.boolean "status", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "testcases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

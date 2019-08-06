@@ -1,0 +1,94 @@
+<%= form_tag scheduletestsuites_schedules_path, method: :post, id: "schedule_testsuites" do %>
+<div class="row center-align">
+  <div class="col s12 m12 l12">
+    <div class="card-panel">
+      <h5 class="header"><b>SCHEDULE TESTSUITES</b></h5>
+      <div class="row">
+        <div class="input-field col s4">
+          <%= select_tag :release_name, options_from_collection_for_select(Release.all, :title, :title, params[:release_id]) %>
+          <%= label_tag :release_name, "Release Version" %>
+        </div>
+        <div class="input-field col s4 offset-s3">
+          <%= select_tag :testcycle_name, options_from_collection_for_select(Testcycle.all, :title, :title, params[:testcycle_id]) %>
+          <%= label_tag :testcycle_name, "Test Cycle" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s4">
+          <%= select_tag :browser, options_for_select(["chrome", "firefox", "safari"], "chrome") %>
+          <%= label_tag :browser, "Browser" %>
+        </div>
+        <div class="input-field col s4 offset-s3">
+          <%= select_tag :os, options_for_select(["any", "windows", "linux"], "any") %>
+          <%= label_tag :os, "Operating System" %>
+        </div>
+      </div>
+      <div class="row">
+        <h6 class="header"><b>-: SCHEDULE TIME :-</b></h6>
+          <p><label><%= check_box_tag "everyselected-days", "everyselected-days", false, class: "filled-in" %><span><b>Every selected Days OR Specific Day</b></span></label></p>
+        <div class="datetimefield">
+          <div class="date-field col s2">
+            <%= label_tag :date, "Date" %>
+            <%= date_field_tag :date, class: "datepicker" %>
+          </div>
+          <div class="time-field col s2">
+            <%= label_tag :time, "Time" %>
+            <%= time_field_tag :time, class: "timepicker" %>
+          </div>
+        </div>
+        <div class="daystopick">
+          <div class="input-field col s1">
+            <label><%= check_box_tag "days[1]", "mon", false, class: "filled-in" %><span>MON</span></label>
+          </div>
+          <div class="input-field col s1">
+            <label><%= check_box_tag "days[2]", "tue", false, class: "filled-in" %><span>TUE</span></label>
+          </div>
+          <div class="input-field col s1">
+            <label><%= check_box_tag "days[3]", "wed", false, class: "filled-in" %><span>WED</span></label>
+          </div>
+          <div class="input-field col s1">
+            <label><%= check_box_tag "days[4]", "thu", false, class: "filled-in" %><span>THU</span></label>
+          </div>
+          <div class="input-field col s1">
+            <label><%= check_box_tag "days[5]", "fri", false, class: "filled-in" %><span>FRI</span></label>
+          </div>
+          <div class="input-field col s1">
+            <label><%= check_box_tag "days[6]", "sat", false, class: "filled-in" %><span>SAT</span></label>
+          </div>
+          <div class="input-field col s1">
+            <label><%= check_box_tag "days[7]", "sun", false, class: "filled-in" %><span>SUN</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= submit_tag ("Schedule All Selected"), class: "btn orange waves-effect waves-light right"%>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+<table>
+  <thead>
+    <tr>
+      <!-- <th><label><%= check_box_tag 'checkAll', class: "filled-in", checked: "checked"%><span></span></label></th> -->
+      <th>
+        <label><%= check_box_tag "select-all-checkboxes", "select-all-checkboxes", false %><span>SELECT ALL</span></label>
+      </th>
+      <th>Action</th>
+      <th>Testsuite Name</th>
+    </tr>
+  </thead>
+  <tboady>
+    <% @testsuites.each do |testsuite| %>
+    <tr>
+      <td>
+        <label><%= check_box_tag "testsuites[]", testsuite.id, false, class: "selectable-checkbox" %><span></span></label>
+      </td>
+      <td><%= link_to 'Schedule', testsuite_schedule_path(testsuite) %></td>
+      <td><%= testsuite.title%></td>
+    </tr>
+    <% end %>
+  </tboady>
+</table>
+<%end%>

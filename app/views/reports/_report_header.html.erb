@@ -31,7 +31,7 @@
             <%= pie_chart [["PASS", @reports_without_pagination.map(&:pass).sum],["FAIL", @reports_without_pagination.map(&:fail).sum], ["PENDING",@reports_without_pagination.map(&:pending).sum]], height: "200px" %>
           </div>
           <div class="col s6 m6 l6 left">
-                <%= bar_chart [["TESTSUITES", @reports_without_pagination.distinct(:testsuite_name).count], ["TESTCASES",@reports_without_pagination.distinct(:testcase_name).count]], height: "200px" %>
+                <%= bar_chart [["TESTSUITES", @reports_without_pagination.pluck(:testsuite_name).uniq.count], ["TESTCASES",@reports_without_pagination.pluck(:testcase_name).uniq.count]], height: "200px" %>
           </div>
         </div>
       </div>

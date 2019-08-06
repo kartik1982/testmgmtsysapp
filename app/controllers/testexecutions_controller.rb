@@ -46,8 +46,7 @@ def triggertestsuites
   testsuites = params[:testsuites]
   testsuites.each do |testsuite|
     @testexecution_ids=[]
-    testsuite_json= eval(testsuite)
-    @testsuite= Testsuite.find(testsuite_json[:id])
+    @testsuite= Testsuite.find(testsuite)
     @testsuite.sequence.each do |id|
       testcase= Testcase.find(id)
       @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: @testsuite.title, testcase_name: testcase.title, browser: params[:browser], os: params[:os], testuser: testcase.testuser, testpassword: testcase.testpassword, testpath: testcase.testpath, runstatus: 1)
@@ -62,11 +61,11 @@ def triggertestsuites
   redirect_to testexecutions_path
 end
 def triggertestcases
+  # render json: params
   @testexecution_ids=[]
   testcases = params[:testcases]
   testcases.each do |testcase|
-    testcase_json = eval(testcase)
-    @testcase = Testcase.find(testcase_json[:id])
+    @testcase = Testcase.find(testcase)
     @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: @testcase.testsuite.title, testcase_name: @testcase.title, browser: params[:browser], os: params[:os], testuser: @testcase.testuser, testpassword: @testcase.testpassword, testpath: @testcase.testpath, runstatus: 1)
     if @testexecution.save
       @testexecution_ids << @testexecution.id
@@ -107,6 +106,7 @@ def trigger
      render 'submission'
     end
   JenkinsTaskWorker.perform_async(@testexecution.id)
+  # job = Sidekiq::Cron::Job.create(name: 'JenkinsTaskWorker', cron: '*/5 * * * *', class: 'JenkinsTaskWorker', args: @testexecution.id)
   redirect_to testexecutions_path
 end
 def canceltask

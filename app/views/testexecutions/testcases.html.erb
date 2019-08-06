@@ -34,7 +34,9 @@
 <table>
   <thead>
     <tr>
-      <th>Select All</th>
+      <th>
+        <label><%= check_box_tag "select-all-checkboxes", "select-all-checkboxes", false %><span>SELECT ALL</span></label>
+      </th>
       <th>Action</th>
       <th>Testcase Name</th>
     </tr>
@@ -42,7 +44,9 @@
   <tboady>
     <% @testcases.each do |testcase| %>
     <tr>
-      <td><label><%= check_box_tag "testcases[]", id: testcase.id,  class: "filled-in", checked: "checked" %><span></span></label></td>
+      <td>
+        <label><%= check_box_tag "testcases[]", testcase.id, false, class: "selectable-checkbox" %><span></span></label>
+      </td>
       <td><%= link_to 'Execute', {controller: 'testexecutions', action: 'submission', testcase: testcase} %></td>
       <!-- <td><%= button_to "Test", submission_testexecutions_path %></td> -->
       <td><%= testcase.title%></td>

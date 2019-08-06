@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 require 'sidekiq/web'
+require 'sidekiq/cron/web'
   mount Sidekiq::Web => '/sidekiq'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'pages#home'
@@ -45,6 +46,20 @@ require 'sidekiq/web'
       get :submittestsuite
       post :triggertestsuites
       post :triggertestcases
+    end
+  end
+  resources :schedules do
+    collection do
+      post :scheduletestcases
+      post :scheduletestsuites
+      get :testcases
+      get :testsuites
+    end
+    member do
+      get :testcase
+      get :testsuite
+      post :scheduletestcase
+      post :scheduletestsuite
     end
   end
   resources 'releases'

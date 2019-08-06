@@ -31,7 +31,16 @@ $(document).on('turbolinks:load', function() {
   $('.sortable').railsSortable();
   M.updateTextFields();
   M.textareaAutoResize($('#logtextarea'));
+  $('.datepicker').datepicker();
+  $('.timepicker').timepicker();
   $('#checkAll').select_all();
+  $('#select-all-checkboxes').change(function(){
+    var is_checked = this.checked;
+    $('.selectable-checkbox').each(function(){
+      // alert ($('.selectable-checkbox').length)
+      this.checked = is_checked;
+    });
+  });
   //Moves selected item(s) up or down in a list
   $.fn.moveUpDown = function(list, btnUp, btnDown) {
     var opts = $(list + ' option:selected');
@@ -45,4 +54,13 @@ $(document).on('turbolinks:load', function() {
       opts.last().next().after(opts);
     }
   };
+  $('#everyselected-days').change(function(){
+    if(this.checked){
+      $('.datetimefield').hide();
+      $('.daystopick').show();
+    }else {
+      $('.datetimefield').show();
+      $('.daystopick').hide();
+    }
+  })
 })
