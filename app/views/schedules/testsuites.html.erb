@@ -25,18 +25,8 @@
       </div>
       <div class="row">
         <h6 class="header"><b>-: SCHEDULE TIME :-</b></h6>
-          <p><label><%= check_box_tag "everyselected-days", "everyselected-days", false, class: "filled-in" %><span><b>Every selected Days OR Specific Day</b></span></label></p>
-        <div class="datetimefield">
-          <div class="date-field col s2">
-            <%= label_tag :date, "Date" %>
-            <%= date_field_tag :date, class: "datepicker" %>
-          </div>
-          <div class="time-field col s2">
-            <%= label_tag :time, "Time" %>
-            <%= time_field_tag :time, class: "timepicker" %>
-          </div>
-        </div>
-        <div class="daystopick">
+          <p><label><%= check_box_tag "everyselected_days", "everyselected_days", false, class: "filled-in" %><span><b>Recurring?</b></span></label></p>
+        <div class="daystopick" style="display: none;">
           <div class="input-field col s1">
             <label><%= check_box_tag "days[1]", "mon", false, class: "filled-in" %><span>MON</span></label>
           </div>
@@ -58,6 +48,16 @@
           <div class="input-field col s1">
             <label><%= check_box_tag "days[7]", "sun", false, class: "filled-in" %><span>SUN</span></label>
           </div>
+        </div>
+        <div class="datetimefield">
+          <div class="date-field col s2">
+            <%= label_tag :date, "Date" %>
+            <%= date_field_tag :date, class: "datepicker" %>
+          </div>
+        </div>
+        <div class="time-field col s2">
+          <%= label_tag :time, "Time" %>
+          <%= time_field_tag :time, class: "timepicker" %>
         </div>
       </div>
       <div class="row">

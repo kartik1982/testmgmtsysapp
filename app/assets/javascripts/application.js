@@ -54,7 +54,7 @@ $(document).on('turbolinks:load', function() {
       opts.last().next().after(opts);
     }
   };
-  $('#everyselected-days').change(function(){
+  $('#everyselected_days').change(function(){
     if(this.checked){
       $('.datetimefield').hide();
       $('.daystopick').show();

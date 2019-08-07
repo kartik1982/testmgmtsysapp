@@ -20,10 +20,32 @@
         <th>worker</th>
         <th>Browser</th>
         <th>OS</th>
+        <th>Schedule Cron</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Days</th>
+        <th>Recurring</th>
+
       </tr>
     </thead>
     <tbody>
+      <% @schedules.each do |schedule| %>
       <tr>
+        <td><%= link_to truncate(schedule.job_name, length:50), schedule_path(schedule)%> </td>
+        <td><%= schedule.release_name%> </td>
+        <td><%= schedule.testcycle_name%> </td>
+        <td><%= schedule.testsuite_name %></td>
+        <td><%= schedule.testcase_name %></td>
+        <td><%= schedule.status? ? "Active" : "Disabled" %></td>
+        <td><%= schedule.worker_name %></td>
+        <td><%= schedule.browser %></td>
+        <td><%= schedule.os %></td>
+        <td><%= schedule.schedule_cron %></td>
+        <td><%= schedule.date %></td>
+        <td><%= schedule.time %></td>
+        <td><%= schedule.days %></td>
+        <td><%= schedule.everyselected_days %></td>
       </tr>
+      <% end %>
     </tbody>
   </table>
