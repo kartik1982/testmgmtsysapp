@@ -16,9 +16,9 @@ class JenkinsTaskWorker
         testcase =  Testcase.find_by(title: execution.testcase_name)
         if testcase.array_serial?
           device = Device.find_by(serial: testcase.array_serial)
-          opts ={ release: execution.release_name, environment: execution.testcycle_name, browser: execution.browser, testcase: execution.testpath, testuser: execution.testuser, testpassword: execution.testpassword, serial: testcase.array_serial, telnet: device.device_telnet }
+          opts ={ project: testcase.testsuite.project.title, release: execution.release_name, environment: execution.testcycle_name, browser: execution.browser, testcase: execution.testpath, testuser: execution.testuser, testpassword: execution.testpassword, serial: testcase.array_serial, telnet: device.device_telnet }
         else
-          opts ={ release: execution.release_name, environment: execution.testcycle_name, browser: execution.browser, testcase: execution.testpath, testuser: execution.testuser, testpassword: execution.testpassword }
+          opts ={ project: testcase.testsuite.project.title, release: execution.release_name, environment: execution.testcycle_name, browser: execution.browser, testcase: execution.testpath, testuser: execution.testuser, testpassword: execution.testpassword }
         end
 
 
