@@ -44,6 +44,7 @@ gem 'sidekiq-cron', '~>1.1'
 gem 'sinatra', github: 'sinatra/sinatra'
 gem 'rails_sortable'
 gem 'select_all-rails'
+gem 'dotenv-rails', '~> 2.7', '>= 2.7.5'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

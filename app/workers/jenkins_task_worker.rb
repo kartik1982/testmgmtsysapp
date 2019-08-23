@@ -6,10 +6,10 @@ class JenkinsTaskWorker
 
   def perform(execution_id)
     #jenkins server information
-    server_ip = '10.100.185.250'
-    user_name = 'admin'
-    user_password = 'Xirrus!23'
-    job_name = "RUN_SINGLE_SCRIPT"
+    server_ip = ENV['JENKINS_SERVER_IP_ADDRESS']
+    user_name = ENV['JENKINS_SERVER_USER']
+    user_password = ENV['JENKINS_SERVER_PASSWORD']
+    job_name = ENV['JENKINS_JOB_NAME']
     execution = Testexecution.find(execution_id)
     begin
         @client = JenkinsApi::Client.new(server_ip: server_ip, username: user_name, password: user_password)
