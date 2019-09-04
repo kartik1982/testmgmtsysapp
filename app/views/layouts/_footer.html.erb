@@ -4,7 +4,11 @@
       <div class="col l6 s12">
         <h5 class="white-text">Xirrus Test Management System</h5>
         <p class="grey-text text-lighten-4">Automation test execution and result</p>
-        <%= link_to "Sidekiq", sidekiq_web_path, target: :_blank %>
+        <div>
+          <%= link_to "Sidekiq", sidekiq_web_path, target: :_blank %> /
+          <%= link_to "Jenkins", "http://10.100.185.250:8080", target: :_blank %>
+        </div>
+
       </div>
       <div class="col l4 offset-l2 s12">
         <h5 class="white-text">Links</h5>
@@ -17,7 +21,7 @@
   </div>
   <div class="footer-copyright">
     <div class="container">
-    © 2019 Copyright Text
+      <%= copyright_generator "Kartik Aiyar", "All Right Reserved."%>
     <a class="grey-text text-lighten-4 right" href="#!">About</a>
     </div>
   </div>

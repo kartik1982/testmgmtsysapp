@@ -7,19 +7,19 @@
           <%= form_tag(testsuites_reports_path, method: :get) do %>
             <%= hidden_field_tag :direction, params[:direction] %>
             <%= hidden_field_tag :sort, params[:sort] %>
-            <div class="input-field col s3">
+            <div class="input-field col s3 m3">
               <%= select_tag :release_name, options_from_collection_for_select(Release.all, :title, :title, params[:release_name]), {prompt: "ALL"} %>
               <%= label_tag :release_name, "Release Version" %>
             </div>
-            <div class="input-field col s3">
+            <div class="input-field col s3 m3">
               <%= select_tag :testcycle_name, options_from_collection_for_select(Testcycle.all, :title, :title, params[:testcycle_name]), {prompt: "ALL"} %>
               <%= label_tag :testcycle_name, "Test Cycle" %>
             </div>
-            <div class="input-field col s4">
+            <div class="input-field col s4 m4">
               <%= select_tag :project_name, options_from_collection_for_select(Project.all, :title, :title, params[:project_name]), {prompt: "ALL"} %>
               <%= label_tag :project_name, "Project Name" %>
             </div>
-            <div class="apply-button col s2">
+            <div class="apply-button col s2 m2">
               <%= submit_tag ("Apply Filter")%>
             </div>
           <% end %>
