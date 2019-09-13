@@ -52,13 +52,10 @@
     <tbody>
       <% @testexecutions.each do |testexecution| %>
       <tr>
-        <%case testexecution.runstatus
-          when 1; status= "Pending"; cancel=true
-          when 2; status= "Running"; cancel=true
-          when 3; status= "Completed"; cancel=false
-          when 4; status= "Error"; cancel=false
-          when 5; status= "Cancelled"; cancel=false
-          else status="Unknown"; cancel=false
+        <%if testexecution.runstatus == "pending" || testexecution.runstatus == "running"
+            cancel=true
+          else
+            cancel=false
         end %>
         <td><label><%= check_box_tag "testexecution_ids[]", id: testexecution.id,  class: "filled-in", checked: "checked" if cancel %><span></span></label></td>
         <td><%= link_to testexecution.id, testexecution_path(testexecution)%> <br><%= link_to 'Re-Run', {controller: 'testexecutions', action: 'submission', testcase: Testcase.find_by(title: testexecution.testcase_name)} %></td>
@@ -66,7 +63,7 @@
         <td><%= testexecution.testcycle_name%> </td>
         <td><%= testexecution.testsuite_name %></td>
         <td><%= truncate(testexecution.testcase_name, length:50) %></td>
-        <td><%= status %><br><%= link_to 'Cancel', canceltask_testexecutions_path(testexecution), method: :post if cancel %></td>
+        <td><%= testexecution.runstatus %><br><%= link_to 'Cancel', canceltask_testexecutions_path(testexecution), method: :post if cancel %></td>
         <td><%= truncate(testexecution.testuser, length:30) %></td>
         <td><%= testexecution.testpassword %></td>
         <td><%= testexecution.browser %></td>

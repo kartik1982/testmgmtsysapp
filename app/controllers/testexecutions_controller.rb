@@ -19,14 +19,6 @@ end
 
 def show
   @testexecution = Testexecution.find(params[:id])
-  case @testexecution.runstatus
-    when 1; @status= "Pending"
-    when 2; @status= "Running"
-    when 3; @status= "Completed"
-    when 4; @status= "Error"
-    when 5; @status= "Cancelled"
-  else @status="Unknown"
-  end
 end
 
 def update
@@ -99,7 +91,7 @@ end
 
 def trigger
   # render json: params
-    @testexecution = Testexecution.new(testexecution_params)
+    @testexecution = Testexecution.new(testexecution_params)    
     if @testexecution.save
      flash[:success]="Testcase Submitted successfully"
     else
