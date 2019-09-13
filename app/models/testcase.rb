@@ -4,5 +4,5 @@ class Testcase < ApplicationRecord
   validates :testpath, presence: true, uniqueness:true
   validates :title, presence: true, length: {minimum: 5, maximum:250}
   validates :description, length: {minimum: 5, maximum:250}
-  validates :runmode, presence:true
+  validates :runmode, inclusion: {in: [true, false]}
 end

@@ -147,11 +147,4 @@ private
       # @reports = @reports.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: 20)
       render redirect_page
   end
-  def sort_column
-    Report.column_names.include?(params[:sort]) ? params[:sort] : "id"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  end
 end
