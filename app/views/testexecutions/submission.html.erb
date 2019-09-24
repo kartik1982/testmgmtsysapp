@@ -51,11 +51,11 @@
       </div>
       <div class="row">
         <div class="input-field col s4 m4">
-          <%= hidden_field_tag :api, @testcase.runmode %>
+          <%= hidden_field_tag :runmode, @testcase.runmode %>
           <label><%= check_box_tag :runmode, @testcase.runmode, @testcase.runmode ? true : false, {disabled: true, class: "filled-in"}%><span> RUNMODE MODE</span></label>
         </div>
         <div class="col s4 m4">
-          <%= hidden_field_tag :api, @testcase.ui %>
+          <%= hidden_field_tag :ui, @testcase.ui %>
           <label><%= check_box_tag :ui, @testcase.ui, @testcase.ui ? true : false, {disabled: true, class: "filled-in"} %><span> UI MODE</span></label>
         </div>
         <div class="col s4 m4">
