@@ -46,6 +46,17 @@
         <b>Array Serial:</b>&emsp;<%= @testcase.array_serial? ? @testcase.array_serial : "None" %>
       </div>
     </div>
+    <div class="row">
+      <div class="col s4 m4">
+        <b>RUN MODE:</b>&emsp;<%= @testcase.runmode? ? "Enabled" : "Disabled" %>
+      </div>
+      <div class="col s4 m4">
+        <b>UI MODE:</b>&emsp;<%= @testcase.ui? ? "Enabled" : "Disabled" %>
+      </div>
+      <div class="col s4 m4">
+        <b>API MODE:</b>&emsp;<%= @testcase.api? ? "Enabled" : "Disabled" %>
+      </div>
+    </div>
     <%= link_to '<i class="material-icons right">create</i> Edit'.html_safe, edit_testcase_path(@testcase), class: "btn waves-effect waves-light" %>
     <%= link_to '<i class="material-icons right">delete_forever</i> Delete'.html_safe, testcase_path(@testcase), method: :delete, data: {confirm: "Are you sure?"}, class: "btn waves-effect waves-light" if super_admin?%>
     <%= link_to '<i class="material-icons left">list</i> List Testcases'.html_safe, testcases_path, class: "btn waves-effect waves-light right" %>

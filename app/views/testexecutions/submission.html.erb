@@ -49,6 +49,20 @@
           <%= label_tag :testpath, "Testcase Path" %>
         </div>
       </div>
+      <div class="row">
+        <div class="input-field col s4 m4">
+          <%= hidden_field_tag :api, @testcase.runmode %>
+          <label><%= check_box_tag :runmode, @testcase.runmode, @testcase.runmode ? true : false, {disabled: true, class: "filled-in"}%><span> RUNMODE MODE</span></label>
+        </div>
+        <div class="col s4 m4">
+          <%= hidden_field_tag :api, @testcase.ui %>
+          <label><%= check_box_tag :ui, @testcase.ui, @testcase.ui ? true : false, {disabled: true, class: "filled-in"} %><span> UI MODE</span></label>
+        </div>
+        <div class="col s4 m4">
+          <%= hidden_field_tag :api, @testcase.api %>
+          <label><%= check_box_tag :api, @testcase.api, @testcase.api ? true : false, {disabled: true, class: "filled-in"} %><span>API MODE</span></label>
+        </div>
+      </div>
       <%= hidden_field_tag :runstatus, "pending" %>
         <div class="row">
           <div class="input-field col s12">

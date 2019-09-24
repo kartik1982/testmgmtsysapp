@@ -58,6 +58,6 @@ def destroy
 end
 private
 def testcase_params
-  params.require(:testcase).permit(:title, :description, :runmode, :testsuite_id, :user_id, :testuser, :testpassword, :testpath, :array_serial)
+  params.require(:testcase).permit(:title, :description, :runmode, :testsuite_id, :user_id, :testuser, :testpassword, :testpath, :array_serial, :ui, :api)
 end
 end

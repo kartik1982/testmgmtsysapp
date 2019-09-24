@@ -91,7 +91,8 @@ end
 
 def trigger
   # render json: params
-    @testexecution = Testexecution.new(testexecution_params)    
+  # byebug
+    @testexecution = Testexecution.new(testexecution_params)
     if @testexecution.save
      flash[:success]="Testcase Submitted successfully"
     else
@@ -116,7 +117,7 @@ def canceltasks
 end
 private
 def testexecution_params
-  params.permit(:release_name, :testcycle_name, :testsuite_name, :testcase_name, :browser, :os, :testuser, :testpassword, :testpath, :runstatus)
+  params.permit(:release_name, :testcycle_name, :testsuite_name, :testcase_name, :browser, :os, :testuser, :testpassword, :testpath, :runstatus, :ui, :api)
 end
 
 end

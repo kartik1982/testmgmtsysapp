@@ -22,14 +22,16 @@ class JenkinsTaskWorker
                   browser: execution.browser,
                   testcase: execution.testpath,
                   testuser: execution.testuser,
-                  testpassword: execution.testpassword }
+                  testpassword: execution.testpassword,
+                  ui: execution.ui,
+                  skip_api: ! execution.api}
           if testcase.array_serial?
             device = Device.find_by(serial: testcase.array_serial)
             opts = opts.merge!( serial: testcase.array_serial,
                                 telnet: device.device_telnet
                               )
           end
-
+          # byebug
           build_num = @client.job.build(job_name, opts, {'build_start_timeout' => 45000})
 
           execution.runstatus = 2
