@@ -41,7 +41,15 @@ def triggertestsuites
     @testsuite= Testsuite.find(testsuite)
     @testsuite.sequence.each do |id|
       testcase= Testcase.find(id)
-      @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: @testsuite.title, testcase_name: testcase.title, browser: params[:browser], os: params[:os], testuser: testcase.testuser, testpassword: testcase.testpassword, testpath: testcase.testpath, runstatus: 1)
+      @testexecution = Testexecution.new(release_name: params[:release_name],
+                                         testcycle_name: params[:testcycle_name],
+                                         testsuite_name: @testsuite.title,
+                                         testcase_name: testcase.title, browser: params[:browser],
+                                         os: params[:os], testuser: testcase.testuser,
+                                         testpassword: testcase.testpassword,
+                                         testpath: testcase.testpath, runstatus: 1,
+                                         ui: testcase.ui,
+                                         api: testcase.api)
       if @testexecution.save
         @testexecution_ids << @testexecution.id
       else
@@ -58,7 +66,16 @@ def triggertestcases
   testcases = params[:testcases]
   testcases.each do |testcase|
     @testcase = Testcase.find(testcase)
-    @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: @testcase.testsuite.title, testcase_name: @testcase.title, browser: params[:browser], os: params[:os], testuser: @testcase.testuser, testpassword: @testcase.testpassword, testpath: @testcase.testpath, runstatus: 1)
+    @testexecution = Testexecution.new(release_name: params[:release_name],
+                                       testcycle_name: params[:testcycle_name],
+                                       testsuite_name: @testcase.testsuite.title,
+                                       testcase_name: @testcase.title,
+                                       browser: params[:browser], os: params[:os],
+                                       testuser: @testcase.testuser,
+                                       testpassword: @testcase.testpassword,
+                                       testpath: @testcase.testpath, runstatus: 1,
+                                       ui: @testcase.ui,
+                                       api: @testcase.api)
     if @testexecution.save
       @testexecution_ids << @testexecution.id
     else
@@ -78,7 +95,15 @@ def triggertestsuite
   @testexecution_ids=[]
   @testsuite.sequence.each do |id|
     testcase= Testcase.find(id)
-    @testexecution = Testexecution.new(release_name: params[:release_name], testcycle_name: params[:testcycle_name], testsuite_name: params[:testsuite_name], testcase_name: testcase.title, browser: params[:browser], os: params[:os], testuser: testcase.testuser, testpassword: testcase.testpassword, testpath: testcase.testpath, runstatus: 1)
+    @testexecution = Testexecution.new(release_name: params[:release_name],
+                                       testcycle_name: params[:testcycle_name],
+                                       testsuite_name: params[:testsuite_name],
+                                       testcase_name: testcase.title,
+                                       browser: params[:browser], os: params[:os],
+                                       testuser: testcase.testuser,
+                                       testpassword: testcase.testpassword,
+                                       testpath: testcase.testpath, runstatus: 1,
+                                       ui: testcase.ui, api: testcase.api)
     if @testexecution.save
       @testexecution_ids << @testexecution.id
     else
