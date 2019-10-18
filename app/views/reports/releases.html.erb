@@ -1,54 +1,34 @@
 <div class="row center-align add-user">
   <div class="col s12 m12 l12">
     <div class="card-panel">
-      <h5 class="header">Execution Report for Releases</h5>
+      <h5 class="header"><b>Execution Report for Releases</b></h5>
         <div class="row center">
           <div class="col s12">
-            <%= form_tag(releases_reports_path, method: :get) do %>
+            <%= form_tag releases_reports_path, remote: true, id: "release-drop-down" do %>
             <div class="input-field col s3">
               <%= select_tag :release_name, options_from_collection_for_select(Release.all, :title, :title, params[:release_name]), {prompt: "ALL"} %>
               <%= label_tag :release_name, "Release Version" %>
             </div>
-            <div class="apply-button col s2">
-              <%= submit_tag ("Apply Filter")%>
-              <% end %>
-            </div>
+            <% end %>
           </div>
         </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Release</th>
-            <th>Project</th>
-            <th>Test Cycle</th>
-            <th>Pass</th>
-            <th>Fail</th>
-            <th>Pending</th>
-            <th>Total</th>
-            <th>Comments</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @releases.each do |release| %>
-            <% release.projects.each do |project| %>
-              <% project.testcycles.each do |testcycle| %>
+          <table id= "release_results">
+            <thead>
               <tr>
-                <td><%=release.title%> </td>
-                <td><%=project.title%> </td>
-                <td><%=testcycle.title%> </td>
-                <% reports=@reports.where("release_name=?", release.title).where("project_name=?", project.title).where("testcycle_name=?", testcycle.title)%>
-                <% ids = reports.select("MAX(id) AS id").group(:testpath).collect(&:id)%>
-                <% reports=reports.order("created_at DESC").where(:id => ids)%>
-                <td class=green><%= reports.map(&:pass).sum%></td>
-                <td class=red><%= reports.map(&:fail).sum%></td>
-                <td class=yellow><%= reports.map(&:pending).sum%></td>
-                <td><%=reports.map(&:pass).sum+reports.map(&:fail).sum+reports.map(&:pending).sum%></td>
+                <th>Release</th>
+                <th>Project</th>
+                <th>Test Cycle</th>
+                <th>Pass</th>
+                <th>Fail</th>
+                <th>Pending</th>
+                <th>Total</th>
+                <th>Comments</th>
               </tr>
-              <%end%>
-            <%end%>
-          <% end %>
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+                <%= render partial: 'reports/release'%>
+            </tbody>
+          </table>
     </div>
   </div>
 </div>

@@ -41,6 +41,27 @@ $(document).on('turbolinks:load', function() {
       this.checked = is_checked;
     });
   });
+  $('#release-drop-down').change(function(){
+    // alert("/reports/release-filter" +" "+ $("#release_name").val())
+    var release_version = $("#release_name").val();
+    $.ajax({
+      url: "/reports/releases",
+      type: "GET",
+      data: {release_name: release_version},
+      success: function(data) { $("#release_results").html(data.responseText)},
+      error: function(data) {}
+    });
+  });
+  $('#testsuites-drop-down').change(function(){
+    var release_version = $("#release_name").val();
+    var test_cycle = $("#testcycle_name").val();
+    var project =  $("#project_name").val();
+    $.ajax({
+      url: "/reports/testsuites",
+      type: "GET",
+      data: {release_name: release_version, testcycle_name: test_cycle, project_name: project}
+    });
+  });
   //Moves selected item(s) up or down in a list
   $.fn.moveUpDown = function(list, btnUp, btnDown) {
     var opts = $(list + ' option:selected');

@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col s12">
+    <div class="col s6 m6 l6 right">
+      <%= pie_chart [["PASS", @reports.map(&:pass).sum],["FAIL", @reports.map(&:fail).sum], ["PENDING",@reports.map(&:pending).sum]], height: "200px" %>
+    </div>
+    <div class="col s6 m6 l6 left">
+          <%= bar_chart [["TESTSUITES", @testsuites.count], ["TESTCASES",@testcase_count]], height: "200px" %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12">
+    <span class="col s1.5 orange" >Total Testsuites: <b><%=@testsuites.count%></b></span>
+    <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports.pluck(:testsuite_name).uniq.count %></b></span>
+    <span class="col s1.5 grey">Total Testcases: <b><%=@testcase_count%></b></span>
+    <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports.pluck(:testcase_name).uniq.count%></b></span>
+    <span class="col s1.5 green">Total Pass: <%= @reports.map(&:pass).sum %></span>
+    <span class="col s1.5 red">Total Fail: <%= @reports.map(&:fail).sum %></span>
+    <span class="col s1.5 yellow">Total Pending: <%= @reports.map(&:pending).sum %></span>
+    <span class="col s1.5 orange">Total: <%= @reports.map(&:pass).sum + @reports.map(&:fail).sum+ @reports.map(&:pending).sum %></span>
+</div>
+</div>

@@ -1,0 +1,32 @@
+<table>
+  <thead>
+    <tr>
+      <th>Testsuite</th>
+      <th>#</th>
+      <th>Testcase Count</th>
+      <th>Testcase Pending</th>
+      <th>Time (Minutes)</th>
+      <th>Pass</th>
+      <th>Fail</th>
+      <th>Pending</th>
+      <th>Total</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @testsuites.each do |testsuite| %>
+        <tr>
+          <td><%=link_to testsuite.title, testsuite_report_path(testsuite) %> </td>
+          <td><%= link_to 'Execute', {controller: 'testexecutions', action: 'submittestsuite', testsuite: testsuite} %></td>
+          <td><%=testsuite.testcases.count%> </td>
+          <td><%= testsuite.testcases.count - @reports.where(testsuite_name: testsuite.title).count%>
+          <td><%= (@reports.where(testsuite_name: testsuite.title).sum(&:duration)/60).round(2) %></td>
+          <td class="green"><%=@reports.where(testsuite_name: testsuite.title).sum(:pass)%></td>
+          <td class="red"><%=@reports.where(testsuite_name: testsuite.title).sum(:fail)%></td>
+          <td class="yellow"><%=@reports.where(testsuite_name: testsuite.title).sum(:pending)%></td>
+          <td><%=@reports.where(testsuite_name: testsuite.title).sum(:pass)+@reports.where(testsuite_name: testsuite.title).sum(:fail)+@reports.where(testsuite_name: testsuite.title).sum(:pending)%></td>
+          <td><%= link_to testsuite.comment, edit_testsuite_path(testsuite) %><td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

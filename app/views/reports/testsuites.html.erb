@@ -4,7 +4,7 @@
       <h5 class="header"><b>Execution Report for Testsuites</b></h5>
         <div class="row left">
           <div class="col s12">
-          <%= form_tag(testsuites_reports_path, method: :get) do %>
+          <%= form_tag testsuites_reports_path, remote: true, id: "testsuites-drop-down" do %>
             <%= hidden_field_tag :direction, params[:direction] %>
             <%= hidden_field_tag :sort, params[:sort] %>
             <div class="input-field col s3 m3">
@@ -19,67 +19,15 @@
               <%= select_tag :project_name, options_from_collection_for_select(Project.all, :title, :title, params[:project_name]), {prompt: "ALL"} %>
               <%= label_tag :project_name, "Project Name" %>
             </div>
-            <div class="apply-button col s2 m2">
-              <%= submit_tag ("Apply Filter")%>
-            </div>
           <% end %>
         </div>
       </div>
-        <div class="row">
-          <div class="col s12">
-            <div class="col s6 m6 l6 right">
-              <%= pie_chart [["PASS", @reports.map(&:pass).sum],["FAIL", @reports.map(&:fail).sum], ["PENDING",@reports.map(&:pending).sum]], height: "200px" %>
-            </div>
-            <div class="col s6 m6 l6 left">
-                  <%= bar_chart [["TESTSUITES", @testsuites.count], ["TESTCASES",@testcase_count]], height: "200px" %>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12">
-            <span class="col s1.5 orange" >Total Testsuites: <b><%=@testsuites.count%></b></span>
-            <span class="col s1.5 orange" >Pending: <b><%=@testsuites.count - @reports.pluck(:testsuite_name).uniq.count %></b></span>
-            <span class="col s1.5 grey">Total Testcases: <b><%=@testcase_count%></b></span>
-            <span class="col s1.5 grey">Pending: <b><%=@testcase_count - @reports.pluck(:testcase_name).uniq.count%></b></span>
-            <span class="col s1.5 green">Total Pass: <%= @reports.map(&:pass).sum %></span>
-            <span class="col s1.5 red">Total Fail: <%= @reports.map(&:fail).sum %></span>
-            <span class="col s1.5 yellow">Total Pending: <%= @reports.map(&:pending).sum %></span>
-            <span class="col s1.5 orange">Total: <%= @reports.map(&:pass).sum + @reports.map(&:fail).sum+ @reports.map(&:pending).sum %></span>
-        </div>
-      </div>
+      <div class="testsuites-chart">
+        <%= render partial: 'reports/testsuites_chart'%>
+    </div>
     </div>
   </div>
 </div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Testsuite</th>
-      <th>#</th>
-      <th>Testcase Count</th>
-      <th>Testcase Pending</th>
-      <th>Time (Minutes)</th>
-      <th>Pass</th>
-      <th>Fail</th>
-      <th>Pending</th>
-      <th>Total</th>
-      <th>Comments</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @testsuites.each do |testsuite| %>
-        <tr>
-          <td><%=link_to testsuite.title, testsuite_report_path(testsuite) %> </td>
-          <td><%= link_to 'Execute', {controller: 'testexecutions', action: 'submittestsuite', testsuite: testsuite} %></td>
-          <td><%=testsuite.testcases.count%> </td>
-          <td><%= testsuite.testcases.count - @reports.where(testsuite_name: testsuite.title).count%>
-          <td><%= (@reports.where(testsuite_name: testsuite.title).sum(&:duration)/60).round(2) %></td>
-          <td class="green"><%=@reports.where(testsuite_name: testsuite.title).sum(:pass)%></td>
-          <td class="red"><%=@reports.where(testsuite_name: testsuite.title).sum(:fail)%></td>
-          <td class="yellow"><%=@reports.where(testsuite_name: testsuite.title).sum(:pending)%></td>
-          <td><%=@reports.where(testsuite_name: testsuite.title).sum(:pass)+@reports.where(testsuite_name: testsuite.title).sum(:fail)+@reports.where(testsuite_name: testsuite.title).sum(:pending)%></td>
-          <td><%= link_to testsuite.comment, edit_testsuite_path(testsuite) %><td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="testsuites-result">
+      <%= render partial: 'reports/testsuites'%>
+</div>

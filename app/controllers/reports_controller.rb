@@ -19,7 +19,7 @@ def index
   @reports=@reports.order("created_at DESC").where(:id => ids)
   @reports_without_pagination= @reports
   @reports = @reports.paginate(page: params[:page], per_page: 100)
-  # @reports = @reports.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: 20)
+  # @reports = testsuite_report_path@reports.order("#{sort_column} #{sort_direction}").paginate(page: params[:page], per_page: 20)
   @testcase_count=0
   @testsuites.each do |testsuite|
     @testcase_count += testsuite.testcases.count
@@ -51,6 +51,10 @@ def testsuites
   @testsuites.each do |testsuite|
     @testcase_count += testsuite.testcases.count
   end
+  respond_to do |format|
+    format.js {render partial:'reports/testsuites'}
+    format.html
+  end
 end
 def testsuite
   @testsuite= Testsuite.find(params[:id])
@@ -75,7 +79,13 @@ def releases
       @reports = @reports.where(release_name: params[:release_name])
     end
   end
+  respond_to do |format|
+
+    format.js {render partial:'reports/release'} #render partial: 'reports/release',  collection: @releases
+        format.html
+  end
 end
+
 def new
   @report = Report.new
 end

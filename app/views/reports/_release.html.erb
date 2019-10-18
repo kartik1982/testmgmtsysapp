@@ -1,0 +1,18 @@
+<% @releases.each do |release| %>
+<% release.projects.each do |project| %>
+  <% project.testcycles.each do |testcycle| %>
+  <tr>
+    <td><%=release.title%> </td>
+    <td><%=project.title%> </td>
+    <td><%=testcycle.title%> </td>
+    <% reports=@reports.where("release_name=?", release.title).where("project_name=?", project.title).where("testcycle_name=?", testcycle.title)%>
+    <% ids = reports.select("MAX(id) AS id").group(:testpath).collect(&:id)%>
+    <% reports=reports.order("created_at DESC").where(:id => ids)%>
+    <td class=green><%= reports.map(&:pass).sum%></td>
+    <td class=red><%= reports.map(&:fail).sum%></td>
+    <td class=yellow><%= reports.map(&:pending).sum%></td>
+    <td><%=reports.map(&:pass).sum+reports.map(&:fail).sum+reports.map(&:pending).sum%></td>
+  </tr>
+  <%end%>
+<%end%>
+<%end%>
